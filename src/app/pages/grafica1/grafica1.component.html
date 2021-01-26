@@ -1,1 +1,21 @@
-<p>grafica1 works!</p>
+<div class="row">
+    <div class="col-6">
+        <app-graficadona></app-graficadona>
+    </div>
+
+    <!--Esta se alimenta del components grafica1, de ahi toma sus valores, aunque 
+        sichos objetos de entrada provienen del component graficadona-->
+    <div class="col-6">
+        <app-graficadona title="Compras" [labels]="labels1" [data]="data1"></app-graficadona>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-6">
+        <app-graficadona></app-graficadona>
+    </div>
+
+    <div class="col-6">
+        <app-graficadona></app-graficadona>
+    </div>
+</div>

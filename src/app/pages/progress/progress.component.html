@@ -1,1 +1,39 @@
-<p>progress works!</p>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Striped Progress bar {{progreso1}}</h4>
+
+                <div class="progress m-t-20">
+                    <div class="progress-bar bg-primary progress-bar-striped active" [style.width]="obtenerProgreso1" style="height:10px;" role="progressbar">
+                    </div>
+                </div>
+
+                <div class="progress m-t-20">
+                    <div class="progress-bar bg-warning progress-bar-striped active" [style.width]="obtenerProgreso2" style="height:10px;" role="progressbar">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <app-incrementador (valorSalidaPorcentaje)="progreso1 = $event" [progreso]="progreso1">
+                </app-incrementador>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <app-incrementador (valorSalidaPorcentaje)="progreso2 = $event" [progreso]="progreso2" [btnClass]="classBotonProg2">
+                </app-incrementador>
+            </div>
+        </div>
+    </div>
+</div>
