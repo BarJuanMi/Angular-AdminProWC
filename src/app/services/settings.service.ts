@@ -9,7 +9,7 @@ export class SettingsService {
 
   constructor() { 
     console.log('Setting service init');
-    const url = localStorage.getItem('theme') || '.assets/css/colors/purple-dark.css';
+    const url = localStorage.getItem('theme') || '.assets/css/colors/red-dark.css';
     this.linkTheme.setAttribute('href', url);
   }
 
