@@ -18,7 +18,7 @@ export class SidebarService {
       ]
     },
     {
-      titulo: 'Personal...',
+      titulo: 'Documentos',
       icono: 'mdi mdi-gauge',
       submenu: [
         {titulo: 'Hoja Vida...', url: '/'},

@@ -6,6 +6,8 @@ import { RegisterForm } from '../interfaces/register-form.interface';
 import { tap, map, catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
+import { Usuario } from '../models/usuario.model';
+import { EmailValidator } from '@angular/forms';
 
 const base_url = environment.base_url;
 
@@ -17,12 +19,21 @@ declare const gapi:any;
 export class UsuarioService {
 
   public auth2: any;
+  public usuario: Usuario;
 
   constructor( private http: HttpClient, 
                private router: Router,
                private ngZone: NgZone) { 
                  
     this.googleInit();
+  }
+
+  get uid():string {
+    return this.usuario.uid || '';
+  }
+
+  get token(): string {
+    return localStorage.getItem( 'token' ) || '';
   }
   
   googleInit() {
@@ -40,7 +51,6 @@ export class UsuarioService {
     });
   }
 
-
   logout() {
     localStorage.removeItem('token');
     
@@ -52,14 +62,20 @@ export class UsuarioService {
   }
 
   validarToken(): Observable<boolean> {
-    const token = localStorage.getItem( 'token' ) || '';
 
     return this.http.get(`${base_url}/login/renew` , {
       headers: {
-        'x-token': token
+        'x-token': this.token
       }
     }).pipe(
       tap( (resp:any) => {
+        
+        //Al renovar el token, en la response 
+        //viaja la informacion del usuario, hay que
+        //desestrcuturarla para obtener dicha info
+        const {email, google, nombre, role, uid, img} = resp.usuario;
+        
+        this.usuario = new Usuario(nombre, email, '', img, google, role, uid);
         localStorage.setItem('token', resp.token);
       }),
       map( resp => true),
@@ -78,12 +94,25 @@ export class UsuarioService {
         );
   }
 
+  actualizarPerfilUsuario( data: {email: string, nombre: string, role: string} ) {
+
+    data = {
+      ...data,
+      role: this.usuario.role
+    };
+
+    return this.http.put(`${ base_url }/usuarios/actualizarUsuario/${ this.uid }`, data, {
+      headers: {
+        'x-token': this.token
+      }
+    });
+  }
+
   loginUsuario( formData: LoginForm) {
     console.log('Invocación a UsuarioService(Front) - loginUsuario');
     return this.http.post(`${base_url}/login`, formData)
         .pipe(
           tap ( (resp :any) => {
-            console.log(resp);
             localStorage.setItem('token', resp.token);
           })
         );
