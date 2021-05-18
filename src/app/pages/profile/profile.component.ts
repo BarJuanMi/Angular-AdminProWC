@@ -36,7 +36,6 @@ export class ProfileComponent implements OnInit {
    * 
    */
   actualizarProfile() {
-    console.log(this.profileForm.value);
     this.usuarioService.actualizarPerfilUsuario( this.profileForm.value )
       .subscribe( resp => {
 

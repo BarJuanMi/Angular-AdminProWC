@@ -3,11 +3,11 @@ import { Injectable, NgZone } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { LoginForm } from '../interfaces/login-form.interface';
 import { RegisterForm } from '../interfaces/register-form.interface';
-import { tap, map, catchError } from 'rxjs/operators';
+import { tap, map, catchError, delay } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { Usuario } from '../models/usuario.model';
-import { EmailValidator } from '@angular/forms';
+import { CargarUsuario } from '../interfaces/cargar-usuarios.interface';
 
 const base_url = environment.base_url;
 
@@ -34,6 +34,14 @@ export class UsuarioService {
 
   get token(): string {
     return localStorage.getItem( 'token' ) || '';
+  }
+
+  get headers() {
+    return { 
+      headers: {
+        'x-token': this.token
+      }
+    }
   }
   
   googleInit() {
@@ -99,13 +107,9 @@ export class UsuarioService {
     data = {
       ...data,
       role: this.usuario.role
-    };
+    }
 
-    return this.http.put(`${ base_url }/usuarios/actualizarUsuario/${ this.uid }`, data, {
-      headers: {
-        'x-token': this.token
-      }
-    });
+    return this.http.put(`${ base_url }/usuarios/actualizarUsuario/${ this.uid }`, data, this.headers);
   }
 
   loginUsuario( formData: LoginForm) {
@@ -126,5 +130,40 @@ export class UsuarioService {
             localStorage.setItem('token', resp.token);
           })
         );
+  }
+
+  cargarUsuariosDesde( desde: number = 0){
+    //localhost:3001/api/usuarios?desde=5
+    const url = `${ base_url }/usuarios?desde=${ desde }`;
+    return this.http.get<CargarUsuario>( url , this.headers)
+      .pipe(
+        delay(500), 
+        map( resp => {
+          console.log(resp);
+          const usuarios = resp.usuarios.map( 
+            user => new Usuario(user.nombre, user.email, '', user.img, user.google, user.role, user.uid)
+          );
+
+          return {
+            total: resp.total,
+            usuarios
+          };
+        })
+      )
+  }
+
+  eliminarUsuario( usuario: Usuario) {
+    let dateTime = new Date().toLocaleString()
+
+    console.log('date:' + dateTime);
+    return this.http.delete(`${ base_url }/usuarios/eliminarUsuario/${ usuario.uid }`, {
+      headers: {
+        'x-token': this.token
+      }
+    });
+  }
+
+  actualizarRoleUsuario( usuario: Usuario) {
+    return this.http.put(`${ base_url }/usuarios/actualizarUsuario/${ usuario.uid }`, usuario, this.headers);
   }
 }

@@ -16,13 +16,14 @@ export class Usuario {
     //Es como un metodo getter en java o un metodo normal, 
     //pero se marca con eso get para acceder al mismo sin usar las ()
     get imagenUrl() {
-        if ( this.img ) {
-            if( this.img.includes('https') ) {
-                return this.img;
-            } else {
-                return `${ base_url }/files/uploads/obtener/usuarios/${ this.img }`;
-            }
-        } else{ 
+
+        if( !this.img ) {
+            return `${ base_url }/files/uploads/obtener/usuarios/No_Image_Available`;
+        } else if( this.img.includes('https') ) {
+            return this.img;
+        } else if( this.img ) {
+            return `${ base_url }/files/uploads/obtener/usuarios/${ this.img }`;
+        } else { 
             return `${ base_url }/files/uploads/obtener/usuarios/No_Image_Available`;
         }
         

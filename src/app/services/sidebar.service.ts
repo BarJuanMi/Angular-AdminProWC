@@ -19,12 +19,21 @@ export class SidebarService {
     },
     {
       titulo: 'Documentos',
-      icono: 'mdi mdi-gauge',
+      icono: 'mdi mdi-file-document',
       submenu: [
         {titulo: 'Hoja Vida...', url: '/'},
         {titulo: 'Memorandos...', url: '/dashboard/progress'},
         {titulo: 'Calificacion...', url: '/dashboard/grafica1'},
         {titulo: 'Reportes...', url: '/dashboard/grafica1'}
+      ]
+    },
+    {
+      titulo: 'Mantenimientos',
+      icono: 'mdi mdi-folder-lock-open',
+      submenu: [
+        {titulo: 'Usuarios', url: 'usuarios'},  //Relacione las rutas con pages.routing.ts
+        {titulo: 'Hospitales', url: 'hospitales'},
+        {titulo: 'Medicos', url: 'medicos'},
       ]
     }
   ]
