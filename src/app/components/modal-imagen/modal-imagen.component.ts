@@ -64,6 +64,4 @@ export class ModalImagenComponent implements OnInit {
         });
   }
 
-
-
 }

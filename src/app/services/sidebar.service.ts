@@ -28,6 +28,14 @@ export class SidebarService {
       ]
     },
     {
+      titulo: 'Personal',
+      icono: 'mdi mdi-file-document',
+      submenu: [
+        {titulo: 'Modelos', url: '/dashboard/modelos'},
+        {titulo: 'Monitores', url: '/dashboard/monitores'},
+      ]
+    },
+    {
       titulo: 'Mantenimientos',
       icono: 'mdi mdi-folder-lock-open',
       submenu: [
@@ -35,7 +43,15 @@ export class SidebarService {
         {titulo: 'Hospitales', url: 'hospitales'},
         {titulo: 'Medicos', url: 'medicos'},
       ]
-    }
+    },
+    {
+      titulo: 'Administrativos',
+      icono: 'mdi mdi-folder-lock-open',
+      submenu: [
+        {titulo: 'Prestamos a modelos', url: 'prestamos'},  //Relacione las rutas con pages.routing.ts
+        {titulo: 'Retiros de modelos', url: 'retiros'},  //Relacione las rutas con pages.routing.ts
+      ]
+    },
   ]
 
   constructor() { }

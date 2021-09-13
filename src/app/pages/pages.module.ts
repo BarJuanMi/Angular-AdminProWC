@@ -16,6 +16,17 @@ import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
 import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.component';
 import { MedicosComponent } from './mantenimientos/medicos/medicos.component';
+import { ModeloswcComponent } from './modeloswc/modeloswc.component';
+import { NuevaModeloComponent } from './modeloswc/nueva-modelo.component';
+import { ActualizaModeloComponent } from './modeloswc/actualiza-modelo.component';
+import { MonitoreswcComponent } from './monitoreswc/monitoreswc.component';
+import { NuevoMonitorComponent } from './monitoreswc/nuevo-monitor.component';
+import { ActualizaMonitorComponent } from './monitoreswc/actualiza-monitor.component';
+import { PrestamosComponent } from './prestamos/prestamos.component';
+import { NuevoPrestamoComponent } from './prestamos/nuevo-prestamo.component';
+import { RetirosComponent } from './retiros/retiros.component';
+import { NuevoRetiroComponent } from './retiros/nuevo-retiro.component';
+import { ActualizaRetiroComponent } from './retiros/actualiza-retiro.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +40,18 @@ import { MedicosComponent } from './mantenimientos/medicos/medicos.component';
     ProfileComponent,
     UsuariosComponent,
     HospitalesComponent,
-    MedicosComponent
+    MedicosComponent,
+    ModeloswcComponent,
+    NuevaModeloComponent,
+    ActualizaModeloComponent,
+    MonitoreswcComponent,
+    NuevoMonitorComponent,
+    ActualizaMonitorComponent,
+    PrestamosComponent,
+    NuevoPrestamoComponent,
+    RetirosComponent,
+    NuevoRetiroComponent,
+    ActualizaRetiroComponent
   ],
   exports: [
     DashboardComponent,

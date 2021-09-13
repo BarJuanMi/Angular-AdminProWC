@@ -12,6 +12,17 @@ import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
 import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.component';
 import { MedicosComponent } from './mantenimientos/medicos/medicos.component';
+import { ModeloswcComponent } from './modeloswc/modeloswc.component';
+import { NuevaModeloComponent } from './modeloswc/nueva-modelo.component';
+import { ActualizaModeloComponent } from './modeloswc/actualiza-modelo.component';
+import { MonitoreswcComponent } from './monitoreswc/monitoreswc.component';
+import { NuevoMonitorComponent } from './monitoreswc/nuevo-monitor.component';
+import { ActualizaMonitorComponent } from './monitoreswc/actualiza-monitor.component';
+import { PrestamosComponent } from './prestamos/prestamos.component';
+import { NuevoPrestamoComponent } from './prestamos/nuevo-prestamo.component';
+import { RetirosComponent } from './retiros/retiros.component';
+import { NuevoRetiroComponent } from './retiros/nuevo-retiro.component';
+import { ActualizaRetiroComponent } from './retiros/actualiza-retiro.component';
 
 const routes: Routes = [
     {  
@@ -30,8 +41,26 @@ const routes: Routes = [
             // Mantenimientos
             {path: 'usuarios', component: UsuariosComponent, data: {titulo: 'Usuarios de aplicación'}},
             {path: 'hospitales', component: HospitalesComponent, data: {titulo: 'Manejo de Hospitales'}},
-            {path: 'medicos', component: MedicosComponent, data: {titulo: 'Manejo de Medicos'}}
+            {path: 'medicos', component: MedicosComponent, data: {titulo: 'Manejo de Medicos'}},
 
+            //WebCam Modelos
+            {path: 'modelos', component: ModeloswcComponent, data: {titulo: 'Administración de Modelos'}},
+            {path: 'nuevaModelo', component: NuevaModeloComponent, data: {titulo: 'Creación de Nueva Modelo'} },
+            {path: 'actualizarModelo/:id', component: ActualizaModeloComponent, data: {titulo: 'Actualización Datos de Modelo'} },
+
+            //WebCam Monitores
+            {path: 'monitores', component: MonitoreswcComponent, data: {titulo: 'Administración de Monitores'}},
+            {path: 'nuevoMonitor', component: NuevoMonitorComponent, data: {titulo: 'Creación de Nueva Monitor'} },
+            {path: 'actualizarMonitor/:id', component: ActualizaMonitorComponent, data: {titulo: 'Actualización Datos de Monitor'} },
+
+            //WebCam Prestamos
+            {path: 'prestamos', component: PrestamosComponent, data: {titulo: 'Administración de Prestamos'}},
+            {path: 'nuevoPrestamo', component: NuevoPrestamoComponent, data: {titulo: 'Creación de Nuevo Prestamo'} },
+
+            //WebCam Retiros
+            {path: 'retiros', component: RetirosComponent, data: {titulo: 'Administración de Retiros'}},
+            {path: 'nuevoRetiro', component: NuevoRetiroComponent, data: {titulo: 'Creación de Nuevo Retiro'} },
+            {path: 'actualizaRetiro/:id', component: ActualizaRetiroComponent, data: {titulo: 'Actualización Datos de Retiro'} },
         ]
     },
 ];

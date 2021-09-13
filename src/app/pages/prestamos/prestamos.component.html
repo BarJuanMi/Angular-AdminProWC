@@ -1,0 +1,114 @@
+<div class="row animated fadeIn fast" *ngIf="cargando">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor espere...</p>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn fast" *ngIf="!cargando">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="col-12">
+                    <table style="width:100%">
+                        <tr>
+                            <td style="text-align:left">
+                                <button [routerLink]="['/dashboard/nuevoPrestamo']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                                <i class="fa fa-user-plus"></i> Crear Prestamo </button>
+                            </td>
+                            <td style="text-align:right">
+                                <h6>Prestamos Registrados (<small>{{ totalPrestamos }}</small>)</h6>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                &nbsp;
+                <div class="table-responsive">
+                    <table class="table table-bordered color-bordered-table inverse-bordered-table">
+                        <thead>
+                            <tr>
+                                <th>Id de transacción</th>
+                                <th>Asignado a Empleado</th>
+                                <th class="text-center">Monto Prestamo</th>
+                                <th class="text-center">Estado</th>
+                                <th class="text-center">Fecha de registro</th>
+                                <th class="text-center">Usuario que registra</th>
+                                <th class="text-center">Acción</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr *ngFor="let prestamo of prestamos">
+                                <td><small><a href="" (click)="verDetallesPrestamo(prestamo)" data-toggle="modal" data-target="#datosPrestamoModal">{{prestamo._id}}</a></small></td>
+                                <td><small>{{prestamo.modelo.documento}}-{{prestamo.modelo.nombres}} {{prestamo.modelo.apellidos}}</small></td>
+                                <td class="text-center"><small>{{prestamo.monto}}</small></td>
+                                <td>
+                                    <small>
+                                        <select class="form-control" [(ngModel)]="prestamo.estado" (change)="cambiarEstado(prestamo)">
+                                            <option value="COBRO PENDIENTE">COBRO PENDIENTE</option>
+                                            <option value="CANCELADO TOTAL">CANCELADO TOTAL</option>
+                                        </select>
+                                    </small>
+                                </td>
+                                <td class="text-center"><small>{{prestamo.fechaCreacion | date}}</small></td>
+                                <td class="text-center"><small>{{prestamo.usuario.nombre}}</small></td>
+                                <td class="text-nowrap text-center">
+                                    <a class="cursor" title="Eliminar transacción" data-toggle="tooltip" data-original-title="Eliminar Transacción del sistema" (click)="eliminarPrestamo(prestamo)">
+                                        <i class="fa fa-close text-danger"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="text-center" *ngIf="mostrarBotones">
+                    <button (click)="cambiarPagina(-10)" class="btn btn-secondary">
+                        <i class="fa fa-backward"></i>&nbsp;
+                        Anteriores
+                    </button> &nbsp; &nbsp; &nbsp;
+
+                    <button (click)="cambiarPagina(10)" class="btn btn-secondary">
+                        Siguientes &nbsp;
+                        <i class="fa fa-forward"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="datosPrestamoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">Información Detallada de Prestamo</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <th>
+                        <tr>ID de transacción:</tr>
+                        <tr>Observaciones:</tr>
+                        <tr>Fecha cambio de estado:</tr>
+                        <tr>Usuario que ejecuto el cambio:</tr>
+                    </th>
+
+                    <th>
+                        <tr style="color:#346420; font-size:13">{{prestamoDetalle._id}}</tr>
+                        <tr style="color:cadetblue; font-size:13">{{prestamoDetalle.observaciones}}</tr>
+                        <tr style="color:cadetblue; font-size:13">{{prestamoDetalle.fechaActualizacion | date}}</tr>
+                        <tr style="color:cadetblue; font-size:13">{{prestamoDetalle.usuarioActNombre}}</tr>
+                    </th>
+                </table>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

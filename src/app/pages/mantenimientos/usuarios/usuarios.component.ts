@@ -26,13 +26,13 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   public mostrarBotones: boolean = true;
 
   constructor( private usuarioService: UsuarioService,
-               private BusquedasService: BusquedasService,
+               private busquedasService: BusquedasService,
                private modalImagenService: ModalImagenService) { }
 
   ngOnDestroy(): void {
     this.imgSubs.unsubscribe();
   }
-  
+
   ngOnInit(): void {
     this.cargarUsuarios();
     this.imgSubs = this.modalImagenService.nuevaImagen
@@ -53,7 +53,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
       this.cargando = false;
     });
   }
-  
+
   /**
    * Metodo que permite manejar el paginador de la UI HTML de usuarios, a fin de
    * que los registros se muevan segun los valores de 8 y -8 estipulados en el HTML
@@ -78,21 +78,21 @@ export class UsuariosComponent implements OnInit, OnDestroy {
    * @returns lista de usuarios que cumplen con la condicion de busqueda
    */
   buscarUsuariosTermino( termino: string) {
-    //Mientras escribe las letras para la busqueda, se esconden los botones
+    // Mientras escribe las letras para la busqueda, se esconden los botones
     this.mostrarBotones = false;
 
-    if( termino.length === 0) {
-      //Si ya no hay letras para la busqueda, aparecen los botones de nuevo
+    if ( termino.length === 0) {
+      // Si ya no hay letras para la busqueda, aparecen los botones de nuevo
       this.mostrarBotones = true;
       return this.usuarios = this.usuariosTemp;
     }
 
-    this.BusquedasService.buscarPorColeccion( 'usuarios', termino)
-        .subscribe( resultados => {
+    this.busquedasService.buscarPorColeccion( 'usuarios', termino)
+        .subscribe( (resultados: Usuario[]) => {
           this.usuarios = resultados;
         });
   }
-  
+
   /**
    * Metodo que permite eliminar fisicamente a un usuario de la aplicacion.
    * @param usuario objeto usuario seleccionado del listado en el UI HTML
@@ -107,7 +107,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
 
     Swal.fire({
       title: 'Esta seguro de eliminar el usuario?',
-      text: "Usted no podra revertir esta acción!",
+      text: 'Usted no podra revertir esta acción!',
       icon: 'question',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -133,7 +133,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
       }
     });
   }
-  
+
   /**
    * Metodo que pérmite capturar en la inmediates de tocar la lista 
    * desplegable fgrente a un usuaruio de la lista para cambiar o 
@@ -146,10 +146,14 @@ export class UsuariosComponent implements OnInit, OnDestroy {
         Swal.fire('Guardado', 'Se cambio el rol de ' + usuario.nombre+ ' satisfactoriamente.', 'success');
       }, ( err ) => {
         Swal.fire('Error', err.error.msg, 'error');
-        this.cargarUsuarios();   
+        this.cargarUsuarios();
       });
   }
-  
+
+  /**
+   * Metodo que permite abrir el modal de carga de la imagen del usuario
+   * @param usuario objeto al cual se le asociara la imagen
+   */
   abrilModalImagen( usuario: Usuario) {
     this.modalImagenService.abrirModal('usuarios', usuario.uid, usuario.img);
   }

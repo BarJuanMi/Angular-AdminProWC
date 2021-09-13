@@ -1,22 +1,18 @@
-<div class="fondo-modal-imagen animated fadeIn fast" [class.oculto]="modalImagenService.ocultarModal">
+<div class="fondo-modal-imagen animated fadeIn fast" [class.oculto]="modalPDFService.ocultarModal">
     <div class="modal fade show" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" style="display: block;">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="exampleModalLabel1">Cargar Imagen de Avatar</h4>
+                    <h4 class="modal-title" id="exampleModalLabel1">Cargar Archivo de Soporte</h4>
                     <button type="button" (click)="cerrarModal()" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                 </div>
                 <div class="modal-body">
-                    <h3>Seleccione una imagen</h3>
-                    <div class="text-center">
-                        <img *ngIf="!imgTemp" [src]="modalImagenService.img" class="img-avatar">
-                        <img *ngIf="imgTemp" [src]="imgTemp" class="img-avatar">
-                    </div>
-                    <input type="file" (change)="cambiarImagenProfile($event.target.files[0])">
+                    <h3>Seleccione un archivo PDF</h3>
+                    <input type="file" (change)="cargarPDFSoporte($event.target.files[0])">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" (click)="cerrarModal()" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" (click)="subirImagenProfile()">Cargar Imagen</button>
+                    <button type="button" class="btn btn-primary" (click)="subirPDFSoporte()">Cargar Documento</button>
                 </div>
             </div>
         </div>

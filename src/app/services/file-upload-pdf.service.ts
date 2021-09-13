@@ -6,19 +6,19 @@ const base_url = environment.base_url;
 @Injectable({
   providedIn: 'root'
 })
-export class FileUploadService {
+export class FileUploadPdfService {
 
   constructor() { }
 
   async actualizarFoto(
     archivo: File,
-    tipo: 'usuarios'|'medicos'|'hospitales'|'modelos'|'monitores',
+    tipo: 'contratos'|'desprendibles'|'incapacidades'|'pazysalvos',
     id: string
   ) {
     try {
       const url = `${ base_url }/files/uploads/${ tipo }/${ id }`;
       const formData = new FormData();
-      formData.append('imagen', archivo);
+      formData.append('archivo', archivo);
 
       const resp = await fetch( url, {
         method: 'PUT',

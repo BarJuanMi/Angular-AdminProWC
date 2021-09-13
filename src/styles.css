@@ -62,3 +62,12 @@
 .oculto {
     display: none;
 }
+
+.table-decorator-modal {
+    border-color: #b12222;
+}
+
+.label-form-decora {
+    font-weight: bold;
+    font-style: italic;
+}

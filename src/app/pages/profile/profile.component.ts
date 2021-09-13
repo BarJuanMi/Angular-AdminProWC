@@ -23,6 +23,7 @@ export class ProfileComponent implements OnInit {
                private fileUploadService: FileUploadService ) {
 
     this.usuario = usuarioService.usuario;
+    console.log(this.usuario);
   }
 
   ngOnInit(): void {

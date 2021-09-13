@@ -44,10 +44,13 @@ export class UsuarioService {
     }
   }
   
+  /**
+   * 
+   * @returns 
+   */
   googleInit() {
-
+    console.log('Invocación a UsuarioService(Front) - googleInit');
     return new Promise<void> ( resolve => {
-
       gapi.load('auth2', () => {
         // Retrieve the singleton for the GoogleAuth library and set up the client.
         this.auth2 = gapi.auth2.init({
@@ -58,19 +61,26 @@ export class UsuarioService {
       });
     });
   }
-
+  
+  /**
+   * 
+   */
   logout() {
+    console.log('Invocación a UsuarioService(Front) - logout');
     localStorage.removeItem('token');
-    
     this.auth2.signOut().then(() => {
       this.ngZone.run(() => {
         this.router.navigateByUrl('/login');
       });
     });
   }
-
+  
+  /**
+   * 
+   * @returns 
+   */
   validarToken(): Observable<boolean> {
-
+    console.log('Invocación a UsuarioService(Front) - validarToken');
     return this.http.get(`${base_url}/login/renew` , {
       headers: {
         'x-token': this.token
@@ -90,7 +100,12 @@ export class UsuarioService {
       catchError( error => of(false))
     );
   }
-
+  
+  /**
+   * 
+   * @param formData 
+   * @returns 
+   */
   crearUsuario( formData: RegisterForm ) {
     console.log('Invocación a UsuarioService(Front) - crearUsuario');
     return this.http.post(`${base_url}/usuarios/crearUsuario`, formData)
@@ -101,9 +116,14 @@ export class UsuarioService {
           })
         );
   }
-
+  
+  /**
+   * 
+   * @param data 
+   * @returns 
+   */
   actualizarPerfilUsuario( data: {email: string, nombre: string, role: string} ) {
-
+    console.log('Invocación a UsuarioService(Front) - actualizarPerfilUsuario');
     data = {
       ...data,
       role: this.usuario.role
@@ -111,7 +131,12 @@ export class UsuarioService {
 
     return this.http.put(`${ base_url }/usuarios/actualizarUsuario/${ this.uid }`, data, this.headers);
   }
-
+  
+  /**
+   * 
+   * @param formData 
+   * @returns 
+   */
   loginUsuario( formData: LoginForm) {
     console.log('Invocación a UsuarioService(Front) - loginUsuario');
     return this.http.post(`${base_url}/login`, formData)
@@ -121,7 +146,12 @@ export class UsuarioService {
           })
         );
   }
-
+  
+  /**
+   * 
+   * @param token 
+   * @returns 
+   */
   loginUsuarioGoogle( token ) {
     console.log('Invocación a UsuarioService(Front) - loginUsuarioGoogle');
     return this.http.post(`${base_url}/login/google`, {token})
@@ -131,8 +161,14 @@ export class UsuarioService {
           })
         );
   }
-
-  cargarUsuariosDesde( desde: number = 0){
+  
+  /**
+   * 
+   * @param desde 
+   * @returns 
+   */
+  cargarUsuariosDesde( desde: number = 0) {
+    console.log('Invocación a UsuarioService(Front) - cargarUsuariosDesde');
     //localhost:3001/api/usuarios?desde=5
     const url = `${ base_url }/usuarios?desde=${ desde }`;
     return this.http.get<CargarUsuario>( url , this.headers)
@@ -151,10 +187,15 @@ export class UsuarioService {
         })
       )
   }
-
+  
+  /**
+   * 
+   * @param usuario 
+   * @returns 
+   */
   eliminarUsuario( usuario: Usuario) {
+    console.log('Invocación a UsuarioService(Front) - eliminarUsuario');
     let dateTime = new Date().toLocaleString()
-
     console.log('date:' + dateTime);
     return this.http.delete(`${ base_url }/usuarios/eliminarUsuario/${ usuario.uid }`, {
       headers: {
@@ -162,8 +203,14 @@ export class UsuarioService {
       }
     });
   }
-
+  
+  /**
+   * 
+   * @param usuario 
+   * @returns 
+   */
   actualizarRoleUsuario( usuario: Usuario) {
+    console.log('Invocación a UsuarioService(Front) - actualizarRoleUsuario');
     return this.http.put(`${ base_url }/usuarios/actualizarUsuario/${ usuario.uid }`, usuario, this.headers);
   }
 }

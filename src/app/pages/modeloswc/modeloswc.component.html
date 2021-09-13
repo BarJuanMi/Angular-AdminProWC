@@ -1,0 +1,158 @@
+<div class="row animated fadeIn fast">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <input type="text" class="form-control" placeholder="Buscar modelo..." #txtTermino (keyup)="buscarModelosTermino(txtTermino.value)" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn fast" *ngIf="cargando">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor espere...</p>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn fast" *ngIf="!cargando">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="col-12">
+                    <table style="width:100%">
+                        <tr>
+                            <td style="text-align:left">
+                                <button [routerLink]="['/dashboard/nuevaModelo']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                                <i class="fa fa-user-plus"></i> Crear Modelo </button>
+                            </td>
+                            <td style="text-align:right">
+                                <h6>Modelos registradas (<small>{{ totalModelos }}</small>)</h6>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                &nbsp;
+                <div class="table-responsive">
+                    <table class="table table-bordered color-bordered-table inverse-bordered-table">
+                        <thead>
+                            <tr>
+                                <th class="w50"></th>
+                                <th>Documento</th>
+                                <th>Nombres y Apellidos</th>
+                                <th>Correo Electrónico</th>
+                                <th>Celular</th>
+                                <th>Banco</th>
+                                <th># Cuenta</th>
+                                <th>Estado</th>
+                                <th class="w100 text-nowrap"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let modelo of modelos">
+                                <td class="text-center">
+                                    <img [src]="modelo.imagenUrl" class="avatar-w40 cursor" alt="Avatar de Usuario" (click)="abrilModalImagen( modelo )">
+                                </td>
+                                <td><small>{{modelo.tipoDocumento}}-{{modelo.documento}}</small></td>
+                                <td><small><a href="" (click)="verDetallesModelo(modelo)" data-toggle="modal" data-target="#datosModeloModal">{{modelo.nombres}} {{modelo.apellidos}}</a></small></td>
+                                <td><small>{{modelo.emailCorporativo}}</small></td>
+                                <td><small>{{modelo.telCelular}}</small></td>
+                                <td><small>{{modelo.entidadBanco}}</small></td>
+                                <td><small>{{modelo.numCuentaBanco}}</small></td>
+                                <td class="text-center">
+                                    <span *ngIf="modelo.estado" class="label label-success">ACTIVO</span>
+                                    <span *ngIf="!modelo.estado" class="label label-danger">INACTIVO</span>
+                                </td>
+                                <td class="text-nowrap text-center">
+                                    <a [routerLink]="['/dashboard/actualizarModelo', modelo._id]" title="Actualizar Datos de Modelo" data-toggle="tooltip" data-original-title="Actualizar Datos de Modelo">
+                                        <i class="fa fa-pencil text-inverse m-r-10"></i>
+                                    </a>
+                                    &nbsp;
+                                    <a *ngIf="modelo.estado" class="cursor" title="Inactivar Modelo" data-toggle="tooltip" data-original-title="Inactivar Modelo del Sistema" (click)="inactivarModelo(modelo)">
+                                        <i class="fa fa-close text-danger"></i>
+                                    </a>
+
+                                    <a *ngIf="!modelo.estado" class="cursor" title="Reactivar Modelo" data-toggle="tooltip" data-original-title="Reactivar Modelo en el Sistema" (click)="reActivarModelo(modelo)">
+                                        <i class="fa fa-link text-warning"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="text-center" *ngIf="mostrarBotones">
+                    <button (click)="cambiarPagina(-10)" class="btn btn-secondary">
+                        <i class="fa fa-backward"></i>&nbsp;
+                        Anteriores
+                    </button> &nbsp; &nbsp; &nbsp;
+
+                    <button (click)="cambiarPagina(10)" class="btn btn-secondary">
+                        Siguientes &nbsp;
+                        <i class="fa fa-forward"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="datosModeloModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">Información Personal de Modelo</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="table responsive">
+                    <table class="table table-bordered table-decorator-modal">
+                        <th>
+                            <tr class="tabl-decorator-modal">ID Interno</tr>
+                            <tr>Nombre y Apellido</tr>
+                            <tr>Documento</tr>
+                            <tr>Tipo Documento</tr>
+                            <tr>Genero</tr>
+                            <tr>Nacionalidad</tr>
+                            <tr>Grupo Sanguineo</tr>
+                            <tr>Fecha Nacimiento</tr>
+                            <tr>Num. Hijos</tr>
+                            <tr>Cont. Emergencia</tr>
+                            <tr>Tel. Emergencia</tr>
+                            <tr>Fecha Ingreso</tr>
+                            <tr>Ciudad Residencia</tr>
+                            <tr>Dir. Residencia</tr>
+                            <tr>Fecha Enrolamiento</tr>
+                            <tr *ngIf="!modeloWCDetalle.estado">Fecha Inactivación</tr>
+                        </th>
+
+                        <th>
+                            <tr style="color:#346420; font-size:13">{{ modeloWCDetalle._id}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ modeloWCDetalle.nombres}} {{ modeloWCDetalle.apellidos}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ modeloWCDetalle.documento}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ modeloWCDetalle.tipoDocumento}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ modeloWCDetalle.genero}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ modeloWCDetalle.nacionalidad.countryName}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ modeloWCDetalle.rh}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ modeloWCDetalle.fechaNac}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ modeloWCDetalle.numHijos}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ modeloWCDetalle.nomContEmer}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ modeloWCDetalle.telContEmer}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ modeloWCDetalle.fechaIngreso}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ modeloWCDetalle.ciudadResidencia.ciudadName}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ modeloWCDetalle.direccion}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ modeloWCDetalle.fechaCreacionApp}}</tr>
+                            <tr *ngIf="!modeloWCDetalle.estado" style="color:rgb(214, 57, 57); font-size:13">{{ modeloWCDetalle.fechaInactivacion}}</tr>
+                        </th>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
