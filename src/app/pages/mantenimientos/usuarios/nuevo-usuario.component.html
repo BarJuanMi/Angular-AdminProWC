@@ -1,0 +1,78 @@
+<div class="row animated fadeInLeft">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header bg-info">
+                <h4 class="m-b-0 text-white">Detalles de Nuevo Prestamo</h4>
+            </div>
+            <div class="card-body">
+                <form class="form p-t-20" [formGroup]="usuarioAppForm" (submit)="crearNuevoUsuarioApp()">
+
+                    <div class="row p-t-20">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Nombres y Apellidos</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                                    <input type="text" class="form-control" id="namessurnames" placeholder="Pedro Alberto Perez Cortez" autocomplete="off" formControlName="nombre" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Rol de usuario</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-crown"></i></div>
+                                    <select class="form-control custom-select" id="role" formControlName="role" required>
+                                        <option value="">--Seleccione el rol--</option>
+                                        <option value="ADMIN_ROLE">ADMINISTRADOR</option>
+                                        <option value="USER_ROLE">USUARIO DE APP</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row p-t-20">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Correo electrónico</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-email"></i></div>
+                                    <input type="text" class="form-control" id="email" autocomplete="off" formControlName="email" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Usuario que crea</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                                    <input type="text" class="form-control" id="usuario" autocomplete="off" formControlName="usuarioNombre" [readOnly]="true">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row p-t-20">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Password Sugerido</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-key"></i></div>
+                                    <input type="text" class="form-control" id="password" autocomplete="off" formControlName="password" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    &nbsp;
+                    <div>
+                        <button type="submit" class="btn btn-success waves-effect waves-light m-r-10"><i class="fa fa-save"></i>  Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

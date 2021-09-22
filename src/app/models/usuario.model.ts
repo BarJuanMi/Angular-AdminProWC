@@ -6,11 +6,14 @@ export class Usuario {
     constructor (
         public nombre: string,
         public email: string,
+        public fechaCreacion: Date,
+        public estado: string,
         public password?: string,
         public img?: string,
         public google?: boolean,
         public role?: string,
-        public uid?: string //Opcional
+        public uid?: string,
+        public usuario?: string,
     ) {}
 
     //Es como un metodo getter en java o un metodo normal, 

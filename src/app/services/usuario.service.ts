@@ -91,9 +91,9 @@ export class UsuarioService {
         //Al renovar el token, en la response 
         //viaja la informacion del usuario, hay que
         //desestrcuturarla para obtener dicha info
-        const {email, google, nombre, role, uid, img} = resp.usuario;
+        const {email, fechaCreacion, estado, google, nombre, role, uid, img} = resp.usuario;
         
-        this.usuario = new Usuario(nombre, email, '', img, google, role, uid);
+        this.usuario = new Usuario(nombre, email, fechaCreacion, estado, '', img, google, role, uid);
         localStorage.setItem('token', resp.token);
       }),
       map( resp => true),
@@ -108,7 +108,7 @@ export class UsuarioService {
    */
   crearUsuario( formData: RegisterForm ) {
     console.log('Invocación a UsuarioService(Front) - crearUsuario');
-    return this.http.post(`${base_url}/usuarios/crearUsuario`, formData)
+    return this.http.post(`${base_url}/usuarios/crearUsuarioPorRegister`, formData)
         .pipe(
           tap ( (resp :any) => {
             console.log(resp);
@@ -177,7 +177,7 @@ export class UsuarioService {
         map( resp => {
           console.log(resp);
           const usuarios = resp.usuarios.map( 
-            user => new Usuario(user.nombre, user.email, '', user.img, user.google, user.role, user.uid)
+            user => new Usuario(user.nombre, user.email, user.fechaCreacion, user.estado, '', user.img, user.google, user.role, user.uid)
           );
 
           return {
@@ -212,5 +212,18 @@ export class UsuarioService {
   actualizarRoleUsuario( usuario: Usuario) {
     console.log('Invocación a UsuarioService(Front) - actualizarRoleUsuario');
     return this.http.put(`${ base_url }/usuarios/actualizarUsuario/${ usuario.uid }`, usuario, this.headers);
+  }
+
+  /**
+   * 
+   * @param formData 
+   * @returns 
+   */
+   crearNuevoUsuarioApp( formData: RegisterForm ) {
+
+    console.log('la data: ' + JSON.stringify(formData));
+
+    console.log('Invocación a UsuarioService(Front) - crearNuevoUsuarioApp');
+    return this.http.post(`${base_url}/usuarios/crearUsuarioPorApp`, formData);
   }
 }

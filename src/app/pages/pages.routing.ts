@@ -23,6 +23,7 @@ import { NuevoPrestamoComponent } from './prestamos/nuevo-prestamo.component';
 import { RetirosComponent } from './retiros/retiros.component';
 import { NuevoRetiroComponent } from './retiros/nuevo-retiro.component';
 import { ActualizaRetiroComponent } from './retiros/actualiza-retiro.component';
+import { NuevoUsuarioComponent } from './mantenimientos/usuarios/nuevo-usuario.component';
 
 const routes: Routes = [
     {  
@@ -38,8 +39,10 @@ const routes: Routes = [
             {path: 'rxjs', component: RxjsComponent, data: {titulo: 'RXJS'}},
             {path: 'profile', component: ProfileComponent, data: {titulo: 'My Profile'}},
 
-            // Mantenimientos
+            // Mantenimientos Usuarios
             {path: 'usuarios', component: UsuariosComponent, data: {titulo: 'Usuarios de aplicación'}},
+            {path: 'nuevoUsuario', component: NuevoUsuarioComponent, data: {titulo: 'Creación de Nuevo Usuario'} },
+
             {path: 'hospitales', component: HospitalesComponent, data: {titulo: 'Manejo de Hospitales'}},
             {path: 'medicos', component: MedicosComponent, data: {titulo: 'Manejo de Medicos'}},
 
@@ -54,11 +57,11 @@ const routes: Routes = [
             {path: 'actualizarMonitor/:id', component: ActualizaMonitorComponent, data: {titulo: 'Actualización Datos de Monitor'} },
 
             //WebCam Prestamos
-            {path: 'prestamos', component: PrestamosComponent, data: {titulo: 'Administración de Prestamos'}},
+            {path: 'prestamos', component: PrestamosComponent, data: {titulo: 'Administración de Prestamos a Modelos'}},
             {path: 'nuevoPrestamo', component: NuevoPrestamoComponent, data: {titulo: 'Creación de Nuevo Prestamo'} },
 
             //WebCam Retiros
-            {path: 'retiros', component: RetirosComponent, data: {titulo: 'Administración de Retiros'}},
+            {path: 'retiros', component: RetirosComponent, data: {titulo: 'Administración de Retiros de Modelos'}},
             {path: 'nuevoRetiro', component: NuevoRetiroComponent, data: {titulo: 'Creación de Nuevo Retiro'} },
             {path: 'actualizaRetiro/:id', component: ActualizaRetiroComponent, data: {titulo: 'Actualización Datos de Retiro'} },
         ]

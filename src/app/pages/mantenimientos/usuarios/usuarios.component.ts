@@ -24,10 +24,14 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   public desde: number = 0;
   public cargando: boolean = true;
   public mostrarBotones: boolean = true;
+  public usuarioLogged: Usuario;
 
   constructor( private usuarioService: UsuarioService,
                private busquedasService: BusquedasService,
-               private modalImagenService: ModalImagenService) { }
+               private modalImagenService: ModalImagenService) 
+  { 
+    this.usuarioLogged = usuarioService.usuario;
+  }
 
   ngOnDestroy(): void {
     this.imgSubs.unsubscribe();
@@ -141,13 +145,19 @@ export class UsuariosComponent implements OnInit, OnDestroy {
    * @param usuario objeto usuario seleccionado del listado en el UI HTML
    */
   cambiarRole(usuario: Usuario) {
-    this.usuarioService.actualizarRoleUsuario( usuario )
+    if(this.usuarioLogged.role === 'ADMIN_ROLE'){
+      this.usuarioService.actualizarRoleUsuario( usuario )
       .subscribe ( resp => {
         Swal.fire('Guardado', 'Se cambio el rol de ' + usuario.nombre+ ' satisfactoriamente.', 'success');
       }, ( err ) => {
         Swal.fire('Error', err.error.msg, 'error');
         this.cargarUsuarios();
       });
+    } else {
+      Swal.fire('Error', 'No es posible realizar el cambio de ROL, no tienes los privilegios suficientes.', 'error');
+      this.cargarUsuarios();
+    }
+    
   }
 
   /**
