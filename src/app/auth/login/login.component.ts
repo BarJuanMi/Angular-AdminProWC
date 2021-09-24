@@ -50,9 +50,13 @@ export class LoginComponent implements OnInit{
           } else {
             localStorage.removeItem('email');
           }
-          
-          // Navegar al dashboard
-          this.router.navigateByUrl('/');
+
+          if(resp.estadoActual === 'ACTIVO') {
+            // Navegar al dashboard
+            this.router.navigateByUrl('/');  
+          } else {
+            Swal.fire('Error', 'Usuario sin privilegios de acceso concedidos', 'error');
+          }
 
         }, (err) => {
           Swal.fire('Error', err.error.msg, 'error');

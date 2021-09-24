@@ -175,7 +175,7 @@ export class UsuarioService {
       .pipe(
         delay(500), 
         map( resp => {
-          console.log(resp);
+          console.log('usuarios...' + resp);
           const usuarios = resp.usuarios.map( 
             user => new Usuario(user.nombre, user.email, user.fechaCreacion, user.estado, '', user.img, user.google, user.role, user.uid)
           );

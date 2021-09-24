@@ -24,6 +24,7 @@ import { RetirosComponent } from './retiros/retiros.component';
 import { NuevoRetiroComponent } from './retiros/nuevo-retiro.component';
 import { ActualizaRetiroComponent } from './retiros/actualiza-retiro.component';
 import { NuevoUsuarioComponent } from './mantenimientos/usuarios/nuevo-usuario.component';
+import { ActualizarUsuarioComponent } from './mantenimientos/usuarios/actualizar-usuario.component';
 
 const routes: Routes = [
     {  
@@ -42,6 +43,7 @@ const routes: Routes = [
             // Mantenimientos Usuarios
             {path: 'usuarios', component: UsuariosComponent, data: {titulo: 'Usuarios de aplicación'}},
             {path: 'nuevoUsuario', component: NuevoUsuarioComponent, data: {titulo: 'Creación de Nuevo Usuario'} },
+            {path: 'actualizarUsuario/:id', component: ActualizarUsuarioComponent, data: {titulo: 'Actualización Date de Usuario'} },
 
             {path: 'hospitales', component: HospitalesComponent, data: {titulo: 'Manejo de Hospitales'}},
             {path: 'medicos', component: MedicosComponent, data: {titulo: 'Manejo de Medicos'}},

@@ -28,6 +28,7 @@ import { RetirosComponent } from './retiros/retiros.component';
 import { NuevoRetiroComponent } from './retiros/nuevo-retiro.component';
 import { ActualizaRetiroComponent } from './retiros/actualiza-retiro.component';
 import { NuevoUsuarioComponent } from './mantenimientos/usuarios/nuevo-usuario.component';
+import { ActualizarUsuarioComponent } from './mantenimientos/usuarios/actualizar-usuario.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { NuevoUsuarioComponent } from './mantenimientos/usuarios/nuevo-usuario.c
     RetirosComponent,
     NuevoRetiroComponent,
     ActualizaRetiroComponent,
-    NuevoUsuarioComponent
+    NuevoUsuarioComponent,
+    ActualizarUsuarioComponent
   ],
   exports: [
     DashboardComponent,
