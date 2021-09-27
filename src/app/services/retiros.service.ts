@@ -39,7 +39,7 @@ export class RetirosService {
             retiro => new Retiro(retiro._id, retiro.modelo, 
               retiro.usuarioCreacion, retiro.fechaRenuncia,
               retiro.estado, retiro.motivoRetiro, retiro.entrevista, 
-              retiro.encuesta, retiro.fechaFirma)
+              retiro.encuesta, retiro.observaciones, retiro.fechaFirma)
           );
 
           return {
@@ -86,6 +86,7 @@ export class RetirosService {
    * @param retiro 
    */
   actualizarRetiro( retiro: Retiro) {
+    console.log('WWWWWW' + JSON.stringify(retiro));
     console.log('Invocación a RetirosService(Front) - actualizarRetiro');
     return this.http.put(`${ base_url }/retiros/actualizarRetiro/${ retiro._id }`, retiro, this.usuarioService.headers);
   }

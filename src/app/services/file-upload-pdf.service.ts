@@ -10,13 +10,13 @@ export class FileUploadPdfService {
 
   constructor() { }
 
-  async actualizarFoto(
+  async actualizarPDF(
     archivo: File,
     tipo: 'contratos'|'desprendibles'|'incapacidades'|'pazysalvos',
     id: string
   ) {
     try {
-      const url = `${ base_url }/files/uploads/${ tipo }/${ id }`;
+      const url = `${ base_url }/files/uploadspdf/${ tipo }/${ id }`;
       const formData = new FormData();
       formData.append('archivo', archivo);
 

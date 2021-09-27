@@ -29,7 +29,7 @@ export class NuevoRetiroComponent implements OnInit {
     private retiroService: RetirosService) 
   { 
     this.usuario = usuarioService.usuario;
-    this.retiro = new Retiro("","","",null,"GENERADO","",false,false,null);
+    this.retiro = new Retiro("","","",null,"GENERADO","",false,false,'',null);
   }
 
   ngOnInit(): void {

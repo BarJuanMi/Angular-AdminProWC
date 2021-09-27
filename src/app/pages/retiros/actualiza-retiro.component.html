@@ -1,1 +1,51 @@
-<p>actualiza-retiro works!</p>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <form class="form p-t-20"ngNativeValidate #f="ngForm" (ngSubmit)="actualizarRetiro(f)">
+                    <div class="form-group">
+                        <label class="control-label label-form-decora">Estado:</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-layout-menu-v"></i></div>
+                            <select [(ngModel)]="retiroActualizar.estado" name="estado" class="form-control custom-select" required>
+                                <option value="GENERADO">GENERADO</option>
+                                <option value="FIRMADO">FIRMADO</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label class="control-label label-form-decora">Fecha Firma</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-calendar"></i></div>
+                            <input type="date" name="fechaFirma" class="form-control" [(ngModel)]="retiroActualizar.fechaFirma" placeholder="dd/mm/yyyy" autocomplete="off" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">
+                        <i class="fa fa-save"></i>
+                        Guardar
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Documento Relacionado al Retiro</h4>
+                <h6 class="card-subtitle">Cargue su PDF de paz y salvo</h6>
+                <br>
+                <br>
+                <input type="file" (change)="cargarPDFRetiro($event.target.files[0])">
+                <br>
+                <br>
+                <button type="button" class="btn btn-success waves-effect waves-light m-r-10" [disabled]="!pdfSubir" (click)="subirPDFPazYSalvo()">
+                    <i class="fa fa-save"></i>
+                    Cargar el archivo
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>

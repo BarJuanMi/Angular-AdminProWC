@@ -32,7 +32,8 @@
                             <tr>
                                 <th>Id de transacción</th>
                                 <th>Modelo asociada al retiro</th>
-                                <th class="w250 text-center">Estado</th>
+                                <th class="text-center">Estado</th>
+                                <th class="text-center">Entrevista</th>
                                 <th class="text-center">Fecha de Renuncia</th>
                                 <th class="text-center">Usuario que registra</th>
                                 <th class="text-center">Acción</th>
@@ -45,8 +46,11 @@
                                 <td><small>{{retiro.modelo.documento}} - {{retiro.modelo.nombres}} {{retiro.modelo.apellidos}}</small></td>
                                 <td class="text-center">
                                     <span *ngIf="retiro.estado === 'GENERADO'" class="label label-warning">{{retiro.estado}}</span>
-                                    <span *ngIf="retiro.estado === 'FIRMADO'" class="label label-default">{{retiro.estado}}</span>
-                                    <span *ngIf="retiro.estado === 'PAGADO'" class="label label-success">{{retiro.estado}}</span>
+                                    <span *ngIf="retiro.estado === 'FIRMADO'" class="label label-success">{{retiro.estado}}</span>
+                                </td>
+                                <td class="text-center">
+                                    <span *ngIf="!retiro.entrevista" class="label label-warning">NO</span>
+                                    <span *ngIf="retiro.entrevista" class="label label-success">SI</span>
                                 </td>
                                 <td class="text-center"><small>{{retiro.fechaRenuncia | date}}</small></td>
                                 <td class="text-center"><small>{{retiro.usuarioCreacion.nombre}}</small></td>
@@ -92,12 +96,17 @@
                     <th>
                         <tr>ID de transacción:</tr>
                         <tr>Motivo de retiro:</tr>
+                        <tr>Presento encuesta:</tr>
                         <tr *ngIf="retiroDetalle.estado === 'FIRMADO' || retiroDetalle.estado === 'PAGADO'">Fecha de firma:</tr>
                     </th>
 
                     <th>
                         <tr style="color:#346420; font-size:13">{{retiroDetalle._id}}</tr>
-                        <tr style="color:cadetblue; font-size:13">{{retiroDetalle.motivoRetiro}}</tr>
+                        <tr style="color:#346420; font-size:13">{{retiroDetalle.motivoRetiro}}</tr>
+                        <tr>
+                            <span *ngIf="!retiroDetalle.encuesta" class="label label-warning">NO</span>
+                            <span *ngIf="retiroDetalle.encuesta" class="label label-success">SI</span>
+                        </tr>
                         <tr *ngIf="retiroDetalle.estado === 'FIRMADO' || retiroDetalle.estado === 'PAGADO'" style="color:cadetblue; font-size:13">{{retiroDetalle.fechaFirma | date}}</tr>
                     </th>
                 </table>
