@@ -1,7 +1,7 @@
 import { ClassGetter } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Retiro } from 'src/app/models/retiro.model';
 import { Usuario } from 'src/app/models/usuario.model';
 import { FileUploadPdfService } from 'src/app/services/file-upload-pdf.service';
@@ -20,10 +20,14 @@ export class ActualizaRetiroComponent implements OnInit {
   public retiroForm: FormGroup;
   public usuario: Usuario;
   public pdfSubir: File;
-  retiroActualizar: Retiro = new Retiro('','','',null,'','',false,false,'',null);
+  retiroActualizar: Retiro = new Retiro("","","",null,null,"","",false,false,null,null,'','',false);
+  estadoAct: string = '';
   id: string = '';
+  public desde: number = 0;
+  public retiros: Retiro[] = [];
 
-  constructor( private fb: FormBuilder, 
+  constructor( private fb: FormBuilder,
+    private router: Router,
     private usuarioService: UsuarioService,
     private activatedRoute: ActivatedRoute,
     private retiroService: RetirosService,
@@ -51,6 +55,7 @@ export class ActualizaRetiroComponent implements OnInit {
    cargarRetiroPorID(id: string) {
     this.retiroService.buscarRetiroPorId( id ).subscribe( retiro => {
       this.retiroActualizar = retiro;
+      this.estadoAct = this.retiroActualizar.estado;
     });
   }
 
@@ -59,11 +64,11 @@ export class ActualizaRetiroComponent implements OnInit {
    */
    actualizarRetiro( forma: NgForm) {
     this.retiroService.actualizarRetiro( this.retiroActualizar )
-      .subscribe( resp => {
-        Swal.fire('Guardado', 'Cambios guardados satisfactoriamente', 'success');
-      }, ( err ) => {
-        Swal.fire('Error', err.error.msg, 'error');
-      });
+    .subscribe( resp => {
+      Swal.fire('Guardado', 'Cambios guardados satisfactoriamente', 'success');
+    }, ( err ) => {
+      Swal.fire('Error', err.error.msg, 'error');
+    });
   }
 
   cargarPDFRetiro(file: File ) {
@@ -78,12 +83,24 @@ export class ActualizaRetiroComponent implements OnInit {
   }
 
   /**
+   * Metodo que permite cargar todos los prestamos que se encuentran asociados en la aplicacion.
+   */
+   cargarRetiros() {
+    this.retiroService.cargarRetirosDesde(this.desde).subscribe( ({ total, retiros}) => {
+      this.retiros = retiros;
+    });
+  }
+
+  /**
    * 
    */
    subirPDFPazYSalvo() {
       this.fileUploadPdfService
           .actualizarPDF(this.pdfSubir, 'pazysalvos', this.id)
           .then(resp => {
+            this.cargarRetiros();
+            this.router.navigateByUrl('/dashboard/retiros');
+
             Swal.fire('Guardado', 'Documento de paz y salvo cargado satisfactoriamente.', 'success');
           }, (err) => {
             console.log(err);

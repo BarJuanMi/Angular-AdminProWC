@@ -37,9 +37,10 @@ export class RetirosService {
         map( resp => {
           const retiros = resp.retiros.map( 
             retiro => new Retiro(retiro._id, retiro.modelo, 
-              retiro.usuarioCreacion, retiro.fechaRenuncia,
+              retiro.usuarioCreacion, retiro.fechaRenuncia, retiro.fechaRegistro,
               retiro.estado, retiro.motivoRetiro, retiro.entrevista, 
-              retiro.encuesta, retiro.observaciones, retiro.fechaFirma)
+              retiro.encuesta, retiro.fechaFirma, retiro.fechaCargoPDF,
+              retiro.usuarioCargoPDF, retiro.pathPDF, retiro.estadoCargoPDF)
           );
 
           return {
@@ -86,8 +87,7 @@ export class RetirosService {
    * @param retiro 
    */
   actualizarRetiro( retiro: Retiro) {
-    console.log('WWWWWW' + JSON.stringify(retiro));
-    console.log('Invocación a RetirosService(Front) - actualizarRetiro');
+    console.log('Invocación a RetirosService(Front) - actualizarRetiro: ' + JSON.stringify(retiro));
     return this.http.put(`${ base_url }/retiros/actualizarRetiro/${ retiro._id }`, retiro, this.usuarioService.headers);
   }
 }

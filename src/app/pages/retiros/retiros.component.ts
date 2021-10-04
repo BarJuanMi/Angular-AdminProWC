@@ -19,7 +19,7 @@ export class RetirosComponent implements OnInit {
   public cargando: boolean = true;
   public desde: number = 0;
   public mostrarBotones: boolean = true;
-  public retiroDetalle = new Retiro("","","",null,"","",false,false,null);
+  public retiroDetalle = new Retiro("","","",null,null,"","",false,false,null,null,'','',false);
   public usuario: Usuario;
 
   constructor(private retiroService: RetirosService,
@@ -29,6 +29,7 @@ export class RetirosComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
     this.cargarRetiros();
   }
 
@@ -109,6 +110,14 @@ export class RetirosComponent implements OnInit {
         }
       });
     }
+  }
+
+  /**
+   * 
+   * @param prestamo 
+   */
+  obtenerpdfderetiro(retiro: Retiro) {
+    console.log(retiro);
   }
 
 }
