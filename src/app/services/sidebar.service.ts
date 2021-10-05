@@ -19,7 +19,7 @@ export class SidebarService {
     },
     {
       titulo: 'Documentos',
-      icono: 'mdi mdi-file-document',
+      icono: 'mdi mdi-library-books',
       submenu: [
         {titulo: 'Hoja Vida...', url: '/'},
         {titulo: 'Memorandos...', url: '/dashboard/progress'},
@@ -29,7 +29,7 @@ export class SidebarService {
     },
     {
       titulo: 'Personal',
-      icono: 'mdi mdi-file-document',
+      icono: 'mdi mdi-account-circle',
       submenu: [
         {titulo: 'Modelos', url: '/dashboard/modelos'},
         {titulo: 'Monitores', url: '/dashboard/monitores'},
@@ -37,7 +37,7 @@ export class SidebarService {
     },
     {
       titulo: 'Mantenimientos',
-      icono: 'mdi mdi-folder-lock-open',
+      icono: 'mdi mdi-settings',
       submenu: [
         {titulo: 'Usuarios', url: 'usuarios'},  //Relacione las rutas con pages.routing.ts
         {titulo: 'Hospitales', url: 'hospitales'},
@@ -46,10 +46,10 @@ export class SidebarService {
     },
     {
       titulo: 'Administrativos',
-      icono: 'mdi mdi-folder-lock-open',
+      icono: 'mdi mdi-server',
       submenu: [
-        {titulo: 'Prestamos a modelos', url: 'prestamos'},  //Relacione las rutas con pages.routing.ts
-        {titulo: 'Retiros de modelos', url: 'retiros'},  //Relacione las rutas con pages.routing.ts
+        {titulo: 'Prestamos a modelos', url: '/dashboard/prestamos'},  //Relacione las rutas con pages.routing.ts
+        {titulo: 'Retiros de modelos', url: '/dashboard/retiros'},  //Relacione las rutas con pages.routing.ts
       ]
     },
   ]

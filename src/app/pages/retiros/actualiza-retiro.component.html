@@ -10,7 +10,6 @@
                             <select [(ngModel)]="retiroActualizar.estado" name="estado" class="form-control custom-select" required>
                                 <option value="GENERADO">GENERADO</option>
                                 <option value="FIRMADO">FIRMADO</option>
-                                <option value="FIRMADO SIN PDF">FIRMADO SIN PDF</option>
                             </select>
                         </div>
                     </div>
@@ -22,7 +21,7 @@
                             <input type="date" name="fechaFirma" class="form-control" [(ngModel)]="retiroActualizar.fechaFirma" placeholder="dd/mm/yyyy" autocomplete="off" required>
                         </div>
                     </div>
-                    <button *ngIf="estadoAct != 'FIRMADO' && estadoAct != 'FIRMADO SIN PDF'" type="submit" class="btn btn-success waves-effect waves-light m-r-10">
+                    <button *ngIf="estadoAct != 'FIRMADO'" type="submit" class="btn btn-success waves-effect waves-light m-r-10">
                         <i class="fa fa-save"></i>
                         Actualizar
                     </button>

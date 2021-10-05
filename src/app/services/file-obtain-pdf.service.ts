@@ -11,7 +11,7 @@ const base_url = environment.base_url;
 @Injectable({
   providedIn: 'root'
 })
-export class FileObtainPDFService {
+export class FileObtainPdfService {
 
   public auth2: any;
 
@@ -24,9 +24,10 @@ export class FileObtainPDFService {
    * @param formData 
    * @returns 
    */
-   obtenerArchivoPDF( nameFilePDF: String, tipoFolderPDF: String) {
+   obtenerArchivoPDF( idRetiro:String, nameFilePDF: String, tipoFolderPDF: String) {
     console.log('Invocacion a FileObtainPDFService(Front) - obtenerArchivoPDF');
-    const url = `${ base_url }/uploadspdf/obtenerpdf/${tipoFolderPDF}/${nameFilePDF}`;
+    const url = `${ base_url }/files/uploadspdf/obtenerpdf/${tipoFolderPDF}/${nameFilePDF}`;
+    console.log('YYY:' + url);
     return this.http.get( url, this.usuarioService.headers ).pipe(map( (resp: any) => resp));
   }
 }

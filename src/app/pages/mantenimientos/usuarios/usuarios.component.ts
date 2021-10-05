@@ -107,35 +107,40 @@ export class UsuariosComponent implements OnInit, OnDestroy {
 
     if ( usuario.uid === this.usuarioService.uid ) {
       return Swal.fire('Error', 'Un usuario no puede eliminarse a si mismo.', 'error');
-    }
 
-    Swal.fire({
-      title: 'Esta seguro de eliminar el usuario?',
-      text: 'Usted no podra revertir esta acción!',
-      icon: 'question',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, Eliminarlo!',
-      backdrop: `
-        rgba(0,0,123,0.4)
-        url("./assets/images/gifs-swal/cat-nyan-cat.gif")
-        left top
-        no-repeat
-      `
-    }).then((result) => {
-      if (result.isConfirmed){
-        this.usuarioService.eliminarUsuario( usuario )
-          .subscribe (resp => {
-            Swal.fire(
-              'Eliminado!',
-              'El usuario ha sido eliminado exitosamente.',
-              'success'
-            );
-            this.cargarUsuarios();   
-          });
-      }
-    });
+    } else if ( this.usuarioLogged.role != 'ADMIN_ROLE' ) {
+        Swal.fire('Error', 'No es posible eliminar al usuario, no tienes los privilegios suficientes.', 'error');
+        this.cargarUsuarios();
+
+    } else {
+      Swal.fire({
+        title: 'Esta seguro de eliminar el usuario?',
+        text: 'Usted no podra revertir esta acción!',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, Eliminarlo!',
+        backdrop: `
+          rgba(0,0,123,0.4)
+          url("./assets/images/gifs-swal/cat-nyan-cat.gif")
+          left top
+          no-repeat
+        `
+      }).then((result) => {
+        if (result.isConfirmed){
+          this.usuarioService.eliminarUsuario( usuario )
+            .subscribe (resp => {
+              Swal.fire(
+                'Eliminado!',
+                'El usuario ha sido eliminado exitosamente.',
+                'success'
+              );
+              this.cargarUsuarios();   
+            });
+        }
+      });
+    }
   }
 
   /**
@@ -145,7 +150,6 @@ export class UsuariosComponent implements OnInit, OnDestroy {
    * @param usuario objeto usuario seleccionado del listado en el UI HTML
    */
   cambiarRole(usuario: Usuario) {
-    if(this.usuarioLogged.role === 'ADMIN_ROLE'){
       this.usuarioService.actualizarRoleUsuario( usuario )
       .subscribe ( resp => {
         Swal.fire('Guardado', 'Se cambio el rol de ' + usuario.nombre+ ' satisfactoriamente.', 'success');
@@ -153,11 +157,6 @@ export class UsuariosComponent implements OnInit, OnDestroy {
         Swal.fire('Error', err.error.msg, 'error');
         this.cargarUsuarios();
       });
-    } else {
-      Swal.fire('Error', 'No es posible realizar el cambio de ROL, no tienes los privilegios suficientes.', 'error');
-      this.cargarUsuarios();
-    }
-    
   }
 
   /**

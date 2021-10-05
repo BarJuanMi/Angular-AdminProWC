@@ -48,7 +48,6 @@
                                 <td class="text-center">
                                     <span *ngIf="retiro.estado === 'GENERADO'" class="label label-info">{{retiro.estado}}</span>
                                     <span *ngIf="retiro.estado === 'FIRMADO'" class="label label-success">{{retiro.estado}}</span>
-                                    <span *ngIf="retiro.estado === 'FIRMADO SIN PDF'" class="label label-warning">{{retiro.estado}}</span>
                                 </td>
                                 <td class="text-center">
                                     <span *ngIf="!retiro.estadoCargoPDF" class="label label-danger">NO</span>
@@ -121,12 +120,7 @@
                         <tr *ngIf="retiroDetalle.estadoCargoPDF" style="color:cadetblue; font-size:13">{{retiroDetalle.fechaCargoPDF | date}}</tr>
                     </th>
                 </table>
-
-
-                <a *ngIf="retiroDetalle.estadoCargoPDF" class="cursor" style="color:blue;" title="Descargar pdf Paz y Salvo" (click)="obtenerpdfderetiro(retiroDetalle)">
-                    <u>Descargar Paz y Salvo</u>
-                </a>
-
+                <a href="{{retiroDetalle.rutaCargueCompletaPDF}}" target="_blank">Descargar pdf Paz y Salvo</a>
             </div>
 
             <div class="modal-footer">

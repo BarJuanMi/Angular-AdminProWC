@@ -3,7 +3,11 @@ import { Retiro } from 'src/app/models/retiro.model';
 import { Usuario } from 'src/app/models/usuario.model';
 import { RetirosService } from 'src/app/services/retiros.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { FileObtainPdfService } from 'src/app/services/file-obtain-pdf.service';
 import Swal from 'sweetalert2';
+import { environment } from 'src/environments/environment';
+
+const url_load_pdf_pys = environment.url_load_pdf_pazysalvo;
 
 @Component({
   selector: 'app-retiros',
@@ -23,7 +27,8 @@ export class RetirosComponent implements OnInit {
   public usuario: Usuario;
 
   constructor(private retiroService: RetirosService,
-              private usuarioService: UsuarioService) 
+              private usuarioService: UsuarioService,
+              private fileObtainPDFService: FileObtainPdfService) 
   { 
     this.usuario = usuarioService.usuario;
   }
@@ -54,6 +59,8 @@ export class RetirosComponent implements OnInit {
    verDetallesRetiro(retiro: Retiro) {
     this.retiroService.buscarRetiroPorId( retiro._id ).subscribe( retiroRet => {
       this.retiroDetalle = retiroRet;
+      this.retiroDetalle.pathPDFNoExt = retiro.pathPDF.split(".")[0];
+      this.retiroDetalle.rutaCargueCompletaPDF = url_load_pdf_pys + this.retiroDetalle.pathPDFNoExt;
     });
   }
 
@@ -111,13 +118,4 @@ export class RetirosComponent implements OnInit {
       });
     }
   }
-
-  /**
-   * 
-   * @param prestamo 
-   */
-  obtenerpdfderetiro(retiro: Retiro) {
-    console.log(retiro);
-  }
-
 }

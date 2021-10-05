@@ -15,6 +15,8 @@ export class Retiro {
         public fechaCargoPDF?: Date,
         public usuarioCargoPDF?: string,
         public pathPDF?: string,
-        public estadoCargoPDF?: boolean
+        public estadoCargoPDF?: boolean,
+        public rutaCargueCompletaPDF?: string,
+        public pathPDFNoExt?: string
     ) {}
 }
