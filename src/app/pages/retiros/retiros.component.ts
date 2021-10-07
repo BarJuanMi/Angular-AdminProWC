@@ -6,6 +6,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { FileObtainPdfService } from 'src/app/services/file-obtain-pdf.service';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
+import { delay } from 'rxjs/operators';
 
 const url_load_pdf_pys = environment.url_load_pdf_pazysalvo;
 
@@ -23,7 +24,7 @@ export class RetirosComponent implements OnInit {
   public cargando: boolean = true;
   public desde: number = 0;
   public mostrarBotones: boolean = true;
-  public retiroDetalle = new Retiro("","","",null,null,"","",false,false,null,null,'','',false);
+  public retiroDetalle = new Retiro("",null,"",null,null,"","",false,false,null,null,'','',false);
   public usuario: Usuario;
 
   constructor(private retiroService: RetirosService,
@@ -34,7 +35,6 @@ export class RetirosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
     this.cargarRetiros();
   }
 
@@ -43,7 +43,7 @@ export class RetirosComponent implements OnInit {
    */
    cargarRetiros() {
     this.cargando = true;
-    this.retiroService.cargarRetirosDesde(this.desde).subscribe( ({ total, retiros}) => {
+    this.retiroService.cargarRetirosDesde(this.desde).pipe(delay(100)).subscribe( ({ total, retiros}) => {
       this.totalRetiros = total;
       this.retiros = retiros;
       this.retirosTemp = retiros;
@@ -59,8 +59,10 @@ export class RetirosComponent implements OnInit {
    verDetallesRetiro(retiro: Retiro) {
     this.retiroService.buscarRetiroPorId( retiro._id ).subscribe( retiroRet => {
       this.retiroDetalle = retiroRet;
-      this.retiroDetalle.pathPDFNoExt = retiro.pathPDF.split(".")[0];
-      this.retiroDetalle.rutaCargueCompletaPDF = url_load_pdf_pys + this.retiroDetalle.pathPDFNoExt;
+      if(this.retiroDetalle.pathPDF !== undefined){
+        this.retiroDetalle.pathPDFNoExt = retiro.pathPDF.split(".")[0];
+        this.retiroDetalle.rutaCargueCompletaPDF = url_load_pdf_pys + this.retiroDetalle.pathPDFNoExt;
+      }
     });
   }
 

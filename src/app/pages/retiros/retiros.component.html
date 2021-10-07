@@ -120,7 +120,7 @@
                         <tr *ngIf="retiroDetalle.estadoCargoPDF" style="color:cadetblue; font-size:13">{{retiroDetalle.fechaCargoPDF | date}}</tr>
                     </th>
                 </table>
-                <a href="{{retiroDetalle.rutaCargueCompletaPDF}}" target="_blank">Descargar pdf Paz y Salvo</a>
+                <a *ngIf="retiroDetalle.estadoCargoPDF" href="{{retiroDetalle.rutaCargueCompletaPDF}}" target="_blank">Descargar pdf Paz y Salvo</a>
             </div>
 
             <div class="modal-footer">

@@ -219,11 +219,19 @@ export class UsuarioService {
    * @param formData 
    * @returns 
    */
-   crearNuevoUsuarioApp( formData: RegisterForm ) {
-
-    console.log('la data: ' + JSON.stringify(formData));
-
+  crearNuevoUsuarioApp( formData: RegisterForm ) {
     console.log('Invocación a UsuarioService(Front) - crearNuevoUsuarioApp');
     return this.http.post(`${base_url}/usuarios/crearUsuarioPorApp`, formData);
+  }
+
+  /**
+   * 
+   * @param id 
+   * @returns 
+   */
+  buscarUsuarioPorId( id: String) {
+    console.log('Invocacion a UsuarioService(Front) - buscarUsuarioPorId');
+    const url = `${ base_url }/modelos/buscarUsuarioId/${ id }`;
+    return this.http.get( url, this.headers ).pipe(map( (resp: any) => resp.usuario));
   }
 }

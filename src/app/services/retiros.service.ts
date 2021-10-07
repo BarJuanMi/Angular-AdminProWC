@@ -87,7 +87,7 @@ export class RetirosService {
    * @param retiro 
    */
   actualizarRetiro( retiro: Retiro) {
-    console.log('Invocación a RetirosService(Front) - actualizarRetiro: ' + JSON.stringify(retiro));
+    console.log('Invocación a RetirosService(Front) - actualizarRetiro');
     return this.http.put(`${ base_url }/retiros/actualizarRetiro/${ retiro._id }`, retiro, this.usuarioService.headers);
   }
 }

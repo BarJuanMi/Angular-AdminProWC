@@ -13,7 +13,7 @@
                                 <label class="control-label label-form-decora">Modelo</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-face-smile"></i></div>
-                                    <select class="form-control custom-select" id="model" formControlName="modelo" required>
+                                    <select class="form-control custom-select" id="model" formControlName="modelo">
                                         <option value="">--Seleccione Modelo--</option>
                                         <option *ngFor="let modelo of modelosList" [value]="modelo._id">{{modelo.nombres}} {{modelo.apellidos}}</option>
                                     </select>
@@ -26,7 +26,7 @@
                                 <label class="control-label label-form-decora">Estado</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-anchor"></i></div>
-                                    <input type="text" class="form-control" id="estado" autocomplete="off" formControlName="estado" required [readOnly]="true">
+                                    <input type="text" class="form-control" id="estado" autocomplete="off" formControlName="estado" [readOnly]="true">
                                 </div>
                             </div>
                         </div>
@@ -38,7 +38,7 @@
                                 <label class="control-label label-form-decora">Motivo Retiro</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-comment"></i></div>
-                                    <input type="text" class="form-control" id="motivoRetiro" autocomplete="off" formControlName="motivoRetiro" required>
+                                    <textarea class="form-control text-area" formControlName="motivoRetiro"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -48,7 +48,7 @@
                                 <label class="control-label label-form-decora">Fecha Renuncia</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-calendar"></i></div>
-                                    <input type="date" id="fechaRenuncia" class="form-control" formControlName="fechaRenuncia" placeholder="dd/mm/yyyy" autocomplete="off" required>
+                                    <input type="date" id="fechaRenuncia" class="form-control" formControlName="fechaRenuncia" placeholder="dd/mm/yyyy" autocomplete="off">
                                 </div>
                             </div>
                         </div>
@@ -76,7 +76,10 @@
 
                     &nbsp;
                     <div>
-                        <button type="submit" class="btn btn-success waves-effect waves-light m-r-10"><i class="fa fa-save"></i>  Guardar</button>
+                        <button type="submit" class="btn btn-success waves-effect waves-pupple m-r-10" [disabled]="retiroForm.invalid">
+                            <i class="fa fa-save"></i>
+                            Guardar
+                        </button>
                     </div>
                 </form>
             </div>

@@ -8,6 +8,7 @@ import { FileUploadPdfService } from 'src/app/services/file-upload-pdf.service';
 import { RetirosService } from 'src/app/services/retiros.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import Swal from 'sweetalert2';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-actualiza-retiro',
@@ -16,11 +17,9 @@ import Swal from 'sweetalert2';
   ]
 })
 export class ActualizaRetiroComponent implements OnInit {
-
-  public retiroForm: FormGroup;
   public usuario: Usuario;
   public pdfSubir: File;
-  retiroActualizar: Retiro = new Retiro("","","",null,null,"","",false,false,null,null,'','',false);
+  retiroActualizar: Retiro = new Retiro("",null,"",null,null,"","",false,false,null,null,'','',false);
   estadoAct: string = '';
   id: string = '';
   public desde: number = 0;
@@ -42,10 +41,6 @@ export class ActualizaRetiroComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.retiroForm = this.fb.group({
-      fechaFirma: [this.retiroActualizar.fechaFirma],
-      estado: [this.retiroActualizar.estado]
-    });
   }
   
   /**
@@ -65,12 +60,18 @@ export class ActualizaRetiroComponent implements OnInit {
    actualizarRetiro( forma: NgForm) {
     this.retiroService.actualizarRetiro( this.retiroActualizar )
     .subscribe( resp => {
+      // Navegar a la pantalla de retiros
+      this.router.navigateByUrl('/dashboard/retiros');
       Swal.fire('Guardado', 'Cambios guardados satisfactoriamente', 'success');
     }, ( err ) => {
       Swal.fire('Error', err.error.msg, 'error');
     });
   }
 
+  /**
+   * 
+   * @param file 
+   */
   cargarPDFRetiro(file: File ) {
     this.pdfSubir = file;
     const reader = new FileReader();
@@ -86,7 +87,7 @@ export class ActualizaRetiroComponent implements OnInit {
    * Metodo que permite cargar todos los prestamos que se encuentran asociados en la aplicacion.
    */
    cargarRetiros() {
-    this.retiroService.cargarRetirosDesde(this.desde).subscribe( ({ total, retiros}) => {
+    this.retiroService.cargarRetirosDesde(this.desde).pipe(delay(300)).subscribe( ({ total, retiros}) => {
       this.retiros = retiros;
     });
   }
@@ -98,9 +99,6 @@ export class ActualizaRetiroComponent implements OnInit {
       this.fileUploadPdfService
           .actualizarPDF(this.pdfSubir, 'pazysalvos', this.id)
           .then(resp => {
-            this.cargarRetiros();
-            this.router.navigateByUrl('/dashboard/retiros');
-
             Swal.fire('Guardado', 'Documento de paz y salvo cargado satisfactoriamente.', 'success');
           }, (err) => {
             console.log(err);

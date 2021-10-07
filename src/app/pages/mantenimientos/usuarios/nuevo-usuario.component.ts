@@ -36,15 +36,20 @@ export class NuevoUsuarioComponent implements OnInit {
   }
 
   crearNuevoUsuarioApp() {
-    this.usuarioService.crearNuevoUsuarioApp( this.usuarioAppForm.value )
-    .subscribe( resp => {
-      // Navegar al dashboard
-      this.router.navigateByUrl('/dashboard/usuarios');
+    console.log('ROLEEE: ' + this.usuarioCreador.role);
 
-      Swal.fire('Guardado', 'Usuario Creado Satisfactoriamente', 'success');
-    }, ( err ) => {
-      Swal.fire('Error', err.error.msg, 'error');
-    });
+    if (this.usuarioCreador.role !== 'USER_ROLE') {
+      this.usuarioService.crearNuevoUsuarioApp( this.usuarioAppForm.value )
+      .subscribe( resp => {
+        // Navegar al dashboard
+        this.router.navigateByUrl('/dashboard/usuarios');
+        Swal.fire('Guardado', 'Usuario Creado Satisfactoriamente', 'success');
+      }, ( err ) => {
+        Swal.fire('Error', err.error.msg, 'error');
+      });
+    } else {
+      Swal.fire('Error', 'No es posible terminar la transacción, no tienes los privilegios suficientes, comunicate con un administrador.', 'error');
+    }
   }
 
 }

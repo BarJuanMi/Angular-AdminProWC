@@ -1,9 +1,10 @@
 import { Usuario } from './usuario.model';
+import { ModeloWC } from './modelowc.model';
 export class Retiro {
 
     constructor(
         public _id: string,
-        public modelo: string,
+        public modelo: ModeloWC,
         public usuarioCreacion: string,
         public fechaRenuncia: Date,
         public fechaRegistro: Date,

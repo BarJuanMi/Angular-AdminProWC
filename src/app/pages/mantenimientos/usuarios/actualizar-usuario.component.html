@@ -1,1 +1,65 @@
-<p>actualizar-usuario works!</p>
+<div class="row animated fadeInLeft">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header bg-info">
+                <h4 class="m-b-0 text-white">Información Personal de Modelo</h4>
+            </div>
+            <div class="card-body">
+                <form ngNativeValidate #f="ngForm" (ngSubmit)="actualizarDatosModeloWC(f)" class="form p-t-20">
+
+                    <div class="row p-t-20">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Correo Electrónico</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-quote-right"></i></div>
+                                    <input [(ngModel)]="usuarioActualizar.email" name="email" autocomplete="off" type="text" id="email" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Nombres y Apellidos</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                                    <input [(ngModel)]="usuarioActualizar.nombre" name="nombre" autocomplete="off" type="text" id="nombre" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row p-t-20">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Rol de Usuario</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-layout-menu-v"></i></div>
+                                    <select [(ngModel)]="usuarioActualizar.role" id="role" name="role" class="form-control custom-select" required>
+                                        <option value="USER_ROLE">USER_ROLE</option>
+                                        <option value="ADMIN_ROLE">ADMIN_ROLE</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Estado de Usuario</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-anchor"></i></div>
+                                    <select [(ngModel)]="usuarioActualizar.estado" id="estado" name="estado" class="form-control custom-select" required>
+                                        <option value="CREADO">CREADO</option>
+                                        <option value="ACTIVO">ACTIVO</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <button type="submit" class="btn btn-success waves-effect waves-light m-r-10"><i class="fa fa-save"></i>  Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { ModeloWC } from 'src/app/models/modelowc.model';
@@ -21,6 +21,7 @@ export class NuevoRetiroComponent implements OnInit {
   public retiroForm: FormGroup;
   public retiro: Retiro;
   public usuario: Usuario;
+  fechaActual: Date;
 
   constructor(private router: Router,
     private modeloService: ModelosService,
@@ -29,19 +30,20 @@ export class NuevoRetiroComponent implements OnInit {
     private retiroService: RetirosService) 
   { 
     this.usuario = usuarioService.usuario;
-    this.retiro = new Retiro("","","",null,null,"GENERADO","",false,false,null,null,'','',false);
+    this.retiro = new Retiro('',null,'',new Date(),null,"GENERADO","",false,false,null,null,'','',false);
+    this.fechaActual = new Date();
   }
 
   ngOnInit(): void {
     this.cargarListadoModelosEstado();
     this.retiroForm = this.fb.group({
-      modelo: [this.retiro.modelo],
+      modelo: [this.retiro.modelo, Validators.required],
       usuarioNombre: [this.usuario.nombre],
       estado: [this.retiro.estado],
-      motivoRetiro: [this.retiro.motivoRetiro],
+      motivoRetiro: [this.retiro.motivoRetiro, Validators.required],
       entrevista: [this.retiro.entrevista],
       encuesta: [this.retiro.encuesta],
-      fechaRenuncia: [this.retiro.fechaRenuncia]
+      fechaRenuncia: [this.retiro.fechaRenuncia, Validators.required]
     });
   }
 
@@ -53,13 +55,10 @@ export class NuevoRetiroComponent implements OnInit {
   }
 
   crearNuevoRetiro() {
-    console.log('Datos de retiro: ' + JSON.stringify(this.retiroForm.value));
-
     this.retiroService.crearNuevoRetiro( this.retiroForm.value )
     .subscribe( resp => {
-      // Navegar al dashboard
+      // Navegar a la pantalla de retiros
       this.router.navigateByUrl('/dashboard/retiros');
-
       Swal.fire('Guardado', 'Registro de Retiro Creado Satisfactoriamente', 'success');
     }, ( err ) => {
       Swal.fire('Error', err.error.msg, 'error');

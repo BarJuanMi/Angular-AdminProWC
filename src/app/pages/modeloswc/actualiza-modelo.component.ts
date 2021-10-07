@@ -58,9 +58,6 @@ export class ActualizaModeloComponent implements OnInit {
       this.modeloActualizar = modelo;
       this.numHijosTemp = this.modeloActualizar.numHijos;
 
-      console.log(this.modeloActualizar.nacionalidad.countryName);
-      console.log(this.modeloActualizar.ciudadResidencia.ciudadName);
-
       if(this.modeloActualizar.estado === false){
         this.router.navigateByUrl('/dashboard/modelos');
         Swal.fire('Error', 'No es posible actualizar los datos de una modelo inactiva.', 'error');

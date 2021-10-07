@@ -6,6 +6,7 @@ import { ModalImagenService } from '../../../services/modal-imagen.service';
 import Swal from 'sweetalert2';
 import { delay } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -19,14 +20,14 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   public totalUsuarios: number = 0;
   public usuarios: Usuario[] = [];
   public usuariosTemp: Usuario[] = [];
-
   public imgSubs: Subscription;
   public desde: number = 0;
   public cargando: boolean = true;
   public mostrarBotones: boolean = true;
   public usuarioLogged: Usuario;
 
-  constructor( private usuarioService: UsuarioService,
+  constructor( private router: Router,
+               private usuarioService: UsuarioService,
                private busquedasService: BusquedasService,
                private modalImagenService: ModalImagenService) 
   { 
@@ -38,6 +39,11 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    console.log(this.usuarioLogged.role);
+    if ( this.usuarioLogged.role != 'ADMIN_ROLE' && this.usuarioLogged.role != 'GOD_ROLE') {
+      Swal.fire('Error', 'No puedes acceder a esta sección, no tienes los privilegios suficientes.', 'error');
+      this.router.navigateByUrl('/');
+    }
     this.cargarUsuarios();
     this.imgSubs = this.modalImagenService.nuevaImagen
     .pipe(delay(300))
@@ -108,14 +114,13 @@ export class UsuariosComponent implements OnInit, OnDestroy {
     if ( usuario.uid === this.usuarioService.uid ) {
       return Swal.fire('Error', 'Un usuario no puede eliminarse a si mismo.', 'error');
 
-    } else if ( this.usuarioLogged.role != 'ADMIN_ROLE' ) {
-        Swal.fire('Error', 'No es posible eliminar al usuario, no tienes los privilegios suficientes.', 'error');
-        this.cargarUsuarios();
+    } else if ( this.usuarioLogged.role != 'ADMIN_ROLE' && this.usuarioLogged.role != 'GOD_ROLE') {
+      return Swal.fire('Error', 'No es posible eliminar al usuario, no tienes los privilegios suficientes.', 'error');
 
     } else {
       Swal.fire({
-        title: 'Esta seguro de eliminar el usuario?',
-        text: 'Usted no podra revertir esta acción!',
+        title: 'Esta seguro de inactivar el usuario?',
+        text: 'El usuario quedara sin privilegios de acceso!',
         icon: 'question',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -133,7 +138,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
             .subscribe (resp => {
               Swal.fire(
                 'Eliminado!',
-                'El usuario ha sido eliminado exitosamente.',
+                'El usuario ha sido inactivado exitosamente.',
                 'success'
               );
               this.cargarUsuarios();   

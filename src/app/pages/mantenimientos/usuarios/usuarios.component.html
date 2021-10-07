@@ -44,8 +44,8 @@
                                 <th class="w50"></th>
                                 <th>Correo Electrónico</th>
                                 <th>Nombres y Apellidos</th>
-                                <th class="text-center">Fecha de Creación</th>
                                 <th class="text-center">Estado</th>
+                                <th class="text-center">Fecha de Creación</th>
                                 <th class="text-center">Rol De usuario</th>
                                 <th class="text-center">Acción</th>
                             </tr>
@@ -57,22 +57,23 @@
                                 </td>
                                 <td><small>{{ usuario.email }}</small></td>
                                 <td><small>{{ usuario.nombre }}</small></td>
-                                <td class="text-center"><small>{{usuario.fechaCreacion | date}}</small></td>
                                 <td class="text-center">
                                     <span *ngIf="usuario.estado === 'CREADO'" class="label label-warning">{{ usuario.estado }}</span>
                                     <span *ngIf="usuario.estado === 'ACTIVO'" class="label label-primary">{{ usuario.estado }}</span>
                                     <span *ngIf="usuario.estado === 'INACTIVO'" class="label label-danger">{{ usuario.estado }}</span>
                                 </td>
+                                <td class="text-center"><small>{{usuario.fechaCreacion | date}}</small></td>
                                 <td class="text-center">
                                     <span *ngIf="usuario.role === 'ADMIN_ROLE'" class="label label-success">{{usuario.role}}</span>
                                     <span *ngIf="usuario.role === 'USER_ROLE'" class="label label-info">{{usuario.role}}</span>
+                                    <span *ngIf="usuario.role === 'GOD_ROLE'" class="label label-warning">{{usuario.role}}</span>
                                 </td>
                                 <td class="text-nowrap text-center">
                                     <a [routerLink]="['/dashboard/actualizarUsuario', usuario.uid]" title="Actualizar Datos de Usuario" data-toggle="tooltip" data-original-title="Actualizar Datos de Usuario">
                                         <i class="fa fa-pencil text-inverse m-r-10"></i>
                                     </a>
                                     &nbsp;
-                                    <a class="cursor" data-toggle="tooltip" data-original-title="Eliminar" (click)="eliminarUsuario(usuario)">
+                                    <a class="cursor" title="Inactivar Usuario de App" data-toggle="tooltip" data-original-title="Inactivar Usuario de App" (click)="eliminarUsuario(usuario)">
                                         <i class="fa fa-close text-danger"></i>
                                     </a>
                                 </td>
