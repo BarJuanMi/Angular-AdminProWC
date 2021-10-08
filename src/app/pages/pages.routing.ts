@@ -43,7 +43,7 @@ const routes: Routes = [
             // Mantenimientos Usuarios
             {path: 'usuarios', component: UsuariosComponent, data: {titulo: 'Usuarios de aplicación'}},
             {path: 'nuevoUsuario', component: NuevoUsuarioComponent, data: {titulo: 'Creación de Nuevo Usuario'} },
-            {path: 'actualizarUsuario/:id', component: ActualizarUsuarioComponent, data: {titulo: 'Actualización Date de Usuario'} },
+            {path: 'actualizarUsuario/:id', component: ActualizarUsuarioComponent, data: {titulo: 'Actualización Datos de Usuario'} },
 
             {path: 'hospitales', component: HospitalesComponent, data: {titulo: 'Manejo de Hospitales'}},
             {path: 'medicos', component: MedicosComponent, data: {titulo: 'Manejo de Medicos'}},

@@ -64,17 +64,21 @@
                                 </td>
                                 <td class="text-center"><small>{{usuario.fechaCreacion | date}}</small></td>
                                 <td class="text-center">
-                                    <span *ngIf="usuario.role === 'ADMIN_ROLE'" class="label label-success">{{usuario.role}}</span>
-                                    <span *ngIf="usuario.role === 'USER_ROLE'" class="label label-info">{{usuario.role}}</span>
-                                    <span *ngIf="usuario.role === 'GOD_ROLE'" class="label label-warning">{{usuario.role}}</span>
+                                    <span *ngIf="usuario.role === 'ADMIN_ROLE'" class="label label-success">ADMINISTRADOR</span>
+                                    <span *ngIf="usuario.role === 'USER_ROLE'" class="label label-info">USUARIO DE APP</span>
+                                    <span *ngIf="usuario.role === 'GOD_ROLE'" class="label label-warning">MODO DIOS</span>
                                 </td>
                                 <td class="text-nowrap text-center">
                                     <a [routerLink]="['/dashboard/actualizarUsuario', usuario.uid]" title="Actualizar Datos de Usuario" data-toggle="tooltip" data-original-title="Actualizar Datos de Usuario">
                                         <i class="fa fa-pencil text-inverse m-r-10"></i>
                                     </a>
                                     &nbsp;
-                                    <a class="cursor" title="Inactivar Usuario de App" data-toggle="tooltip" data-original-title="Inactivar Usuario de App" (click)="eliminarUsuario(usuario)">
+                                    <a *ngIf="usuario.estado !== 'INACTIVO'" class="cursor" title="Inactivar Usuario" data-toggle="tooltip" data-original-title="Inactivar Usuario" (click)="eliminarUsuario(usuario)">
                                         <i class="fa fa-close text-danger"></i>
+                                    </a>
+
+                                    <a *ngIf="usuario.estado === 'INACTIVO'" class="cursor" title="Reactivar Usuario" data-toggle="tooltip" data-original-title="Reactivar Usuario" (click)="reActivarUsuario(usuario)">
+                                        <i class="fa fa-link text-warning"></i>
                                     </a>
                                 </td>
                             </tr>

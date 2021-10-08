@@ -104,18 +104,18 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Metodo que permite eliminar fisicamente a un usuario de la aplicacion.
+   * Metodo que permite inactivar fisicamente a un usuario de la aplicacion.
    * @param usuario objeto usuario seleccionado del listado en el UI HTML
    * @returns listado de usuarios restantes y mensaje de error en caso de 
-   * intentar eliminarse a si mismo el usuario que esta logueado
+   * intentar inactivarse a si mismo el usuario que esta logueado
    */
   eliminarUsuario( usuario: Usuario) {
 
     if ( usuario.uid === this.usuarioService.uid ) {
-      return Swal.fire('Error', 'Un usuario no puede eliminarse a si mismo.', 'error');
+      return Swal.fire('Error', 'Un usuario no puede inactivarse a si mismo.', 'error');
 
     } else if ( this.usuarioLogged.role != 'ADMIN_ROLE' && this.usuarioLogged.role != 'GOD_ROLE') {
-      return Swal.fire('Error', 'No es posible eliminar al usuario, no tienes los privilegios suficientes.', 'error');
+      return Swal.fire('Error', 'No es posible inactivar el usuario, no tienes los privilegios suficientes.', 'error');
 
     } else {
       Swal.fire({
@@ -125,7 +125,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, Eliminarlo!',
+        confirmButtonText: 'Sí, Inactivarlo!',
         backdrop: `
           rgba(0,0,123,0.4)
           url("./assets/images/gifs-swal/cat-nyan-cat.gif")
@@ -134,7 +134,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
         `
       }).then((result) => {
         if (result.isConfirmed){
-          this.usuarioService.eliminarUsuario( usuario )
+          this.usuarioService.inactivarUsuario( usuario )
             .subscribe (resp => {
               Swal.fire(
                 'Eliminado!',
@@ -146,6 +146,41 @@ export class UsuariosComponent implements OnInit, OnDestroy {
         }
       });
     }
+  }
+
+  /**
+   * Metodo que permite reactivar a un usuario de la aplicacion.
+   * @param usuario objeto usuario seleccionado del listado en el UI HTML
+   * @returns listado de usuarios restantes
+   */
+   reActivarUsuario( usuario: Usuario) {
+    Swal.fire({
+      title: 'Esta seguro de reactivar el usuario?',
+      text: 'El usuario quedara sin privilegios de acceso!',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, Reactivarlo!',
+      backdrop: `
+        rgba(0,0,123,0.4)
+        url("./assets/images/gifs-swal/cat-nyan-cat.gif")
+        left top
+        no-repeat
+      `
+    }).then((result) => {
+      if (result.isConfirmed){
+        this.usuarioService.reactivarUsuario( usuario )
+          .subscribe (resp => {
+            Swal.fire(
+              'Eliminado!',
+              'El usuario ha sido reactivado exitosamente.',
+              'success'
+            );
+            this.cargarUsuarios();   
+          });
+      }
+    });
   }
 
   /**
