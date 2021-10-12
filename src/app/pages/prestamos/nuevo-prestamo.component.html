@@ -10,7 +10,7 @@
                     <div class="row p-t-20">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label label-form-decora">Monto de prestamo</label>
+                                <label class="control-label label-form-decora">Monto del prestamo:</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-money"></i></div>
                                     <input type="text" class="form-control" id="montoP" placeholder="########" autocomplete="off" formControlName="monto" required>
@@ -20,7 +20,7 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label label-form-decora">Modelo que recibe</label>
+                                <label class="control-label label-form-decora">Nombres y Apellidos de Modelo:</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-face-smile"></i></div>
                                     <select class="form-control custom-select" id="model" formControlName="modelo" required>
@@ -35,17 +35,17 @@
                     <div class="row p-t-20">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label label-form-decora">Observación</label>
+                                <label class="control-label label-form-decora">Observación asociada:</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-comment"></i></div>
-                                    <input type="text" class="form-control" id="observaciones" autocomplete="off" formControlName="observaciones" required>
+                                    <textarea class="form-control text-area" formControlName="observaciones"></textarea>
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label label-form-decora">Usuario que crea</label>
+                                <label class="control-label label-form-decora">Usuario que crea el retiro:</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-user"></i></div>
                                     <input type="text" class="form-control" id="usuario" autocomplete="off" formControlName="usuarioNombre" [readOnly]="true">

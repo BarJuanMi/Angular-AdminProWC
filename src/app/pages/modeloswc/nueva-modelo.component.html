@@ -63,7 +63,6 @@
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-anchor"></i></div>
                                     <select class="form-control custom-select" formControlName="nacionalidad" required>
-                                        <option value="">--Seleccione País--</option>
                                         <option *ngFor="let pais of paisesList" [value]="pais._id">{{pais.countryCode}} - {{pais.countryName}}</option>
                                     </select>
                                 </div>
@@ -119,7 +118,6 @@
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-anchor"></i></div>
                                     <select class="form-control custom-select" formControlName="ciudadResidencia" required>
-                                        <option value="">--Seleccione Ciudad--</option>
                                         <option *ngFor="let ciudad of ciudadesList" [value]="ciudad._id">{{ciudad.ciudadName}}</option>
                                     </select>
                                 </div>
@@ -233,8 +231,8 @@
                                         <option value="Nequi-Bancolombia">Nequi-Bancolombia</option>
                                         <option value="Super Giros">Super Giros</option>
                                         <option value="Movii S.A.">Movii S.A.</option>
-                                        <option value="RappiPay">Movii S.A.</option>
-                                        <option value="No Aplica">No Aplica</option>
+                                        <option value="RappiPay">RappiPay</option>
+                                        <option value="Efectivo">Efectivo</option>
                                     </select>
                                 </div>
                             </div>
