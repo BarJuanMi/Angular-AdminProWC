@@ -40,8 +40,8 @@ export class SidebarService {
       icono: 'mdi mdi-settings',
       submenu: [
         {titulo: 'Usuarios', url: 'usuarios'},  //Relacione las rutas con pages.routing.ts
-        {titulo: 'Hospitales', url: 'hospitales'},
-        {titulo: 'Medicos', url: 'medicos'},
+        //{titulo: 'Hospitales', url: 'hospitales'},
+        //{titulo: 'Medicos', url: 'medicos'},
       ]
     },
     {
