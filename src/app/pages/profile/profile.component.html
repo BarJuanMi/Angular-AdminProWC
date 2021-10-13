@@ -22,7 +22,7 @@
                         </div>
                     </div>
                     <br>
-                    <button type="submit" class="btn btn-success waves-effect waves-light m-r-10" [disabled]="profileForm.invalid">
+                    <button *ngIf="usuario.role !== 'USER_ROLE'" type="submit" class="btn btn-success waves-effect waves-light m-r-10" [disabled]="profileForm.invalid">
                         <i class="fa fa-save"></i>
                         Guardar
                     </button>

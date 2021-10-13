@@ -29,6 +29,9 @@ import { NuevoRetiroComponent } from './retiros/nuevo-retiro.component';
 import { ActualizaRetiroComponent } from './retiros/actualiza-retiro.component';
 import { NuevoUsuarioComponent } from './mantenimientos/usuarios/nuevo-usuario.component';
 import { ActualizarUsuarioComponent } from './mantenimientos/usuarios/actualizar-usuario.component';
+import { VacunasCodiv19Component } from './admin/vacunas-codiv19/vacunas-codiv19.component';
+import { NuevoRegVacunaComponent } from './admin/nuevo-reg-vacuna/nuevo-reg-vacuna.component';
+import { ActualizaRegVacunaComponent } from './admin/actualiza-reg-vacuna/actualiza-reg-vacuna.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +58,10 @@ import { ActualizarUsuarioComponent } from './mantenimientos/usuarios/actualizar
     NuevoRetiroComponent,
     ActualizaRetiroComponent,
     NuevoUsuarioComponent,
-    ActualizarUsuarioComponent
+    ActualizarUsuarioComponent,
+    VacunasCodiv19Component,
+    NuevoRegVacunaComponent,
+    ActualizaRegVacunaComponent
   ],
   exports: [
     DashboardComponent,
