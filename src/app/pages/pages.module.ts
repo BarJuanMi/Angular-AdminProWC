@@ -22,16 +22,16 @@ import { ActualizaModeloComponent } from './modeloswc/actualiza-modelo.component
 import { MonitoreswcComponent } from './monitoreswc/monitoreswc.component';
 import { NuevoMonitorComponent } from './monitoreswc/nuevo-monitor.component';
 import { ActualizaMonitorComponent } from './monitoreswc/actualiza-monitor.component';
-import { PrestamosComponent } from './prestamos/prestamos.component';
-import { NuevoPrestamoComponent } from './prestamos/nuevo-prestamo.component';
-import { RetirosComponent } from './retiros/retiros.component';
-import { NuevoRetiroComponent } from './retiros/nuevo-retiro.component';
-import { ActualizaRetiroComponent } from './retiros/actualiza-retiro.component';
+import { PrestamosComponent } from './admin/prestamos/prestamos.component';
+import { NuevoPrestamoComponent } from './admin/prestamos/nuevo-prestamo.component';
+import { RetirosComponent } from './admin/retiros/retiros.component';
+import { NuevoRetiroComponent } from './admin/retiros/nuevo-retiro.component';
+import { ActualizaRetiroComponent } from './admin/retiros/actualiza-retiro.component';
 import { NuevoUsuarioComponent } from './mantenimientos/usuarios/nuevo-usuario.component';
 import { ActualizarUsuarioComponent } from './mantenimientos/usuarios/actualizar-usuario.component';
 import { VacunasCodiv19Component } from './admin/vacunas-codiv19/vacunas-codiv19.component';
-import { NuevoRegVacunaComponent } from './admin/nuevo-reg-vacuna/nuevo-reg-vacuna.component';
-import { ActualizaRegVacunaComponent } from './admin/actualiza-reg-vacuna/actualiza-reg-vacuna.component';
+import { NuevoRegVacunaComponent } from './admin/vacunas-codiv19/nuevo-reg-vacuna.component';
+import { ActualizaRegVacunaComponent } from './admin/vacunas-codiv19/actualiza-reg-vacuna.component';
 
 @NgModule({
   declarations: [

@@ -6,7 +6,7 @@ import { Prestamo } from 'src/app/models/prestamo.model';
 import { Usuario } from 'src/app/models/usuario.model';
 import { ModelosService } from 'src/app/services/modelos.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { PrestamosService } from '../../services/prestamos.service';
+import { PrestamosService } from '../../../services/prestamos.service';
 import Swal from 'sweetalert2';
 
 @Component({

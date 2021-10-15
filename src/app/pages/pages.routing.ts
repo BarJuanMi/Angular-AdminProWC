@@ -18,13 +18,16 @@ import { ActualizaModeloComponent } from './modeloswc/actualiza-modelo.component
 import { MonitoreswcComponent } from './monitoreswc/monitoreswc.component';
 import { NuevoMonitorComponent } from './monitoreswc/nuevo-monitor.component';
 import { ActualizaMonitorComponent } from './monitoreswc/actualiza-monitor.component';
-import { PrestamosComponent } from './prestamos/prestamos.component';
-import { NuevoPrestamoComponent } from './prestamos/nuevo-prestamo.component';
-import { RetirosComponent } from './retiros/retiros.component';
-import { NuevoRetiroComponent } from './retiros/nuevo-retiro.component';
-import { ActualizaRetiroComponent } from './retiros/actualiza-retiro.component';
+import { PrestamosComponent } from './admin/prestamos/prestamos.component';
+import { NuevoPrestamoComponent } from './admin/prestamos/nuevo-prestamo.component';
+import { RetirosComponent } from './admin/retiros/retiros.component';
+import { NuevoRetiroComponent } from './admin/retiros/nuevo-retiro.component';
+import { ActualizaRetiroComponent } from './admin/retiros/actualiza-retiro.component';
 import { NuevoUsuarioComponent } from './mantenimientos/usuarios/nuevo-usuario.component';
 import { ActualizarUsuarioComponent } from './mantenimientos/usuarios/actualizar-usuario.component';
+import { VacunasCodiv19Component } from './admin/vacunas-codiv19/vacunas-codiv19.component';
+import { NuevoRegVacunaComponent } from './admin/vacunas-codiv19/nuevo-reg-vacuna.component';
+import { ActualizaRegVacunaComponent } from './admin/vacunas-codiv19/actualiza-reg-vacuna.component';
 
 const routes: Routes = [
     {  
@@ -66,6 +69,11 @@ const routes: Routes = [
             {path: 'retiros', component: RetirosComponent, data: {titulo: 'Administración de Retiros de Modelos'}},
             {path: 'nuevoRetiro', component: NuevoRetiroComponent, data: {titulo: 'Creación de Nuevo Retiro'} },
             {path: 'actualizaRetiro/:id', component: ActualizaRetiroComponent, data: {titulo: 'Actualización Datos de Retiro'} },
+
+            //WebCam Vacunas
+            {path: 'vacunados', component: VacunasCodiv19Component, data: {titulo: 'Administración de Registros de vacunas para personal'}},
+            {path: 'nuevoRegVacunado', component: NuevoRegVacunaComponent, data: {titulo: 'Creación de Nuevo Registro de Vacuna para empleado'} },
+            {path: 'actualizaRegVacunado/:id', component: ActualizaRegVacunaComponent, data: {titulo: 'Actualización de Registro de Vacuna para empleado'} },
         ]
     },
 ];

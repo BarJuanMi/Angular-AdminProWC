@@ -11,13 +11,13 @@ export class SidebarService {
       icono: 'mdi mdi-gauge',
       submenu: [
         {titulo: 'Main...', url: '/'},
-        {titulo: 'ProgessBar...', url: 'progress'},
+        //{titulo: 'ProgessBar...', url: 'progress'},
         {titulo: 'Graficas...', url: 'grafica1'},
-        {titulo: 'Promesas...', url: 'promesas'},
-        {titulo: 'RXJS...', url: 'rxjs'}
+        //{titulo: 'Promesas...', url: 'promesas'},
+        //{titulo: 'RXJS...', url: 'rxjs'}
       ]
     },
-    {
+    /*{
       titulo: 'Documentos',
       icono: 'mdi mdi-library-books',
       submenu: [
@@ -26,7 +26,7 @@ export class SidebarService {
         {titulo: 'Calificacion...', url: '/dashboard/grafica1'},
         {titulo: 'Reportes...', url: '/dashboard/grafica1'}
       ]
-    },
+    },*/
     {
       titulo: 'Personal',
       icono: 'mdi mdi-account-circle',
@@ -50,6 +50,7 @@ export class SidebarService {
       submenu: [
         {titulo: 'Prestamos a modelos', url: '/dashboard/prestamos'},  //Relacione las rutas con pages.routing.ts
         {titulo: 'Retiros de modelos', url: '/dashboard/retiros'},  //Relacione las rutas con pages.routing.ts
+        {titulo: 'Registros de personal vacunados', url: '/dashboard/vacunados'}
       ]
     },
   ]
