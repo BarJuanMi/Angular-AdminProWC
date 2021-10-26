@@ -209,11 +209,7 @@ export class UsuarioService {
    */
    reactivarUsuario( usuario: Usuario) {
     console.log('Invocación a UsuarioService(Front) - reactivarUsuario');
-    return this.http.put(`${ base_url }/usuarios/reactivarUsuario/${ usuario.uid }`, {
-      headers: {
-        'x-token': this.token
-      }
-    });
+    return this.http.put(`${ base_url }/usuarios/reactivarUsuario/${ usuario.uid }`, usuario, this.headers);
   }
   
   /**

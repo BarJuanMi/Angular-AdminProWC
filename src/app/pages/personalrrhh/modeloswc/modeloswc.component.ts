@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import { ModeloWC } from 'src/app/models/modelowc.model';
 import { BusquedasService } from 'src/app/services/busquedas.service';
 import { ModalImagenService } from 'src/app/services/modal-imagen.service';
-import { ModelosService } from '../../services/modelos.service';
+import { ModelosService } from '../../../services/modelos.service';
 import { MAP_MONTHS } from 'src/app/utils/config';
 import { Pais } from 'src/app/models/pais.util.model';
 import { Ciudad } from 'src/app/models/ciudad.util.model';

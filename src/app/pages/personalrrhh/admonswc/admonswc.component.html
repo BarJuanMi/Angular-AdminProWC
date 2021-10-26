@@ -1,0 +1,158 @@
+<div class="row animated fadeIn fast">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <input type="text" class="form-control" placeholder="Buscar admon adminsitrativo..." #txtTermino (keyup)="buscarAdmonsTermino(txtTermino.value)" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn fast" *ngIf="cargando">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor espere...</p>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn fast" *ngIf="!cargando">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="col-12">
+                    <table style="width:100%">
+                        <tr>
+                            <td style="text-align:left">
+                                <button [routerLink]="['/dashboard/nuevoAdmon']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                                <i class="fa fa-user-plus"></i> Crear Empleado Administrativo </button>
+                            </td>
+                            <td style="text-align:right">
+                                <h6>Empleados Adminsitrativos registrados (<small>{{ totalAdmons }}</small>)</h6>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                &nbsp;
+                <div class="table-responsive">
+                    <table class="table table-bordered color-bordered-table inverse-bordered-table">
+                        <thead>
+                            <tr>
+                                <th class="w50"></th>
+                                <th>Documento</th>
+                                <th>Nombres y Apellidos</th>
+                                <th>Correo Electrónico</th>
+                                <th>Tel. Celular</th>
+                                <th>Entidad Bancaria</th>
+                                <th># Cuenta</th>
+                                <th class="text-center">Estado</th>
+                                <th class="text-center">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let admon of admons">
+                                <td class="text-center">
+                                    <img [src]="admon.imagenUrl" class="avatar-w40 cursor" alt="Avatar de Empleado Administrativo" (click)="abrilModalImagen( administrativo )">
+                                </td>
+                                <td><small>{{admon.tipoDocumento}}-{{admon.documento}}</small></td>
+                                <td><small><a href="" (click)="verDetallesEmpleado(admon)" data-toggle="modal" data-target="#datosAdmonModal">{{admon.nombres}} {{admon.apellidos}}</a></small></td>
+                                <td><small>{{admon.emailCorporativo}}</small></td>
+                                <td><small>{{admon.telCelular}}</small></td>
+                                <td><small>{{admon.entidadBanco}}</small></td>
+                                <td><small>{{admon.numCuentaBanco}}</small></td>
+                                <td class="text-center">
+                                    <span *ngIf="admon.estado" class="label label-success">ACTIVO</span>
+                                    <span *ngIf="!admon.estado" class="label label-danger">INACTIVO</span>
+                                </td>
+                                <td class="text-nowrap text-center">
+                                    <a [routerLink]="['/dashboard/actualizarAdmon', admon._id]" title="Actualizar Datos de Empleado Administrativo" data-toggle="tooltip" data-original-title="Actualizar Datos de Empleado Administrativo">
+                                        <i class="fa fa-pencil text-inverse m-r-10"></i>
+                                    </a>
+                                    &nbsp;
+                                    <a *ngIf="admon.estado" class="cursor" title="Inactivar Empleado Administrativo" data-toggle="tooltip" data-original-title="Inactivar Empleado Administrativo del Sistema" (click)="inactivarAdmon(admon)">
+                                        <i class="fa fa-close text-danger"></i>
+                                    </a>
+
+                                    <a *ngIf="!admon.estado" class="cursor" title="Reactivar Empleado Administrativo" data-toggle="tooltip" data-original-title="Reactivar Empleado Administrativo en el Sistema" (click)="reActivarAdmon(admon)">
+                                        <i class="fa fa-link text-warning"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="text-center" *ngIf="mostrarBotones">
+                    <button (click)="cambiarPagina(-10)" class="btn btn-secondary">
+                        <i class="fa fa-backward"></i>&nbsp;
+                        Anteriores
+                    </button> &nbsp; &nbsp; &nbsp;
+
+                    <button (click)="cambiarPagina(10)" class="btn btn-secondary">
+                        Siguientes &nbsp;
+                        <i class="fa fa-forward"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="datosAdmonModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">Información Personal de Empleado</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="table responsive">
+                    <table class="table table-bordered table-decorator-modal">
+                        <th>
+                            <tr class="tabl-decorator-modal">ID Interno</tr>
+                            <tr>Nombre y Apellido</tr>
+                            <tr>Documento</tr>
+                            <tr>Tipo Documento</tr>
+                            <tr>Genero</tr>
+                            <tr>Nacionalidad</tr>
+                            <tr>Grupo Sanguineo</tr>
+                            <tr>Fecha Nacimiento</tr>
+                            <tr>Num. Hijos</tr>
+                            <tr>Cont. Emergencia</tr>
+                            <tr>Tel. Emergencia</tr>
+                            <tr>Fecha Ingreso</tr>
+                            <tr>Ciudad Residencia</tr>
+                            <tr>Dir. Residencia</tr>
+                            <tr>Fecha Enrolamiento</tr>
+                            <tr *ngIf="!admonWCDetalle.estado">Fecha Inactivación</tr>
+                        </th>
+
+                        <th>
+                            <tr style="color:#346420; font-size:13">{{ admonWCDetalle._id}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ admonWCDetalle.nombres}} {{ admonWCDetalle.apellidos}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ admonWCDetalle.documento}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ admonWCDetalle.tipoDocumento}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ admonWCDetalle.genero}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ admonWCDetalle.nacionalidad.countryName}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ admonWCDetalle.rh}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ admonWCDetalle.fechaNac}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ admonWCDetalle.numHijos}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ admonWCDetalle.nomContEmer}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ admonWCDetalle.telContEmer}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ admonWCDetalle.fechaIngreso}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ admonWCDetalle.ciudadResidencia.ciudadName}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ admonWCDetalle.direccion}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ admonWCDetalle.fechaCreacionApp}}</tr>
+                            <tr *ngIf="!admonWCDetalle.estado" style="color:rgb(214, 57, 57); font-size:13">{{ admonWCDetalle.fechaInactivacion}}</tr>
+                        </th>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

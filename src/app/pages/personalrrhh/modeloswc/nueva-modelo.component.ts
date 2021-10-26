@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ModeloWC } from '../../models/modelowc.model';
-import { ModelosService } from '../../services/modelos.service';
-import { UtileslistService } from '../../services/utileslist.service';
+import { ModeloWC } from '../../../models/modelowc.model';
+import { ModelosService } from '../../../services/modelos.service';
+import { UtileslistService } from '../../../services/utileslist.service';
 import Swal from 'sweetalert2';
-import { Ciudad } from '../../models/ciudad.util.model';
-import { Pais } from '../../models/pais.util.model';
+import { Ciudad } from '../../../models/ciudad.util.model';
+import { Pais } from '../../../models/pais.util.model';
 
 @Component({
   selector: 'app-nueva-modelo',
