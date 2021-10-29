@@ -33,6 +33,7 @@ import { VacunasCodiv19Component } from './admin/vacunas-codiv19/vacunas-codiv19
 import { NuevoRegVacunaComponent } from './admin/vacunas-codiv19/nuevo-reg-vacuna.component';
 import { ActualizaRegVacunaComponent } from './admin/vacunas-codiv19/actualiza-reg-vacuna.component';
 import { AdmonswcComponent } from './personalrrhh/admonswc/admonswc.component';
+import { NuevoAdmonComponent } from './personalrrhh/admonswc/nuevo-admon.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { AdmonswcComponent } from './personalrrhh/admonswc/admonswc.component';
     VacunasCodiv19Component,
     NuevoRegVacunaComponent,
     ActualizaRegVacunaComponent,
-    AdmonswcComponent
+    AdmonswcComponent,
+    NuevoAdmonComponent
   ],
   exports: [
     DashboardComponent,

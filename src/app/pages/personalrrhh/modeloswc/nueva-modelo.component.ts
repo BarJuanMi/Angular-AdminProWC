@@ -71,7 +71,6 @@ export class NuevaModeloComponent implements OnInit {
    * 
    */
   crearNuevaModelo() {
-    console.log('RRR: ' + this.modelowcForm.value);
     this.modelosService.crearModelo( this.modelowcForm.value )
       .subscribe( resp => {
         // Navegar al dashboard

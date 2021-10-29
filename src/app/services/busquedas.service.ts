@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Usuario } from '../models/usuario.model';
 import { ModeloWC } from '../models/modelowc.model';
 import { MonitorWC } from '../models/monitorwc.model';
+import { AdmonWC } from '../models/admonwc.model';
 
 const base_url = environment.base_url;
 
@@ -39,7 +40,7 @@ export class BusquedasService {
         modelo.genero, modelo.nombres, modelo.apellidos, modelo.fechaNac, 
         modelo.direccion, modelo.emailCorporativo, modelo.telCelular, 
         modelo.rh, modelo.nomContEmer, modelo.telContEmer, modelo.fechaIngreso, 
-        false, modelo.numHijos, modelo.fechaCreacionApp, modelo.nacionalidad, 
+        modelo.estado, modelo.numHijos, modelo.fechaCreacionApp, modelo.nacionalidad, 
         modelo.ciudadResidencia, '', modelo.entidadBanco, 
         modelo.numCuentaBanco, modelo.fechaInactivacion, modelo.img)
     );
@@ -54,7 +55,19 @@ export class BusquedasService {
     );
   }
 
-  buscarPorColeccion(tipo: 'usuarios'|'medicos'|'hospitales'|'modelos'|'monitores', termino: string) {
+  transformarAdmons(resultados: any[]): AdmonWC[] {
+    return resultados.map(
+      administrativo => new AdmonWC(administrativo._id, administrativo.documento, administrativo.tipoDocumento, 
+        administrativo.genero, administrativo.nombres, administrativo.apellidos, administrativo.fechaNac, 
+        administrativo.direccion, administrativo.emailCorporativo, administrativo.telCelular, 
+        administrativo.rh, administrativo.nomContEmer, administrativo.telContEmer, administrativo.fechaIngreso, 
+        administrativo.estado, administrativo.numHijos, administrativo.fechaCreacionApp, administrativo.nacionalidad, 
+        administrativo.ciudadResidencia, '', administrativo.entidadBanco, 
+        administrativo.numCuentaBanco, administrativo.fechaInactivacion, administrativo.img)
+    );
+  }
+
+  buscarPorColeccion(tipo: 'usuarios'|'medicos'|'hospitales'|'modelos'|'monitores'|'administrativos', termino: string) {
     //localhost:3001/api/busqueda/coleccion/usuarios/***
     const url = `${ base_url }/busqueda/coleccion/${tipo}/${termino}`;
     return this.http.get<any[]>( url , this.headers)
@@ -69,6 +82,9 @@ export class BusquedasService {
 
             case 'monitores':
               return this.transformarMonitores(resp.resultados);
+
+            case 'administrativos':
+              return this.transformarAdmons(resp.resultados);
 
             default:
               return[];

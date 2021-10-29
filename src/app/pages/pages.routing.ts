@@ -28,6 +28,8 @@ import { ActualizarUsuarioComponent } from './mantenimientos/usuarios/actualizar
 import { VacunasCodiv19Component } from './admin/vacunas-codiv19/vacunas-codiv19.component';
 import { NuevoRegVacunaComponent } from './admin/vacunas-codiv19/nuevo-reg-vacuna.component';
 import { ActualizaRegVacunaComponent } from './admin/vacunas-codiv19/actualiza-reg-vacuna.component';
+import { AdmonswcComponent } from './personalrrhh/admonswc/admonswc.component';
+import { NuevoAdmonComponent } from './personalrrhh/admonswc/nuevo-admon.component';
 
 const routes: Routes = [
     {  
@@ -60,6 +62,10 @@ const routes: Routes = [
             {path: 'monitores', component: MonitoreswcComponent, data: {titulo: 'Administración de Monitores'}},
             {path: 'nuevoMonitor', component: NuevoMonitorComponent, data: {titulo: 'Creación de Nueva Monitor'} },
             {path: 'actualizarMonitor/:id', component: ActualizaMonitorComponent, data: {titulo: 'Actualización Datos de Monitor'} },
+
+            //WebCam Administrativos
+            {path: 'administrativos', component: AdmonswcComponent, data: {titulo: 'Administración de Empleados Administrativos'}},
+            {path: 'nuevoAdmon', component: NuevoAdmonComponent, data: {titulo: 'Creación de Nuevo Empleado Administrativo'} },
 
             //WebCam Prestamos
             {path: 'prestamos', component: PrestamosComponent, data: {titulo: 'Administración de Prestamos a Modelos'}},

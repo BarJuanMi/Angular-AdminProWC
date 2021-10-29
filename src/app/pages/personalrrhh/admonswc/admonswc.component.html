@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <input type="text" class="form-control" placeholder="Buscar admon adminsitrativo..." #txtTermino (keyup)="buscarAdmonsTermino(txtTermino.value)" />
+                <input type="text" class="form-control" placeholder="Buscar empleado adminsitrativo..." #txtTermino (keyup)="buscarAdmonsTermino(txtTermino.value)" />
             </div>
         </div>
     </div>
@@ -54,10 +54,10 @@
                         <tbody>
                             <tr *ngFor="let admon of admons">
                                 <td class="text-center">
-                                    <img [src]="admon.imagenUrl" class="avatar-w40 cursor" alt="Avatar de Empleado Administrativo" (click)="abrilModalImagen( administrativo )">
+                                    <img [src]="admon.imagenUrl" class="avatar-w40 cursor" alt="Avatar de Empleado Administrativo" (click)="abrilModalImagen( admon )">
                                 </td>
                                 <td><small>{{admon.tipoDocumento}}-{{admon.documento}}</small></td>
-                                <td><small><a href="" (click)="verDetallesEmpleado(admon)" data-toggle="modal" data-target="#datosAdmonModal">{{admon.nombres}} {{admon.apellidos}}</a></small></td>
+                                <td><small><a href="" (click)="verDetallesAdmon(admon)" data-toggle="modal" data-target="#datosAdmonModal">{{admon.nombres}} {{admon.apellidos}}</a></small></td>
                                 <td><small>{{admon.emailCorporativo}}</small></td>
                                 <td><small>{{admon.telCelular}}</small></td>
                                 <td><small>{{admon.entidadBanco}}</small></td>

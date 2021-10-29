@@ -33,6 +33,7 @@ export class SidebarService {
       submenu: [
         {titulo: 'Modelos', url: '/dashboard/modelos'},
         {titulo: 'Monitores', url: '/dashboard/monitores'},
+        {titulo: 'Administrativos', url: '/dashboard/administrativos'},
       ]
     },
     {
@@ -45,7 +46,7 @@ export class SidebarService {
       ]
     },
     {
-      titulo: 'Administrativos',
+      titulo: 'Procesos',
       icono: 'mdi mdi-server',
       submenu: [
         {titulo: 'Prestamos a modelos', url: '/dashboard/prestamos'},  //Relacione las rutas con pages.routing.ts
