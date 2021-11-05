@@ -1,0 +1,131 @@
+<div class="row animated fadeIn fast" *ngIf="cargando">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor espere...</p>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn fast" *ngIf="!cargando">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="col-12">
+                    <table style="width:100%">
+                        <tr>
+                            <td style="text-align:left">
+                                <button [routerLink]="['/dashboard/nuevoRetiro']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                                <i class="fa fa-user-plus"></i> Crear Retiro </button>
+                            </td>
+                            <td style="text-align:right">
+                                <h6>Retiros Registrados (<small>{{ totalRetiros }}</small>)</h6>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                &nbsp;
+                <div class="table-responsive">
+                    <table class="table table-bordered color-bordered-table inverse-bordered-table">
+                        <thead>
+                            <tr>
+                                <th>Id de transacción</th>
+                                <th>Modelo asociada al retiro</th>
+                                <th class="text-center">Estado</th>
+                                <th class="text-center">PDF</th>
+                                <th class="text-center">Fecha de renuncia</th>
+                                <th class="text-center">Usuario que registra</th>
+                                <th class="text-center">Fecha de registro</th>
+                                <th class="text-center">Acción</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr *ngFor="let retiro of retiros">
+                                <td><small><a href="" (click)="verDetallesRetiro(retiro)" data-toggle="modal" data-target="#datosRetiroModal">{{retiro._id}}</a></small></td>
+                                <td><small>{{retiro.modelo.documento}} - {{retiro.modelo.nombres}} {{retiro.modelo.apellidos}}</small></td>
+                                <td class="text-center">
+                                    <span *ngIf="retiro.estado === 'GENERADO'" class="label label-info">{{retiro.estado}}</span>
+                                    <span *ngIf="retiro.estado === 'FIRMADO'" class="label label-success">{{retiro.estado}}</span>
+                                </td>
+                                <td class="text-center">
+                                    <span *ngIf="!retiro.estadoCargoPDF" class="label label-danger">NO</span>
+                                    <span *ngIf="retiro.estadoCargoPDF" class="label label-success">SI</span>
+                                </td>
+                                <td class="text-center"><small>{{retiro.fechaRenuncia | date}}</small></td>
+                                <td class="text-center"><small>{{retiro.usuarioCreacion.nombre}}</small></td>
+                                <td class="text-center"><small>{{retiro.fechaRegistro | date}}</small></td>
+                                <td class="text-nowrap text-center">
+                                    <a [routerLink]="['/dashboard/actualizaRetiro', retiro._id]" class="cursor" title="Actualizar Transacción" data-toggle="tooltip" data-original-title="Actualizar Transacción del sistema">
+                                        <i class="fa fa-pencil text-inverse m-r-10"></i>
+                                    </a>
+                                    &nbsp; &nbsp;
+                                    <a class="cursor" title="Eliminar Transacción" data-toggle="tooltip" data-original-title="Eliminar Transacción del sistema" (click)="eliminarRetiro(retiro)">
+                                        <i class="fa fa-close text-danger"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="text-center" *ngIf="mostrarBotones">
+                    <button (click)="cambiarPagina(-25)" class="btn btn-secondary">
+                        <i class="fa fa-backward"></i>&nbsp;
+                        Anteriores
+                    </button> &nbsp; &nbsp; &nbsp;
+
+                    <button (click)="cambiarPagina(25)" class="btn btn-secondary">
+                        Siguientes &nbsp;
+                        <i class="fa fa-forward"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="datosRetiroModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">Información Detallada de Retiro</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <th>
+                        <tr>ID de transacción:</tr>
+                        <tr>Motivo de retiro:</tr>
+                        <tr>Presento encuesta:</tr>
+                        <tr>Presento entrevista:</tr>
+                        <tr *ngIf="retiroDetalle.estado === 'FIRMADO'">Fecha de firma:</tr>
+                        <tr *ngIf="retiroDetalle.estadoCargoPDF">Usuario que cargo PDF:</tr>
+                        <tr *ngIf="retiroDetalle.estadoCargoPDF">Fecha de cargue PDF:</tr>
+                    </th>
+                    <th>
+                        <tr style="color:#346420; font-size:13">{{retiroDetalle._id}}</tr>
+                        <tr style="color:cadetblue; font-size:13">{{retiroDetalle.motivoRetiro}}</tr>
+                        <tr>
+                            <span *ngIf="!retiroDetalle.encuesta" class="label label-danger">NO</span>
+                            <span *ngIf="retiroDetalle.encuesta" class="label label-success">SI</span>
+                        </tr>
+                        <tr>
+                            <span *ngIf="!retiroDetalle.entrevista" class="label label-danger">NO</span>
+                            <span *ngIf="retiroDetalle.entrevista" class="label label-success">SI</span>
+                        </tr>
+                        <tr *ngIf="retiroDetalle.estado === 'FIRMADO'" style="color:cadetblue; font-size:13">{{retiroDetalle.fechaFirma | date}}</tr>
+                        <tr *ngIf="retiroDetalle.estadoCargoPDF" style="color:cadetblue; font-size:13">{{retiroDetalle.usuarioCargoPDF.nombre}}</tr>
+                        <tr *ngIf="retiroDetalle.estadoCargoPDF" style="color:cadetblue; font-size:13">{{retiroDetalle.fechaCargoPDF | date}}</tr>
+                    </th>
+                </table>
+                <a *ngIf="retiroDetalle.estadoCargoPDF" href="{{retiroDetalle.rutaCargueCompletaPDF}}" target="_blank">Descargar pdf Paz y Salvo</a>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

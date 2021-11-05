@@ -2,7 +2,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModeloWC } from '../models/modelowc.model';
-import { Pais } from '../models/pais.util.model';
 import { map, delay } from 'rxjs/operators';
 import { RegisterForm } from '../interfaces/register-form.interface';
 import { environment } from 'src/environments/environment';

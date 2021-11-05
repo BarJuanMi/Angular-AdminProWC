@@ -43,7 +43,7 @@ export class ModalPdfComponent implements OnInit {
     const tipo = this.modalPDFService.tipo;
 
     this.fileUploadPDFService
-        .actualizarFoto(this.pdfSubir, tipo, id)
+        .actualizarPDF(this.pdfSubir, tipo, id)
         .then(pdf => {
           Swal.fire('Guardado', 'Archivo cargado satisfactoriamente.', 'success');
           this.modalPDFService.nuevoPDF.emit(pdf);

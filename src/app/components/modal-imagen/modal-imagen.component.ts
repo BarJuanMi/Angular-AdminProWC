@@ -15,10 +15,9 @@ export class ModalImagenComponent implements OnInit {
   public imgTemp: any = null;
 
   constructor(public modalImagenService: ModalImagenService,
-              public fileUploadService: FileUploadService) { }
+              public fileUploadService: FileUploadService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   cerrarModal() {
     this.imgTemp = null;
@@ -55,12 +54,12 @@ export class ModalImagenComponent implements OnInit {
     this.fileUploadService
         .actualizarFoto(this.imagenSubir, tipo, id)
         .then(img => {
-          Swal.fire('Guardado', 'Imagen de avatar actualizada satisfactoriamente.', 'success');
+          Swal.fire('Guardado', 'Imagen actualizada satisfactoriamente.', 'success');
           this.modalImagenService.nuevaImagen.emit(img);
           this.cerrarModal();
         }, (err) => {
           console.log(err);
-          Swal.fire('Error', 'No se pudo subir la imagen de avatar', 'error');
+          Swal.fire('Error', 'No se pudo subir la imagen a la nube', 'error');
         });
   }
 

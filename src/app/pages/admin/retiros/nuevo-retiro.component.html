@@ -1,0 +1,87 @@
+<div class="row animated fadeInLeft">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header bg-info">
+                <h4 class="m-b-0 text-white">Detalles de Nuevo Retiro</h4>
+            </div>
+            <div class="card-body">
+                <form class="form p-t-20" [formGroup]="retiroForm" (submit)="crearNuevoRetiro()">
+
+                    <div class="row p-t-20">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Nombres y Apellidos de Modelo:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-face-smile"></i></div>
+                                    <select class="form-control custom-select" id="model" formControlName="modelo">
+                                        <option *ngFor="let modelo of modelosList" [value]="modelo._id">{{modelo.nombres}} {{modelo.apellidos}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Estado del retiro:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-anchor"></i></div>
+                                    <input type="text" class="form-control" id="estado" autocomplete="off" formControlName="estado" [readOnly]="true">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row p-t-20">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Motivo del Retiro:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-comment"></i></div>
+                                    <textarea class="form-control text-area" formControlName="motivoRetiro"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Fecha de Renuncia:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-calendar"></i></div>
+                                    <input type="date" id="fechaRenuncia" class="form-control" formControlName="fechaRenuncia" placeholder="dd/mm/yyyy" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row p-t-20">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">¿Presento entrevista de retiro?</label>
+                                <div class="switch">
+                                    <label>NO<input type="checkbox" formControlName="entrevista"><span class="lever switch-col-light-green"></span>SI</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">¿Presento encuesta de retiro?</label>
+                                <div class="switch">
+                                    <label>NO<input type="checkbox" formControlName="encuesta"><span class="lever switch-col-light-green"></span>SI</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    &nbsp;
+                    <div>
+                        <button type="submit" class="btn btn-success waves-effect waves-pupple m-r-10" [disabled]="retiroForm.invalid">
+                            <i class="fa fa-save"></i>
+                            Guardar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

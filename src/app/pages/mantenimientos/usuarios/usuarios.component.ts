@@ -6,6 +6,7 @@ import { ModalImagenService } from '../../../services/modal-imagen.service';
 import Swal from 'sweetalert2';
 import { delay } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -19,21 +20,30 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   public totalUsuarios: number = 0;
   public usuarios: Usuario[] = [];
   public usuariosTemp: Usuario[] = [];
-
   public imgSubs: Subscription;
   public desde: number = 0;
   public cargando: boolean = true;
   public mostrarBotones: boolean = true;
+  public usuarioLogged: Usuario;
 
-  constructor( private usuarioService: UsuarioService,
+  constructor( private router: Router,
+               private usuarioService: UsuarioService,
                private busquedasService: BusquedasService,
-               private modalImagenService: ModalImagenService) { }
+               private modalImagenService: ModalImagenService) 
+  { 
+    this.usuarioLogged = usuarioService.usuario;
+  }
 
   ngOnDestroy(): void {
     this.imgSubs.unsubscribe();
   }
 
   ngOnInit(): void {
+    console.log(this.usuarioLogged.role);
+    if ( this.usuarioLogged.role != 'ADMIN_ROLE' && this.usuarioLogged.role != 'GOD_ROLE') {
+      Swal.fire('Error', 'No puedes acceder a esta sección, no tienes los privilegios suficientes.', 'error');
+      this.router.navigateByUrl('/');
+    }
     this.cargarUsuarios();
     this.imgSubs = this.modalImagenService.nuevaImagen
     .pipe(delay(300))
@@ -94,25 +104,64 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Metodo que permite eliminar fisicamente a un usuario de la aplicacion.
+   * Metodo que permite inactivar fisicamente a un usuario de la aplicacion.
    * @param usuario objeto usuario seleccionado del listado en el UI HTML
    * @returns listado de usuarios restantes y mensaje de error en caso de 
-   * intentar eliminarse a si mismo el usuario que esta logueado
+   * intentar inactivarse a si mismo el usuario que esta logueado
    */
   eliminarUsuario( usuario: Usuario) {
 
     if ( usuario.uid === this.usuarioService.uid ) {
-      return Swal.fire('Error', 'Un usuario no puede eliminarse a si mismo.', 'error');
-    }
+      return Swal.fire('Error', 'Un usuario no puede inactivarse a si mismo.', 'error');
 
+    } else if ( this.usuarioLogged.role != 'ADMIN_ROLE' && this.usuarioLogged.role != 'GOD_ROLE') {
+      return Swal.fire('Error', 'No es posible inactivar el usuario, no tienes los privilegios suficientes.', 'error');
+
+    } else {
+      Swal.fire({
+        title: 'Esta seguro de inactivar el usuario?',
+        text: 'El usuario quedara sin privilegios de acceso!',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, Inactivarlo!',
+        backdrop: `
+          rgba(0,0,123,0.4)
+          url("./assets/images/gifs-swal/cat-nyan-cat.gif")
+          left top
+          no-repeat
+        `
+      }).then((result) => {
+        if (result.isConfirmed){
+          this.usuarioService.inactivarUsuario( usuario )
+            .subscribe (resp => {
+              Swal.fire(
+                'Eliminado!',
+                'El usuario ha sido inactivado exitosamente.',
+                'success'
+              );
+              this.cargarUsuarios();   
+            });
+        }
+      });
+    }
+  }
+
+  /**
+   * Metodo que permite reactivar a un usuario de la aplicacion.
+   * @param usuario objeto usuario seleccionado del listado en el UI HTML
+   * @returns listado de usuarios restantes
+   */
+   reActivarUsuario( usuario: Usuario) {
     Swal.fire({
-      title: 'Esta seguro de eliminar el usuario?',
-      text: 'Usted no podra revertir esta acción!',
+      title: 'Esta seguro de reactivar el usuario?',
+      text: 'El usuario quedara sin privilegios de acceso!',
       icon: 'question',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, Eliminarlo!',
+      confirmButtonText: 'Sí, Reactivarlo!',
       backdrop: `
         rgba(0,0,123,0.4)
         url("./assets/images/gifs-swal/cat-nyan-cat.gif")
@@ -121,11 +170,11 @@ export class UsuariosComponent implements OnInit, OnDestroy {
       `
     }).then((result) => {
       if (result.isConfirmed){
-        this.usuarioService.eliminarUsuario( usuario )
+        this.usuarioService.reactivarUsuario( usuario )
           .subscribe (resp => {
             Swal.fire(
               'Eliminado!',
-              'El usuario ha sido eliminado exitosamente.',
+              'El usuario ha sido reactivado exitosamente.',
               'success'
             );
             this.cargarUsuarios();   
@@ -141,7 +190,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
    * @param usuario objeto usuario seleccionado del listado en el UI HTML
    */
   cambiarRole(usuario: Usuario) {
-    this.usuarioService.actualizarRoleUsuario( usuario )
+      this.usuarioService.actualizarRoleUsuario( usuario )
       .subscribe ( resp => {
         Swal.fire('Guardado', 'Se cambio el rol de ' + usuario.nombre+ ' satisfactoriamente.', 'success');
       }, ( err ) => {

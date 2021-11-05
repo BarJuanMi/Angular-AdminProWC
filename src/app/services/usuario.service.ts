@@ -91,9 +91,9 @@ export class UsuarioService {
         //Al renovar el token, en la response 
         //viaja la informacion del usuario, hay que
         //desestrcuturarla para obtener dicha info
-        const {email, google, nombre, role, uid, img} = resp.usuario;
+        const {email, fechaCreacion, estado, google, nombre, role, uid, img} = resp.usuario;
         
-        this.usuario = new Usuario(nombre, email, '', img, google, role, uid);
+        this.usuario = new Usuario(nombre, email, fechaCreacion, estado, '', img, google, role, uid);
         localStorage.setItem('token', resp.token);
       }),
       map( resp => true),
@@ -108,7 +108,7 @@ export class UsuarioService {
    */
   crearUsuario( formData: RegisterForm ) {
     console.log('Invocación a UsuarioService(Front) - crearUsuario');
-    return this.http.post(`${base_url}/usuarios/crearUsuario`, formData)
+    return this.http.post(`${base_url}/usuarios/crearUsuarioPorRegister`, formData)
         .pipe(
           tap ( (resp :any) => {
             console.log(resp);
@@ -175,9 +175,9 @@ export class UsuarioService {
       .pipe(
         delay(500), 
         map( resp => {
-          console.log(resp);
+          console.log('usuarios...' + resp);
           const usuarios = resp.usuarios.map( 
-            user => new Usuario(user.nombre, user.email, '', user.img, user.google, user.role, user.uid)
+            user => new Usuario(user.nombre, user.email, user.fechaCreacion, user.estado, '', user.img, user.google, user.role, user.uid)
           );
 
           return {
@@ -193,15 +193,23 @@ export class UsuarioService {
    * @param usuario 
    * @returns 
    */
-  eliminarUsuario( usuario: Usuario) {
-    console.log('Invocación a UsuarioService(Front) - eliminarUsuario');
-    let dateTime = new Date().toLocaleString()
-    console.log('date:' + dateTime);
-    return this.http.delete(`${ base_url }/usuarios/eliminarUsuario/${ usuario.uid }`, {
+   inactivarUsuario( usuario: Usuario) {
+    console.log('Invocación a UsuarioService(Front) - inactivarUsuario');
+    return this.http.delete(`${ base_url }/usuarios/inactivarUsuario/${ usuario.uid }`, {
       headers: {
         'x-token': this.token
       }
     });
+  }
+
+  /**
+   * 
+   * @param usuario 
+   * @returns 
+   */
+   reactivarUsuario( usuario: Usuario) {
+    console.log('Invocación a UsuarioService(Front) - reactivarUsuario');
+    return this.http.put(`${ base_url }/usuarios/reactivarUsuario/${ usuario.uid }`, usuario, this.headers);
   }
   
   /**
@@ -212,5 +220,36 @@ export class UsuarioService {
   actualizarRoleUsuario( usuario: Usuario) {
     console.log('Invocación a UsuarioService(Front) - actualizarRoleUsuario');
     return this.http.put(`${ base_url }/usuarios/actualizarUsuario/${ usuario.uid }`, usuario, this.headers);
+  }
+
+  /**
+   * 
+   * @param formData 
+   * @returns 
+   */
+  crearNuevoUsuarioApp( formData: RegisterForm ) {
+    console.log('Invocación a UsuarioService(Front) - crearNuevoUsuarioApp');
+    return this.http.post(`${base_url}/usuarios/crearUsuarioPorApp`, formData);
+  }
+
+  /**
+   * 
+   * @param id 
+   * @returns 
+   */
+  buscarUsuarioPorId( id: String) {
+    console.log('Invocacion a UsuarioService(Front) - buscarUsuarioPorId');
+    const url = `${ base_url }/usuarios/buscarUsuarioId/${ id }`;
+    return this.http.get( url, this.headers ).pipe(map( (resp: any) => resp.usuario));
+  }
+
+  /**
+   * 
+   * @param usuarioActualizar 
+   * @returns 
+   */
+   actualizarUsuario( usuarioActualizar: Usuario ) {
+    console.log('Invocación a UsuarioService(Front) - actualizarUsuario');
+    return this.http.put(`${base_url}/usuarios/actualizarUsuario/${ usuarioActualizar.uid }`, usuarioActualizar, this.headers);
   }
 }

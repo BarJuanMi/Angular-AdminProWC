@@ -22,8 +22,21 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Usuarios registrados en la aplicación</h4>
-                <h6 class=" text-right card-subtitle">Total... ({{ totalUsuarios }})</h6>
+
+                <div class="col-12">
+                    <table style="width:100%">
+                        <tr>
+                            <td style="text-align:left">
+                                <button [routerLink]="['/dashboard/nuevoUsuario']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                                <i class="fa fa-user-plus"></i> Crear Usuario </button>
+                            </td>
+                            <td style="text-align:right">
+                                <h6 class=" text-right card-subtitle">Usuarios Registrado ({{ totalUsuarios }})</h6>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                &nbsp;
                 <div class="table-responsive">
                     <table class="table table-bordered color-bordered-table inverse-bordered-table">
                         <thead>
@@ -31,9 +44,10 @@
                                 <th class="w50"></th>
                                 <th>Correo Electrónico</th>
                                 <th>Nombres y Apellidos</th>
-                                <th class="w250 text-center">Rol De usuario</th>
-                                <th class="w100 text-center">Auth</th>
-                                <th class="w100 text-nowrap"></th>
+                                <th class="text-center">Estado</th>
+                                <th class="text-center">Fecha de Creación</th>
+                                <th class="text-center">Rol De usuario</th>
+                                <th class="text-center">Acción</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -41,23 +55,30 @@
                                 <td class="text-center">
                                     <img [src]="usuario.imagenUrl" class="avatar-w40 cursor" alt="Avatar de Usuario" (click)="abrilModalImagen( usuario )">
                                 </td>
-                                <td>{{ usuario.email }}</td>
-                                <td>{{ usuario.nombre }}</td>
-                                <td>
-                                    <select class="form-control" [(ngModel)]="usuario.role" (change)="cambiarRole(usuario)">
-                                        <option value="ADMIN_ROLE">ADMINISTRADOR</option>
-                                        <option value="USER_ROLE">USUARIO DE APP</option>
-                                    </select>
-                                </td>
+                                <td><small>{{ usuario.email }}</small></td>
+                                <td><small>{{ usuario.nombre }}</small></td>
                                 <td class="text-center">
-                                    <span *ngIf="usuario.google" class="label label-danger">Google</span>
-                                    <span *ngIf="!usuario.google" class="label label-info">Email</span>
+                                    <span *ngIf="usuario.estado === 'CREADO'" class="label label-warning">{{ usuario.estado }}</span>
+                                    <span *ngIf="usuario.estado === 'ACTIVO'" class="label label-primary">{{ usuario.estado }}</span>
+                                    <span *ngIf="usuario.estado === 'INACTIVO'" class="label label-danger">{{ usuario.estado }}</span>
+                                </td>
+                                <td class="text-center"><small>{{usuario.fechaCreacion | date}}</small></td>
+                                <td class="text-center">
+                                    <span *ngIf="usuario.role === 'ADMIN_ROLE'" class="label label-success">ADMINISTRADOR</span>
+                                    <span *ngIf="usuario.role === 'USER_ROLE'" class="label label-info">USUARIO DE APP</span>
+                                    <span *ngIf="usuario.role === 'GOD_ROLE'" class="label label-warning">MODO DIOS</span>
                                 </td>
                                 <td class="text-nowrap text-center">
-                                    <a href="#" data-toggle="tooltip" data-original-title="Editar"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                    <a [routerLink]="['/dashboard/actualizarUsuario', usuario.uid]" title="Actualizar Datos de Usuario" data-toggle="tooltip" data-original-title="Actualizar Datos de Usuario">
+                                        <i class="fa fa-pencil text-inverse m-r-10"></i>
+                                    </a>
                                     &nbsp;
-                                    <a class="cursor" data-toggle="tooltip" data-original-title="Eliminar" (click)="eliminarUsuario(usuario)">
+                                    <a *ngIf="usuario.estado !== 'INACTIVO'" class="cursor" title="Inactivar Usuario" data-toggle="tooltip" data-original-title="Inactivar Usuario" (click)="eliminarUsuario(usuario)">
                                         <i class="fa fa-close text-danger"></i>
+                                    </a>
+
+                                    <a *ngIf="usuario.estado === 'INACTIVO'" class="cursor" title="Reactivar Usuario" data-toggle="tooltip" data-original-title="Reactivar Usuario" (click)="reActivarUsuario(usuario)">
+                                        <i class="fa fa-link text-warning"></i>
                                     </a>
                                 </td>
                             </tr>
