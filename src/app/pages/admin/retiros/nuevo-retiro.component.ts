@@ -23,14 +23,15 @@ export class NuevoRetiroComponent implements OnInit {
   public usuario: Usuario;
   fechaActual: Date;
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private modeloService: ModelosService,
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
     private retiroService: RetirosService) 
   { 
     this.usuario = usuarioService.usuario;
-    this.retiro = new Retiro('',null,'',new Date(),null,"GENERADO","",false,false,null,null,'','',false);
+    this.retiro = new Retiro('',null,'',new Date(),null,'GENERADO','',false,false,null,null,'','',false);
     this.fechaActual = new Date();
   }
 

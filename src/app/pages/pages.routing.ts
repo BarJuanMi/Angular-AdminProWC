@@ -30,6 +30,7 @@ import { NuevoRegVacunaComponent } from './admin/vacunas-codiv19/nuevo-reg-vacun
 import { ActualizaRegVacunaComponent } from './admin/vacunas-codiv19/actualiza-reg-vacuna.component';
 import { AdmonswcComponent } from './personalrrhh/admonswc/admonswc.component';
 import { NuevoAdmonComponent } from './personalrrhh/admonswc/nuevo-admon.component';
+import { ActualizaAdmonComponent } from './personalrrhh/admonswc/actualiza-admon.component';
 
 const routes: Routes = [
     {  
@@ -46,26 +47,27 @@ const routes: Routes = [
             {path: 'profile', component: ProfileComponent, data: {titulo: 'My Profile'}},
 
             // Mantenimientos Usuarios
-            {path: 'usuarios', component: UsuariosComponent, data: {titulo: 'Usuarios de aplicación'}},
+            {path: 'usuarios', component: UsuariosComponent, data: {titulo: 'Usuarios de aplicación'} },
             {path: 'nuevoUsuario', component: NuevoUsuarioComponent, data: {titulo: 'Creación de Nuevo Usuario'} },
             {path: 'actualizarUsuario/:id', component: ActualizarUsuarioComponent, data: {titulo: 'Actualización Datos de Usuario'} },
 
-            {path: 'hospitales', component: HospitalesComponent, data: {titulo: 'Manejo de Hospitales'}},
-            {path: 'medicos', component: MedicosComponent, data: {titulo: 'Manejo de Medicos'}},
+            {path: 'hospitales', component: HospitalesComponent, data: {titulo: 'Manejo de Hospitales'} },
+            {path: 'medicos', component: MedicosComponent, data: {titulo: 'Manejo de Medicos'} },
 
             //WebCam Modelos
-            {path: 'modelos', component: ModeloswcComponent, data: {titulo: 'Administración de Modelos'}},
+            {path: 'modelos', component: ModeloswcComponent, data: {titulo: 'Administración de Modelos'} },
             {path: 'nuevaModelo', component: NuevaModeloComponent, data: {titulo: 'Creación de Nueva Modelo'} },
             {path: 'actualizarModelo/:id', component: ActualizaModeloComponent, data: {titulo: 'Actualización Datos de Modelo'} },
 
             //WebCam Monitores
-            {path: 'monitores', component: MonitoreswcComponent, data: {titulo: 'Administración de Monitores'}},
+            {path: 'monitores', component: MonitoreswcComponent, data: {titulo: 'Administración de Monitores'} },
             {path: 'nuevoMonitor', component: NuevoMonitorComponent, data: {titulo: 'Creación de Nueva Monitor'} },
             {path: 'actualizarMonitor/:id', component: ActualizaMonitorComponent, data: {titulo: 'Actualización Datos de Monitor'} },
 
             //WebCam Administrativos
-            {path: 'administrativos', component: AdmonswcComponent, data: {titulo: 'Administración de Empleados Administrativos'}},
+            {path: 'administrativos', component: AdmonswcComponent, data: {titulo: 'Administración de Empleados Administrativos'} },
             {path: 'nuevoAdmon', component: NuevoAdmonComponent, data: {titulo: 'Creación de Nuevo Empleado Administrativo'} },
+            {path: 'actualizarAdmon/:id', component: ActualizaAdmonComponent, data: {titulo: 'Actualización Datos de Emepelado Administrativo'} },
 
             //WebCam Prestamos
             {path: 'prestamos', component: PrestamosComponent, data: {titulo: 'Administración de Prestamos a Modelos'}},
@@ -73,13 +75,13 @@ const routes: Routes = [
 
             //WebCam Retiros
             {path: 'retiros', component: RetirosComponent, data: {titulo: 'Administración de Retiros de Modelos'}},
-            {path: 'nuevoRetiro', component: NuevoRetiroComponent, data: {titulo: 'Creación de Nuevo Retiro'} },
-            {path: 'actualizaRetiro/:id', component: ActualizaRetiroComponent, data: {titulo: 'Actualización Datos de Retiro'} },
+            {path: 'nuevoRetiro', component: NuevoRetiroComponent, data: {titulo: 'Creación de Nuevo Retiro'}},
+            {path: 'actualizaRetiro/:id', component: ActualizaRetiroComponent, data: {titulo: 'Actualización Datos de Retiro'}},
 
             //WebCam Vacunas
-            {path: 'vacunados', component: VacunasCodiv19Component, data: {titulo: 'Administración de Registros de vacunas para personal'}},
-            {path: 'nuevoRegVacunado', component: NuevoRegVacunaComponent, data: {titulo: 'Creación de Nuevo Registro de Vacuna para empleado'} },
-            {path: 'actualizaRegVacunado/:id', component: ActualizaRegVacunaComponent, data: {titulo: 'Actualización de Registro de Vacuna para empleado'} },
+            {path: 'vacunados', component: VacunasCodiv19Component, data: {titulo: 'Administración de Registros de vacunas para empleados'}},
+            {path: 'nuevoRegVacuna', component: NuevoRegVacunaComponent, data: {titulo: 'Creación de Nuevo Registro de Vacuna para empleado'}},
+            {path: 'agregarRegDosis/:id', component: ActualizaRegVacunaComponent, data: {titulo: 'Agregar registro de dosis de vacuna para empleado'}},
         ]
     },
 ];

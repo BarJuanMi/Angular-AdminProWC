@@ -14,7 +14,6 @@
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-face-smile"></i></div>
                                     <select class="form-control custom-select" id="model" formControlName="modelo">
-                                        <option value="">--Seleccione Modelo--</option>
                                         <option *ngFor="let modelo of modelosList" [value]="modelo._id">{{modelo.nombres}} {{modelo.apellidos}}</option>
                                     </select>
                                 </div>

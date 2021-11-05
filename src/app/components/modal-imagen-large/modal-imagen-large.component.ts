@@ -1,27 +1,27 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalImageLargeService } from 'src/app/services/modal-image-large.service';
 import { FileUploadService } from '../../services/file-upload.service';
-import { ModalImagenService } from '../../services/modal-imagen.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-modal-imagen',
-  templateUrl: './modal-imagen.component.html',
+  selector: 'app-modal-imagen-large',
+  templateUrl: './modal-imagen-large.component.html',
   styles: [
   ]
 })
-export class ModalImagenComponent implements OnInit {
+export class ModalImagenLargeComponent implements OnInit {
 
   public imagenSubir: File;
   public imgTemp: any = null;
 
-  constructor(public modalImagenService: ModalImagenService,
+  constructor(public modalImageLargeService: ModalImageLargeService,
               public fileUploadService: FileUploadService) {}
 
   ngOnInit(): void {}
 
-  cerrarModal() {
+  cerrarModalLarge() {
     this.imgTemp = null;
-    this.modalImagenService.cerrarModal();
+    this.modalImageLargeService.cerrarModalLarge();
   }
 
   /**
@@ -29,7 +29,7 @@ export class ModalImagenComponent implements OnInit {
    * @param file 
    * @returns 
    */
-   cambiarImagenProfile(file: File ) {
+   cambiarImagenRecuadro(file: File ) {
     this.imagenSubir = file;
       
     if (!file ) {
@@ -47,16 +47,16 @@ export class ModalImagenComponent implements OnInit {
   /**
    * 
    */
-   subirImagenProfile() {
-    const id = this.modalImagenService.id;
-    const tipo = this.modalImagenService.tipo;
+   subirImagenRecuadro() {
+    const id = this.modalImageLargeService.id;
+    const tipo = this.modalImageLargeService.tipo;
 
     this.fileUploadService
         .actualizarFoto(this.imagenSubir, tipo, id)
         .then(img => {
           Swal.fire('Guardado', 'Imagen actualizada satisfactoriamente.', 'success');
-          this.modalImagenService.nuevaImagen.emit(img);
-          this.cerrarModal();
+          this.modalImageLargeService.nuevaImagenLarge.emit(img);
+          this.cerrarModalLarge();
         }, (err) => {
           console.log(err);
           Swal.fire('Error', 'No se pudo subir la imagen a la nube', 'error');

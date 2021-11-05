@@ -1,1 +1,95 @@
-<p>nuevo-reg-vacuna works!</p>
+<div class="row animated fadeInLeft">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header bg-info">
+                <h4 class="m-b-0 text-white">Registro de Primera Dosis de vacuna para empleado</h4>
+            </div>
+            <div class="card-body">
+                <form class="form p-t-20" [formGroup]="primDosisForm" (submit)="crearRegPrimDosis()">
+
+                    <div class="row p-t-20">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Usuario que crea registra:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                                    <input type="text" class="form-control" id="usuario" autocomplete="off" formControlName="usuarioNombre" [readOnly]="true">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Nombres y Apellidos de Modelo:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-face-smile"></i></div>
+                                    <select class="form-control custom-select" id="model" formControlName="modelo" required>
+                                        <option *ngFor="let modelo of modelosList" [value]="modelo._id">{{modelo.nombres}} {{modelo.apellidos}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row p-t-20">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Fecha aplicación 1era dosis:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-calendar"></i></div>
+                                    <input type="date" id="fechaPriDosis" class="form-control" formControlName="fechaPriDosis" placeholder="dd/mm/yyyy" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Farmaceutica que aplicó:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-stats-up"></i></div>
+                                    <select formControlName="farmaceutica" class="form-control custom-select" required>
+                                        <option value="">--Seleccione una opción--</option>
+                                        <option value="Pfizer">Pfizer</option>
+                                        <option value="Moderna">Moderna</option>
+                                        <option value="Sinovac">Sinovac</option>
+                                        <option value="Astrazeneca">Astrazeneca</option>
+                                        <option value="Jansen">Jansen</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row p-t-20">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Regulador que aplica:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-crown"></i></div>
+                                    <select class="form-control custom-select" id="regulador" formControlName="regulador" required>
+                                        <option value="EPS PERSONAL">EPS PERSONAL</option>
+                                        <option value="ENTIDAD GOBIERNO">ENTIDAD GOBIERNO</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">¿Presentó sintomatología adversa?</label>
+                                <div class="switch">
+                                    <label>NO<input type="checkbox" formControlName="sintomatologia"><span class="lever switch-col-light-green"></span>SI</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    &nbsp;
+                    <div>
+                        <button type="submit" class="btn btn-success waves-effect waves-light m-r-10"><i class="fa fa-save"></i>  Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

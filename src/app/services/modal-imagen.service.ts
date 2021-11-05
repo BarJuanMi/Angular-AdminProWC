@@ -10,7 +10,7 @@ export class ModalImagenService {
 
   private _ocultarModal: boolean = true;
 
-  public tipo: 'usuarios'|'medicos'|'hospitales'|'modelos'|'monitores'|'administrativos';
+  public tipo: 'usuarios'|'medicos'|'hospitales'|'modelos'|'monitores'|'administrativos'|'vacunados';
   public id: string;
   public img: string;
 
@@ -21,7 +21,7 @@ export class ModalImagenService {
   }
 
   abrirModal(
-    tipo: 'usuarios'|'medicos'|'hospitales'|'modelos'|'monitores'|'administrativos',
+    tipo: 'usuarios'|'medicos'|'hospitales'|'modelos'|'monitores'|'administrativos'|'vacunados',
     id: string,
     img: string = 'no-img'
     ) {

@@ -26,8 +26,9 @@ export class FileObtainPdfService {
    */
    obtenerArchivoPDF( idRetiro:String, nameFilePDF: String, tipoFolderPDF: String) {
     console.log('Invocacion a FileObtainPDFService(Front) - obtenerArchivoPDF');
+    
     const url = `${ base_url }/files/uploadspdf/obtenerpdf/${tipoFolderPDF}/${nameFilePDF}`;
-    console.log('YYY:' + url);
+
     return this.http.get( url, this.usuarioService.headers ).pipe(map( (resp: any) => resp));
   }
 }

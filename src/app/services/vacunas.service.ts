@@ -14,10 +14,12 @@ const base_url = environment.base_url;
   providedIn: 'root'
 })
 export class VacunadosService {
-
+  
+  
   constructor( private http: HttpClient, 
     private router: Router,
-    public usuarioService: UsuarioService) { }
+    public usuarioService: UsuarioService) 
+  { }
 
   /**
    * 
@@ -32,9 +34,9 @@ export class VacunadosService {
         delay(500), 
         map( resp => {
           const vacunados = resp.vacunados.map( 
-            vacunado => new Vacunado(vacunado._id, vacunado.farmaceutica, vacunado.fechaPriDosis,
-              vacunado.fechaSegDosis, vacunado.fechaTerDosis, vacunado.fechaCuarDosis, vacunado.modelo, 
-              vacunado.estado, vacunado.estado, vacunado.usuario, vacunado.img)
+            vacunado => new Vacunado(vacunado._id, '', vacunado.farmaceutica, vacunado.fechaPriDosis,
+              vacunado.fechaSecDosis, vacunado.fechaTerDosis, vacunado.fechaCuarDosis, vacunado.modelo, 
+              vacunado.regulador, vacunado.usuario, false, vacunado.img)
           );
 
           return {
@@ -43,5 +45,36 @@ export class VacunadosService {
           };
         })
       )
+  }
+  
+  /**
+   * 
+   * @param formData 
+   * @returns 
+   */
+  crearPrimerRegVacunado( formData: RegisterForm ) {
+    console.log('Invocación a VacunadosService(Front) - crearPrimerRegVacunado');
+    return this.http.post(`${base_url}/vacunados/crearRegVacunado`, formData, this.usuarioService.headers);
+  }
+
+  /**
+   * 
+   * @param vacunado 
+   * @returns 
+   */
+    eliminarRegVacunado( vacunado: Vacunado ) {
+    console.log('Invocación a VacunadosService(Front) - eliminarRegVacunado');
+    return this.http.delete(`${ base_url }/vacunados/eliminarRegVacunado/${ vacunado._id }`, this.usuarioService.headers);
+  }
+  
+  /**
+   * 
+   * @param arg0 
+   * @param arg1 
+   */
+  crearRegistroDosis(vacunado: Vacunado, fechaDosisIN: string, numDosisIN: string) {
+    var jsonStruc = {fechaDosis: fechaDosisIN, numDosis: numDosisIN};
+    console.log('Invocación a VacunadosService(Front) - crearRegistroDosis');
+    return this.http.put(`${base_url}/vacunados/crearRegDosis/${ vacunado._id }`, jsonStruc, this.usuarioService.headers);
   }
 }

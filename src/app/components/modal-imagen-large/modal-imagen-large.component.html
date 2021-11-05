@@ -1,0 +1,25 @@
+<div class="fondo-modal-imagen animated fadeIn fast" [class.oculto]="modalImageLargeService.ocultarModalLarge">
+    <div class="modal fade show" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" style="display: block;">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLabel1">Cargar Imagen</h4>
+                    <button type="button" (click)="cerrarModalLarge()" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <h3>Seleccione una imagen</h3>
+                    <div class="text-center">
+                        <img *ngIf="!imgTemp" [src]="modalImageLargeService.img" class="img-upload-large">
+                        <img *ngIf="imgTemp" [src]="imgTemp" class="img-upload-large">
+                    </div>
+                    <br>
+                    <input type="file" (change)="cambiarImagenRecuadro($event.target.files[0])">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" (click)="cerrarModalLarge()" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" (click)="subirImagenRecuadro()">Cargar Imagen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -34,6 +34,7 @@ import { NuevoRegVacunaComponent } from './admin/vacunas-codiv19/nuevo-reg-vacun
 import { ActualizaRegVacunaComponent } from './admin/vacunas-codiv19/actualiza-reg-vacuna.component';
 import { AdmonswcComponent } from './personalrrhh/admonswc/admonswc.component';
 import { NuevoAdmonComponent } from './personalrrhh/admonswc/nuevo-admon.component';
+import { ActualizaAdmonComponent } from './personalrrhh/admonswc/actualiza-admon.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { NuevoAdmonComponent } from './personalrrhh/admonswc/nuevo-admon.compone
     NuevoRegVacunaComponent,
     ActualizaRegVacunaComponent,
     AdmonswcComponent,
-    NuevoAdmonComponent
+    NuevoAdmonComponent,
+    ActualizaAdmonComponent
   ],
   exports: [
     DashboardComponent,

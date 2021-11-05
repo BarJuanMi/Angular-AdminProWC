@@ -17,7 +17,7 @@
                         <tr>
                             <td style="text-align:left">
                                 <button [routerLink]="['/dashboard/nuevoRegVacuna']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
-                                <i class="fa fa-user-plus"></i> Crear Registro Vacunado </button>
+                                <i class="fa fa-user-plus"></i> Crear Registro 1era Dosis </button>
                             </td>
                             <td style="text-align:right">
                                 <h6>Cantidad de registros (<small>{{ totalVacunados }}</small>)</h6>
@@ -31,42 +31,38 @@
                         <thead>
                             <tr>
                                 <th class="w50"></th>
-                                <th>Documento</th>
-                                <th>Nombres y Apellidos</th>
-                                <th>Correo Electrónico</th>
-                                <th>Tel. Celular</th>
-                                <th>Entidad Bancaria</th>
-                                <th># Cuenta</th>
-                                <th class="text-center">Estado</th>
+                                <th class="text-center">Empleado</th>
+                                <th class="text-center">Farmaceutica</th>
+                                <th class="text-center">1era Dosis</th>
+                                <th class="text-center">2da Dosis</th>
+                                <th class="text-center">3era Dosis</th>
+                                <th class="text-center">4ta Dosis</th>
+                                <th class="text-center">Regulador</th>
+                                <th class="text-center">Usuario registro</th>
                                 <th class="text-center">Acción</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let vacunado of vacunados">
                                 <td class="text-center">
-                                    <img [src]="vacunado.imagenUrl" class="avatar-w40 cursor" alt="Carnet de vacunación" (click)="abrilModalImagen( vacunado )">
+                                    <img [src]="vacunado.imagenUrl" class="avatar-w40 cursor" alt="Carnet de vacunación" (click)="abrilModalImagenLarge( vacunado )">
                                 </td>
-                                <td><small>{{modelo.tipoDocumento}}-{{modelo.documento}}</small></td>
-                                <td><small><a href="" (click)="verDetallesModelo(modelo)" data-toggle="modal" data-target="#datosModeloModal">{{modelo.nombres}} {{modelo.apellidos}}</a></small></td>
-                                <td><small>{{modelo.emailCorporativo}}</small></td>
-                                <td><small>{{modelo.telCelular}}</small></td>
-                                <td><small>{{modelo.entidadBanco}}</small></td>
-                                <td><small>{{modelo.numCuentaBanco}}</small></td>
-                                <td class="text-center">
-                                    <span *ngIf="modelo.estado" class="label label-success">ACTIVO</span>
-                                    <span *ngIf="!modelo.estado" class="label label-danger">INACTIVO</span>
-                                </td>
+                                <td><small>{{vacunado.modelo.documento}} - {{vacunado.modelo.nombres}} {{vacunado.modelo.apellidos}}</small></td>
+                                <td class="text-center"><small>{{vacunado.farmaceutica}}</small></td>
+                                <td class="text-center"><small>{{vacunado.fechaPriDosis | date}}</small></td>
+                                <td class="text-center"><small>{{vacunado.fechaSecDosis | date}}</small></td>
+                                <td class="text-center"><small>{{vacunado.fechaTerDosis | date}}</small></td>
+                                <td class="text-center"><small>{{vacunado.fechaCuarDosis | date}}</small></td>
+                                <td class="text-center"><small>{{vacunado.regulador}}</small></td>
+                                <td class="text-center"><small>{{vacunado.usuario.nombre}}</small></td>
+
                                 <td class="text-nowrap text-center">
-                                    <a [routerLink]="['/dashboard/actualizarModelo', modelo._id]" title="Actualizar Datos de Modelo" data-toggle="tooltip" data-original-title="Actualizar Datos de Modelo">
+                                    <a class="cursor" title="Agregar registro de nueva dosis" data-toggle="tooltip" data-original-title="Agregar registro de nueva dosis" (click)="adicionarRegDosis(vacunado)">
                                         <i class="fa fa-pencil text-inverse m-r-10"></i>
                                     </a>
                                     &nbsp;
-                                    <a *ngIf="modelo.estado" class="cursor" title="Inactivar Modelo" data-toggle="tooltip" data-original-title="Inactivar Modelo del Sistema" (click)="inactivarModelo(modelo)">
+                                    <a class="cursor" title="Eliminar registro" data-toggle="tooltip" data-original-title="Eliminar registro" (click)="eliminarRegVacunado(vacunado)">
                                         <i class="fa fa-close text-danger"></i>
-                                    </a>
-
-                                    <a *ngIf="!modelo.estado" class="cursor" title="Reactivar Modelo" data-toggle="tooltip" data-original-title="Reactivar Modelo en el Sistema" (click)="reActivarModelo(modelo)">
-                                        <i class="fa fa-link text-warning"></i>
                                     </a>
                                 </td>
                             </tr>
