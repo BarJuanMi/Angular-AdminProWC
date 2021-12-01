@@ -26,7 +26,7 @@ export class NuevaModeloComponent implements OnInit {
               private modelosService: ModelosService,
               private utilesListService: UtileslistService) 
   {
-    this.modelo = new ModeloWC('','','','','','','','','','','','','','',false,'','',new Pais('','','',''),new Ciudad('','',''),'','','','','');
+    this.modelo = new ModeloWC('','','','','','','','','','','','','','',false,'','',null,null,'','','','','');
   }
 
   ngOnInit(): void {

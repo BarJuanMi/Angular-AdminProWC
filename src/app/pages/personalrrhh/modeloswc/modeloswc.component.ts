@@ -176,9 +176,6 @@ export class ModeloswcComponent implements OnInit {
     this.modeloService.buscarModeloParticularWC( modelo ).subscribe( modeloRet => {
       this.modeloWCDetalle = modeloRet;
 
-      console.log(this.modeloWCDetalle.nacionalidad.countryName);
-      console.log(this.modeloWCDetalle.ciudadResidencia.ciudadName);
-
       const fNacFormat = new Date(this.modeloWCDetalle.fechaNac);
       const fIngFormat = new Date(this.modeloWCDetalle.fechaIngreso);
       const fCreaFormat = new Date(this.modeloWCDetalle.fechaCreacionApp);

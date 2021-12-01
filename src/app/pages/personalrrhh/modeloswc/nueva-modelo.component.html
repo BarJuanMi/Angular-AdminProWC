@@ -63,6 +63,7 @@
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-anchor"></i></div>
                                     <select class="form-control custom-select" formControlName="nacionalidad" required>
+                                        <option value="null">--Seleccione una opción--</option>
                                         <option *ngFor="let pais of paisesList" [value]="pais._id">{{pais.countryCode}} - {{pais.countryName}}</option>
                                     </select>
                                 </div>
@@ -118,6 +119,7 @@
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-anchor"></i></div>
                                     <select class="form-control custom-select" formControlName="ciudadResidencia" required>
+                                        <option value="null">--Seleccione una opción--</option>
                                         <option *ngFor="let ciudad of ciudadesList" [value]="ciudad._id">{{ciudad.ciudadName}}</option>
                                     </select>
                                 </div>
