@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <input type="text" class="form-control" placeholder="Buscar empleado adminsitrativo..." #txtTermino (keyup)="buscarAdmonsTermino(txtTermino.value)" />
+                <input type="text" class="form-control" placeholder="Buscar empleado administrativo..." #txtTermino (keyup)="buscarAdmonsTermino(txtTermino.value)" />
             </div>
         </div>
     </div>
@@ -26,11 +26,11 @@
                     <table style="width:100%">
                         <tr>
                             <td style="text-align:left">
-                                <button [routerLink]="['/dashboard/nuevoAdmon']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                                <button [routerLink]="['/dashboard/nuevoEmpleado/Administrador']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
                                 <i class="fa fa-user-plus"></i> Crear Empleado Administrativo </button>
                             </td>
                             <td style="text-align:right">
-                                <h6>Empleados Adminsitrativos registrados (<small>{{ totalAdmons }}</small>)</h6>
+                                <h6>Empleados Administrativos registrados (<small>{{ totalAdmons }}</small>)</h6>
                             </td>
                         </tr>
                     </table>

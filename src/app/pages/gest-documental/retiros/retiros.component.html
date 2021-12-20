@@ -31,7 +31,7 @@
                         <thead>
                             <tr>
                                 <th>Id de transacción</th>
-                                <th>Modelo asociada al retiro</th>
+                                <th>Empleado asociado al retiro</th>
                                 <th class="text-center">Estado</th>
                                 <th class="text-center">PDF</th>
                                 <th class="text-center">Fecha de renuncia</th>
@@ -44,7 +44,7 @@
                         <tbody>
                             <tr *ngFor="let retiro of retiros">
                                 <td><small><a href="" (click)="verDetallesRetiro(retiro)" data-toggle="modal" data-target="#datosRetiroModal">{{retiro._id}}</a></small></td>
-                                <td><small>{{retiro.modelo.documento}} - {{retiro.modelo.nombres}} {{retiro.modelo.apellidos}}</small></td>
+                                <td><small>{{retiro.empleado.documento}} - {{retiro.empleado.nombApellConca}}</small></td>
                                 <td class="text-center">
                                     <span *ngIf="retiro.estado === 'GENERADO'" class="label label-info">{{retiro.estado}}</span>
                                     <span *ngIf="retiro.estado === 'FIRMADO'" class="label label-success">{{retiro.estado}}</span>

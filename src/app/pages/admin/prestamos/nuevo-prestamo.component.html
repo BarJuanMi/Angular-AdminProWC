@@ -20,12 +20,12 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label label-form-decora">Nombres y Apellidos de Modelo:</label>
+                                <label class="control-label label-form-decora">Nombres y Apellidos de Empleado:</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-face-smile"></i></div>
-                                    <select class="form-control custom-select" id="model" formControlName="modelo" required>
-                                        <option value="">--Seleccione Modelo--</option>
-                                        <option *ngFor="let modelo of modelosList" [value]="modelo._id">{{modelo.nombres}} {{modelo.apellidos}}</option>
+                                    <select class="form-control custom-select" id="model" formControlName="empleado" required>
+                                        <option value="null">--Seleccione una opción--</option>
+                                        <option *ngFor="let empleado of empleadosList" [value]="empleado._id">{{empleado.nombApellConca}}</option>
                                     </select>
                                 </div>
                             </div>

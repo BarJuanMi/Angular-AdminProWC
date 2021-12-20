@@ -5,10 +5,12 @@ import Swal from 'sweetalert2';
 import { ModeloWC } from 'src/app/models/modelowc.model';
 import { BusquedasService } from 'src/app/services/busquedas.service';
 import { ModalImagenService } from 'src/app/services/modal-imagen.service';
-import { ModelosService } from '../../../services/modelos.service';
-import { MAP_MONTHS } from 'src/app/utils/config';
 import { Pais } from 'src/app/models/pais.util.model';
 import { Ciudad } from 'src/app/models/ciudad.util.model';
+import { Empleado } from 'src/app/models/empleado.model';
+import { TipoEmpleado } from 'src/app/models/tipoempleado.model';
+import { EmpleadosService } from '../../../services/empleados.service';
+import { Usuario } from 'src/app/models/usuario.model';
 
 @Component({
   selector: 'app-modeloswc',
@@ -19,35 +21,37 @@ import { Ciudad } from 'src/app/models/ciudad.util.model';
 export class ModeloswcComponent implements OnInit {
 
   public totalModelos: number = 0;
-  public modelos: ModeloWC[] = [];
-  public modelosTemp: ModeloWC[] = [];
-  public modeloWCDetalle: ModeloWC = new ModeloWC('', '', '', '', '', '', '', '', '', '', '', '', '', '',
-                      false, '', '', new Pais('', '', '', ''), new Ciudad('', '', ''), '', '', '', '', '');
+  public modelos: Empleado[] = [];
+  public modelosTemp: Empleado[] = [];
+  public modeloWCDetalle: Empleado = new Empleado('','','','','','','',new TipoEmpleado('','',''),null,'','','','','','',null,
+                                                  false,'',null,new Pais('','','',''),new Ciudad('','',''),'','',
+                                                  new Usuario('','',null,'','','',false,'','',''),'','','',null,'');
+
   public imgSubs: Subscription;
   public desde: number = 0;
   public cargando: boolean = true;
   public mostrarBotones: boolean = true;
 
-  constructor(private modeloService: ModelosService,
+  constructor(private empleadosService: EmpleadosService,
               private busquedasService: BusquedasService,
               private modalImagenService: ModalImagenService) { }
 
   ngOnInit(): void {
-    this.cargarModelos();
+    this.cargarEmpleadosModelos();
     this.imgSubs = this.modalImagenService.nuevaImagen
     .pipe(delay(300))
-    .subscribe ( img => this.cargarModelos() );
+    .subscribe ( img => this.cargarEmpleadosModelos() );
   }
 
   /**
    * 
    */
-  cargarModelos() {
+  cargarEmpleadosModelos() {
     this.cargando = true;
-    this.modeloService.cargarModelosDesde(this.desde).subscribe( ({ total, modelos}) => {
+    this.empleadosService.cargarEmpleadosxTipoDesde('modelo', this.desde).subscribe( ({ total, empleados}) => {
       this.totalModelos = total;
-      this.modelos = modelos;
-      this.modelosTemp = modelos;
+      this.modelos = empleados;
+      this.modelosTemp = empleados;
       this.cargando = false;
     });
   }
@@ -65,7 +69,7 @@ export class ModeloswcComponent implements OnInit {
       this.desde -=  valor;
     }
 
-    this.cargarModelos();
+    this.cargarEmpleadosModelos();
   }
 
   /**
@@ -83,8 +87,8 @@ export class ModeloswcComponent implements OnInit {
       return this.modelos = this.modelosTemp;
     }
 
-    this.busquedasService.buscarPorColeccion( 'modelos', termino)
-        .subscribe( (resultados: ModeloWC[]) => {
+    this.busquedasService.buscarTerminoEnEmpleados( 'empleados', 'modelo', termino)
+        .subscribe( (resultados: Empleado[]) => {
           this.modelos = resultados;
         });
   }
@@ -101,9 +105,9 @@ export class ModeloswcComponent implements OnInit {
    * Metodo que permite inactivar a una modelo, cambiando el estado de la misma en el sistema
    * @param modelo Objeto de tipo modelo al cual se le cambiará el estado
    */
-  inactivarModelo( modelo: ModeloWC) {
+  inactivarModelo( modelo: Empleado) {
     Swal.fire({
-      title: '<small>Esta seguro de inactivar la modelo ' + modelo.nombres + ' ' + modelo.apellidos + '?</small>',
+      title: '<small>Esta seguro de inactivar la modelo ' + modelo.nombApellConca + '?</small>',
       text: '',
       icon: 'question',
       showCancelButton: true,
@@ -119,14 +123,14 @@ export class ModeloswcComponent implements OnInit {
       `
     }).then((result) => {
       if (result.isConfirmed){
-        this.modeloService.modificarEstadoModelo( modelo, false )
+        this.empleadosService.modificarEstadoEmpleado( modelo, false )
           .subscribe (resp => {
             Swal.fire(
               'Correcto!',
               'La modelo ha sido inactivada exitosamente.',
               'success'
             );
-            this.cargarModelos();
+            this.cargarEmpleadosModelos();
           });
       }
     });
@@ -136,9 +140,9 @@ export class ModeloswcComponent implements OnInit {
    * Metodo que permite reactivar a una modelo, cambiando el estado de la misma en el sistema
    * @param modelo Objeto de tipo modelo al cual se le cambiará el estado
    */
-   reActivarModelo( modelo: ModeloWC) {
+   reActivarModelo( modelo: Empleado) {
     Swal.fire({
-      title: '<small>Esta seguro de reactivar la modelo ' + modelo.nombres + ' ' + modelo.apellidos + '?</small>',
+      title: '<small>Esta seguro de reactivar la modelo ' + modelo.nombApellConca + '?</small>',
       text: '',
       icon: 'question',
       showCancelButton: true,
@@ -154,14 +158,14 @@ export class ModeloswcComponent implements OnInit {
       `
     }).then((result) => {
       if (result.isConfirmed){
-        this.modeloService.modificarEstadoModelo( modelo, true )
+        this.empleadosService.modificarEstadoEmpleado( modelo, true )
           .subscribe (resp => {
             Swal.fire(
               'Correcto!',
               'La modelo ha sido reactivada exitosamente en el sistema.',
               'success'
             );
-            this.cargarModelos();
+            this.cargarEmpleadosModelos();
           });
       }
     });
@@ -172,22 +176,9 @@ export class ModeloswcComponent implements OnInit {
    * la cual es seleccionada en la vista principal por la grilla de modelos.
    * @param modelo Objeto tipo modelo a quien se le consultara la informacion
    */
-   verDetallesModelo(modelo: ModeloWC) {
-    this.modeloService.buscarModeloParticularWC( modelo ).subscribe( modeloRet => {
+   verDetallesModelo(modelo: Empleado) {
+    this.empleadosService.buscarEmpleadoParticular( modelo ).subscribe( modeloRet => {
       this.modeloWCDetalle = modeloRet;
-
-      const fNacFormat = new Date(this.modeloWCDetalle.fechaNac);
-      const fIngFormat = new Date(this.modeloWCDetalle.fechaIngreso);
-      const fCreaFormat = new Date(this.modeloWCDetalle.fechaCreacionApp);
-      const fInacFormat = new Date(this.modeloWCDetalle.fechaInactivacion);
-
-      this.modeloWCDetalle.fechaNac = fNacFormat.getDate() + '-' + MAP_MONTHS.get(fNacFormat.getMonth()) + '-' + fNacFormat.getFullYear();
-      this.modeloWCDetalle.fechaIngreso = fIngFormat.getDate() + '-' + MAP_MONTHS.get(fIngFormat.getMonth())
-      + '-' + fIngFormat.getFullYear();
-      this.modeloWCDetalle.fechaCreacionApp = fCreaFormat.getDate() + '-' + MAP_MONTHS.get(fCreaFormat.getMonth())
-      + '-' + fCreaFormat.getFullYear();
-      this.modeloWCDetalle.fechaInactivacion = fInacFormat.getDate() + '-' + MAP_MONTHS.get(fInacFormat.getMonth())
-      + '-' + fInacFormat.getFullYear();
     });
   }
 

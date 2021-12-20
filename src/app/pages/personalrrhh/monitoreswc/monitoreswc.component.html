@@ -26,7 +26,7 @@
                     <table style="width:100%">
                         <tr>
                             <td style="text-align:left">
-                                <button [routerLink]="['/dashboard/nuevoMonitor']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                                <button [routerLink]="['/dashboard/nuevoEmpleado/Monitor']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
                                 <i class="fa fa-user-plus"></i> Crear Monitor </button>
                             </td>
                             <td style="text-align:right">
@@ -125,7 +125,6 @@
                             <tr>Dir. Residencia</tr>
                             <tr>Fecha Enrolamiento</tr>
                             <tr *ngIf="!monitorWCDetalle.estado">Fecha Inactivación</tr>
-                            <tr>Recomendado por Agencia</tr>
                         </th>
 
                         <th>
@@ -135,16 +134,14 @@
                             <tr style="color:cadetblue; font-size:13">{{ monitorWCDetalle.tipoDocumento}}</tr>
                             <tr style="color:cadetblue; font-size:13">{{ monitorWCDetalle.genero}}</tr>
                             <tr style="color:cadetblue; font-size:13">{{ monitorWCDetalle.rh}}</tr>
-                            <tr style="color:cadetblue; font-size:13">{{ monitorWCDetalle.fechaNac}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ monitorWCDetalle.fechaNac | date}}</tr>
                             <tr style="color:cadetblue; font-size:13">{{ monitorWCDetalle.numHijos}}</tr>
                             <tr style="color:cadetblue; font-size:13">{{ monitorWCDetalle.nomContEmer}}</tr>
                             <tr style="color:cadetblue; font-size:13">{{ monitorWCDetalle.telContEmer}}</tr>
-                            <tr style="color:cadetblue; font-size:13">{{ monitorWCDetalle.fechaIngreso}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ monitorWCDetalle.fechaIngreso | date}}</tr>
                             <tr style="color:cadetblue; font-size:13">{{ monitorWCDetalle.direccion}}</tr>
-                            <tr style="color:cadetblue; font-size:13">{{ monitorWCDetalle.fechaCreacionApp}}</tr>
-                            <tr *ngIf="!monitorWCDetalle.estado" style="color:rgb(214, 57, 57); font-size:13">{{ monitorWCDetalle.fechaInactivacion}}</tr>
-                            <span *ngIf="monitorWCDetalle.recomendado" class="label label-success">SI</span>
-                            <span *ngIf="!monitorWCDetalle.recomendado" class="label label-success">NO</span>
+                            <tr style="color:cadetblue; font-size:13">{{ monitorWCDetalle.fechaCreacionApp | date}}</tr>
+                            <tr *ngIf="!monitorWCDetalle.estado" style="color:rgb(214, 57, 57); font-size:13">{{ monitorWCDetalle.fechaInactivacion | date}}</tr>
                         </th>
                     </table>
                 </div>

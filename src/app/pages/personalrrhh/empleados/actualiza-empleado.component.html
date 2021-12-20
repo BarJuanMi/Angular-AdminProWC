@@ -2,10 +2,10 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header bg-info">
-                <h4 class="m-b-0 text-white">Información Personal de Empleado Adminsitrativo</h4>
+                <h4 class="m-b-0 text-white">Informaciónnn Personal de {{tipoEmpleActua}}</h4>
             </div>
             <div class="card-body">
-                <form ngNativeValidate #f="ngForm" (ngSubmit)="actualizarDatosAdmonWC(f)" class="form p-t-20">
+                <form ngNativeValidate #f="ngForm" (ngSubmit)="actualizarDatosEmpleado(f)" class="form p-t-20">
 
                     <div class="row p-t-20">
                         <div class="col-md-6">
@@ -13,7 +13,7 @@
                                 <label class="control-label label-form-decora">Documento</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-quote-right"></i></div>
-                                    <input [(ngModel)]="admonActualizar.documento" [readonly]="true" name="documento" autocomplete="off" type="text" id="document" class="form-control" required>
+                                    <input [(ngModel)]="empleadoActualizar.documento" [readonly]="true" name="documento" autocomplete="off" type="text" id="document" class="form-control" required>
                                 </div>
                             </div>
                         </div>
@@ -22,7 +22,7 @@
                                 <label class="control-label label-form-decora">Tipo Documento</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-layout-menu-v"></i></div>
-                                    <select [(ngModel)]="admonActualizar.tipoDocumento" name="tipoDocumento" class="form-control custom-select" required>
+                                    <select [(ngModel)]="empleadoActualizar.tipoDocumento" name="tipoDocumento" class="form-control custom-select" required>
                                         <option value="">--Seleccione una opción--</option>
                                         <option value="C.C.">Cédula de Ciudadanía</option>
                                         <option value="C.E.">Cédula de Extranjería</option>
@@ -40,7 +40,7 @@
                                 <label class="control-label label-form-decora">Nombres</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-user"></i></div>
-                                    <input [(ngModel)]="admonActualizar.nombres" name="nombres" autocomplete="off" placeholder="Juanita" type="text" id="names" class="form-control" required>
+                                    <input [(ngModel)]="empleadoActualizar.nombres" name="nombres" autocomplete="off" placeholder="Juanita" type="text" id="names" class="form-control" required>
                                 </div>
                             </div>
                         </div>
@@ -49,7 +49,7 @@
                                 <label class="control-label label-form-decora">Apellidos</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-user"></i></div>
-                                    <input [(ngModel)]="admonActualizar.apellidos" name="apellidos" autocomplete="off" type="text" id="surnames" placeholder="Perez Perez" class="form-control" required>
+                                    <input [(ngModel)]="empleadoActualizar.apellidos" name="apellidos" autocomplete="off" type="text" id="surnames" placeholder="Perez Perez" class="form-control" required>
                                 </div>
                             </div>
                         </div>
@@ -61,7 +61,7 @@
                                 <label class="control-label label-form-decora">Genero</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-anchor"></i></div>
-                                    <select [(ngModel)]="admonActualizar.genero" name="genero" class="form-control custom-select" required>
+                                    <select [(ngModel)]="empleadoActualizar.genero" name="genero" class="form-control custom-select" required>
                                         <option value="">--Seleccione una opción--</option>
                                         <option value="FEMENINO">Femenino</option>
                                         <option value="MASCULINO">Masculino</option>
@@ -74,7 +74,7 @@
                                 <label class="control-label label-form-decora">Número de Hijos</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-face-smile"></i></div>
-                                    <input [(ngModel)]="admonActualizar.numHijos" name="numHijos" autocomplete="off" type="text" id="numberChildren" class="form-control">
+                                    <input [(ngModel)]="empleadoActualizar.numHijos" name="numHijos" autocomplete="off" type="text" id="numberChildren" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -86,7 +86,7 @@
                                 <label class="control-label label-form-decora">Correo Electrónico</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-email"></i></div>
-                                    <input [(ngModel)]="admonActualizar.emailCorporativo" name="emailCorporativo" placeholder="test@test.com" autocomplete="off" type="text" id="email" class="form-control" required>
+                                    <input [(ngModel)]="empleadoActualizar.emailCorporativo" name="emailCorporativo" placeholder="test@test.com" autocomplete="off" type="text" id="email" class="form-control" required>
                                 </div>
                             </div>
                         </div>
@@ -95,7 +95,7 @@
                                 <label class="control-label label-form-decora">Teléfono Célular</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-mobile"></i></div>
-                                    <input [(ngModel)]="admonActualizar.telCelular" name="telCelular" autocomplete="off" type="text" id="cellPhone" class="form-control" placeholder="###-#######" required>
+                                    <input [(ngModel)]="empleadoActualizar.telCelular" name="telCelular" autocomplete="off" type="text" id="cellPhone" class="form-control" placeholder="###-#######" required>
                                 </div>
                             </div>
                         </div>
@@ -107,7 +107,7 @@
                                 <label class="control-label label-form-decora">Dirección Residencia</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-world"></i></div>
-                                    <input [(ngModel)]="admonActualizar.direccion" name="direccion" autocomplete="off" type="text" id="address" class="form-control" placeholder="Cra. 1 # 1-1" required>
+                                    <input [(ngModel)]="empleadoActualizar.direccion" name="direccion" autocomplete="off" type="text" id="address" class="form-control" placeholder="Cra. 1 # 1-1" required>
                                 </div>
                             </div>
                         </div>
@@ -116,7 +116,7 @@
                                 <label class="control-label label-form-decora">RH Sanguineo</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-anchor"></i></div>
-                                    <select [(ngModel)]="admonActualizar.rh" name="rh" class="form-control custom-select" required>
+                                    <select [(ngModel)]="empleadoActualizar.rh" name="rh" class="form-control custom-select" required>
                                         <option value="">--Seleccione una opción--</option>
                                         <option value="O+">O+</option>
                                         <option value="O-">O-</option>
@@ -138,7 +138,7 @@
                                 <label class="control-label label-form-decora">Contacto Emergencia</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-id-badge"></i></div>
-                                    <input [(ngModel)]="admonActualizar.nomContEmer" name="nomContEmer" autocomplete="off" type="text" id="emergencyContact" class="form-control" placeholder="Carlota Perez Perez" required>
+                                    <input [(ngModel)]="empleadoActualizar.nomContEmer" name="nomContEmer" autocomplete="off" type="text" id="emergencyContact" class="form-control" placeholder="Carlota Perez Perez" required>
                                 </div>
                             </div>
                         </div>
@@ -147,7 +147,7 @@
                                 <label class="control-label label-form-decora">Telefóno Emergencia</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-bell"></i></div>
-                                    <input [(ngModel)]="admonActualizar.telContEmer" name="telContEmer" autocomplete="off" type="text" id="emergencyPhone" class="form-control" placeholder="###-#######" required>
+                                    <input [(ngModel)]="empleadoActualizar.telContEmer" name="telContEmer" autocomplete="off" type="text" id="emergencyPhone" class="form-control" placeholder="###-#######" required>
                                 </div>
                             </div>
                         </div>
@@ -159,7 +159,7 @@
                                 <label class="control-label label-form-decora">Entidad Bancaria</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-stats-up"></i></div>
-                                    <select [(ngModel)]="admonActualizar.entidadBanco" name="entidadBanco" class="form-control custom-select" required>
+                                    <select [(ngModel)]="empleadoActualizar.entidadBanco" name="entidadBanco" class="form-control custom-select" required>
                                         <option value="">--Seleccione una opción--</option>
                                         <option value="Bancamia S.A.">Bancamia S.A.</option>
                                         <option value="Banco Agrario">Banco Agrario</option>
@@ -192,7 +192,7 @@
                                 <label class="control-label label-form-decora">Cuenta Bancaria</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-money "></i></div>
-                                    <input [(ngModel)]="admonActualizar.numCuentaBanco" name="numCuentaBanco" autocomplete="off" type="text" id="bankAccount" class="form-control" placeholder="#-######-#" required>
+                                    <input [(ngModel)]="empleadoActualizar.numCuentaBanco" name="numCuentaBanco" autocomplete="off" type="text" id="bankAccount" class="form-control" placeholder="#-######-#" required>
                                 </div>
                             </div>
                         </div>
@@ -204,7 +204,7 @@
                                 <label class="control-label label-form-decora">Nacionalidad</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-anchor"></i></div>
-                                    <select [(ngModel)]="admonActualizar.nacionalidad._id" name="nacionalidad" class="form-control custom-select" required>
+                                    <select [(ngModel)]="empleadoActualizar.nacionalidad._id" name="nacionalidad" class="form-control custom-select" required>
                                         <option value="">--Seleccione País--</option>
                                         <option *ngFor="let pais of paisesList" [value]="pais._id">{{pais.countryCode}} - {{pais.countryName}}</option>
                                     </select>
@@ -217,7 +217,7 @@
                                 <label class="control-label label-form-decora">Ciudad de Residencia</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-anchor"></i></div>
-                                    <select [(ngModel)]="admonActualizar.ciudadResidencia._id" name="ciudadResidencia" class="form-control custom-select" required>
+                                    <select [(ngModel)]="empleadoActualizar.ciudadResidencia._id" name="ciudadResidencia" class="form-control custom-select" required>
                                         <option value="">--Seleccione Ciudad--</option>
                                         <option *ngFor="let ciudad of ciudadesList" [value]="ciudad._id">{{ciudad.ciudadName}}</option>
                                     </select>

@@ -1,10 +1,9 @@
-import { Usuario } from './usuario.model';
-import { ModeloWC } from './modelowc.model';
-export class Retiro {
+import { Empleado } from './empleado.model';
 
+export class Retiro {
     constructor(
         public _id: string,
-        public modelo: ModeloWC,
+        public empleado: Empleado,
         public usuarioCreacion: string,
         public fechaRenuncia: Date,
         public fechaRegistro: Date,

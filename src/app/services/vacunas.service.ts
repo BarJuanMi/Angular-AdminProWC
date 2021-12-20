@@ -35,7 +35,7 @@ export class VacunadosService {
         map( resp => {
           const vacunados = resp.vacunados.map( 
             vacunado => new Vacunado(vacunado._id, '', vacunado.farmaceutica, vacunado.fechaPriDosis,
-              vacunado.fechaSecDosis, vacunado.fechaTerDosis, vacunado.fechaCuarDosis, vacunado.modelo, 
+              vacunado.fechaSecDosis, vacunado.fechaTerDosis, vacunado.fechaCuarDosis, vacunado.empleado, 
               vacunado.regulador, vacunado.usuario, false, vacunado.img)
           );
 

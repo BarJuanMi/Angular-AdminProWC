@@ -1,6 +1,6 @@
 import { Usuario } from './usuario.model';
 import { environment } from '../../environments/environment';
-import { ModeloWC } from './modelowc.model';
+import { Empleado } from './empleado.model';
 
 const base_url = environment.base_url;
 
@@ -14,7 +14,7 @@ export class Vacunado {
         public fechaSecDosis: Date,
         public fechaTerDosis: Date,
         public fechaCuarDosis: Date,
-        public modelo: ModeloWC,
+        public empleado: Empleado,
         public regulador: string,
         public usuario: Usuario,
         public sintomatologia: boolean,

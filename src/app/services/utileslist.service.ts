@@ -7,6 +7,10 @@ import { CargarPais } from '../interfaces/cargar-paises.interface';
 import { Pais } from '../models/pais.util.model';
 import { CargarCiudad } from '../interfaces/cargar-ciudades.interface';
 import { Ciudad } from '../models/ciudad.util.model';
+import { CargarCargoAspirante } from '../interfaces/cargar-cargoaspirante.interface';
+import { CargoAspirante } from '../models/cargoaspirante.model';
+import { Localidad } from '../models/localidad.util.model';
+import { CargarLocalidad } from '../interfaces/cargar-localidades.interface';
 
 const base_url = environment.base_url;
 
@@ -50,6 +54,42 @@ export class UtileslistService {
 
           return {
             ciudades
+          };
+        })
+      )
+  }
+
+  cargarCargosAspirantes() {
+    console.log('Invocacion a UtileslistService(Front) - cargarCargosAspirantes');
+    const url = `${ base_url }/utiles/cargosaspirante`;
+
+    return this.http.get<CargarCargoAspirante>( url)
+      .pipe(
+        map( resp => {
+          const cargosAspirantes = resp.cargosAspirantes.map( 
+            cargoAspirante => new CargoAspirante(cargoAspirante._id, cargoAspirante.cargoId, cargoAspirante.cargoDesc)
+          );
+
+          return {
+            cargosAspirantes
+          };
+        })
+      )
+  }
+
+  cargarLocalidadesCiudad() {
+    console.log('Invocacion a UtileslistService(Front) - cargarLocalidadesCiudad');
+    const url = `${ base_url }/utiles/localidadesciudad`;
+
+    return this.http.get<CargarLocalidad>( url)
+      .pipe(
+        map( resp => {
+          const localidades = resp.localidades.map( 
+            localidad => new Localidad(localidad._id, localidad.localidadId, localidad.localidadName)
+          );
+
+          return {
+            localidades
           };
         })
       )

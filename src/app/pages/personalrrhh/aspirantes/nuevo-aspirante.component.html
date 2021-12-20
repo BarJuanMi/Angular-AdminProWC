@@ -1,0 +1,141 @@
+<div class="row animated fadeInLeft">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header bg-info">
+                <h4 class="m-b-0 text-white">Datos Generales del Nuevo Aspirante</h4>
+            </div>
+            <div class="card-body">
+                <form class="form p-t-20" [formGroup]="aspiranteForm" (submit)="crearNuevoAspirante()">
+
+                    <div class="row p-t-20">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Num. Documento</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-face-smile"></i></div>
+                                    <input type="text" id="documentNumber" class="form-control" formControlName="documento" placeholder="########" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Edad Actual</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-face-smile"></i></div>
+                                    <input type="number" id="age" class="form-control" formControlName="edad" placeholder="#" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row p-t-20">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Nombres</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                                    <input type="text" class="form-control form-control-danger" id="names" formControlName="nombres" placeholder="Juanita" autocomplete="off" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Apellidos</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                                    <input type="text" class="form-control form-control-danger" id="lastnames" formControlName="apellidos" placeholder="Perez Perez" autocomplete="off" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row p-t-20">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Correo Electrónico</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-email"></i></div>
+                                    <input type="text" id="email" class="form-control" formControlName="email" placeholder="test@test.com" autocomplete="off" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Telefóno Célular</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-mobile"></i></div>
+                                    <input type="text" id="cellPhone" class="form-control" formControlName="telCelular" placeholder="###-#######" autocomplete="off" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row p-t-20">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Dirección de residencia</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-email"></i></div>
+                                    <input type="text" id="email" class="form-control" formControlName="direccion" placeholder="test@test.com" autocomplete="off" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Localidad</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-anchor"></i></div>
+                                    <select class="form-control custom-select" formControlName="cargoAspirante" required>
+                                        <option value="null">--Seleccione una opción--</option>
+                                        <option *ngFor="let localidad of localidadesList" [value]="localidad._id">{{localidad.localidadName}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row p-t-20">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Cargo al que aspira</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-layout-menu-v"></i></div>
+                                    <select class="form-control custom-select" formControlName="cargoAspirante" required>
+                                        <option value="null">--Seleccione una opción--</option>
+                                        <option *ngFor="let cargo of cargoAspiranteList" [value]="cargo._id">{{cargo.cargoDesc}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">¿Tiene experiencia previa?</label>
+                                <div class="switch">
+                                    <label>NO<input type="checkbox" formControlName="experienciaPrevia"><span class="lever switch-col-light-green"></span>SI</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row p-t-20">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Notas y comentarios asociados:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-comment"></i></div>
+                                    <textarea class="form-control text-area" formControlName="notasEntrevistador"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    &nbsp;
+                    <div>
+                        <button type="submit" class="btn btn-success waves-effect waves-pupple m-r-10" [disabled]="aspiranteForm.invalid"><i class="fa fa-save"></i>  Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

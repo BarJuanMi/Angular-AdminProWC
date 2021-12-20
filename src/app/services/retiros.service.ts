@@ -36,7 +36,7 @@ export class RetirosService {
         delay(500), 
         map( resp => {
           const retiros = resp.retiros.map( 
-            retiro => new Retiro(retiro._id, retiro.modelo, 
+            retiro => new Retiro(retiro._id, retiro.empleado, 
               retiro.usuarioCreacion, retiro.fechaRenuncia, retiro.fechaRegistro,
               retiro.estado, retiro.motivoRetiro, retiro.entrevista, 
               retiro.encuesta, retiro.fechaFirma, retiro.fechaCargoPDF,

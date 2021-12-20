@@ -2,11 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { delay } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
-import { MonitorWC } from 'src/app/models/monitorwc.model';
-import { MAP_MONTHS } from 'src/app/utils/config';
+import { Empleado } from 'src/app/models/empleado.model';
 import { BusquedasService } from 'src/app/services/busquedas.service';
 import { ModalImagenService } from 'src/app/services/modal-imagen.service';
-import { MonitoresService } from 'src/app/services/monitores.service';
+import { TipoEmpleado } from 'src/app/models/tipoempleado.model';
+import { Ciudad } from 'src/app/models/ciudad.util.model';
+import { Pais } from 'src/app/models/pais.util.model';
+import { Usuario } from 'src/app/models/usuario.model';
+import { EmpleadosService } from 'src/app/services/empleados.service';
 
 @Component({
   selector: 'app-monitoreswc',
@@ -17,35 +20,37 @@ import { MonitoresService } from 'src/app/services/monitores.service';
 export class MonitoreswcComponent implements OnInit {
 
   public totalMonitores: number = 0;
-  public monitores: MonitorWC[] = [];
-  public monitoresTemp: MonitorWC[] = [];
-  public monitorWCDetalle: MonitorWC = new MonitorWC('','','','','','','','','','','','','','',false,false,'','','','','','','');
+  public monitores: Empleado[] = [];
+  public monitoresTemp: Empleado[] = [];
+  public monitorWCDetalle: Empleado = new Empleado('','','','','','','',new TipoEmpleado('','',''),null,'','','','','','',null,
+                                                  false,'',null,new Pais('','','',''),new Ciudad('','',''),'','',
+                                                  new Usuario('','',null,'','','',false,'','',''),'','','',null,'');
   public imgSubs: Subscription;
   public desde: number = 0;
   public cargando: boolean = true;
   public mostrarBotones: boolean = true;
 
-  constructor(private monitorService: MonitoresService,
+  constructor(private empleadosService: EmpleadosService,
               private busquedasService: BusquedasService,
               private modalImagenService: ModalImagenService) { }
 
 
   ngOnInit(): void {
-    this.cargarMonitores();
+    this.cargarEmpleadosMonitores();
     this.imgSubs = this.modalImagenService.nuevaImagen
     .pipe(delay(300))
-    .subscribe ( img => this.cargarMonitores() );
+    .subscribe ( img => this.cargarEmpleadosMonitores() );
   }
   
   /**
    * 
    */
-   cargarMonitores() {
+   cargarEmpleadosMonitores() {
     this.cargando = true;
-    this.monitorService.cargarMonitoresDesde(this.desde).subscribe( ({ total, monitores}) => {
+    this.empleadosService.cargarEmpleadosxTipoDesde('monitor', this.desde).subscribe( ({ total, empleados}) => {
       this.totalMonitores = total;
-      this.monitores = monitores;
-      this.monitoresTemp = monitores;
+      this.monitores = empleados;
+      this.monitoresTemp = empleados;
       this.cargando = false;
     });
   }
@@ -63,7 +68,7 @@ export class MonitoreswcComponent implements OnInit {
       this.desde -=  valor;
     }
 
-    this.cargarMonitores();
+    this.cargarEmpleadosMonitores();
   }
 
   /**
@@ -81,8 +86,8 @@ export class MonitoreswcComponent implements OnInit {
       return this.monitores = this.monitoresTemp;
     }
 
-    this.busquedasService.buscarPorColeccion( 'monitores', termino)
-        .subscribe( (resultados: MonitorWC[]) => {
+    this.busquedasService.buscarTerminoEnEmpleados( 'empleados', 'monitor', termino)
+        .subscribe( (resultados: Empleado[]) => {
           this.monitores = resultados;
         });
   }
@@ -91,7 +96,7 @@ export class MonitoreswcComponent implements OnInit {
    * 
    * @param monitor 
    */
-   abrilModalImagen( monitor: MonitorWC) {
+   abrilModalImagen( monitor: Empleado) {
     this.modalImagenService.abrirModal('monitores', monitor._id, monitor.img);
   }
 
@@ -99,15 +104,16 @@ export class MonitoreswcComponent implements OnInit {
    * 
    * @param monitor 
    */
-   inactivarMonitor( monitor: MonitorWC) {
+   inactivarMonitor( monitor: Empleado) {
     Swal.fire({
-      title: 'Esta seguro de inactivar el monitor '+ monitor.nombres +' '+ monitor.apellidos+'?',
-      text: "",
+      title: '<small>Esta seguro de inactivar el monitor '+ monitor.nombApellConca + '?<small>',
+      text: '',
       icon: 'question',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, Inactivarla!',
+      confirmButtonText: '<i class="fa fa-thumbs-up"></i> Sí, Inactivar!!',
+      cancelButtonText:'<i class="fa fa-thumbs-down"></i> Cancelar',
       backdrop: `
         rgba(0,0,123,0.4)
         url("./assets/images/gifs-swal/cat-nyan-cat.gif")
@@ -116,14 +122,14 @@ export class MonitoreswcComponent implements OnInit {
       `
     }).then((result) => {
       if (result.isConfirmed){
-        this.monitorService.modificarEstadoMonitor( monitor, false )
+        this.empleadosService.modificarEstadoEmpleado( monitor, false )
           .subscribe (resp => {
             Swal.fire(
               'Correcto!',
               'El monitor ha sido inactivado exitosamente.',
               'success'
             );
-            this.cargarMonitores();   
+            this.cargarEmpleadosMonitores();   
           });
       }
     });
@@ -133,15 +139,16 @@ export class MonitoreswcComponent implements OnInit {
    * 
    * @param modelo 
    */
-   reActivarMonitor( monitor: MonitorWC) {
+   reActivarMonitor( monitor: Empleado) {
     Swal.fire({
-      title: 'Esta seguro de reactivar el monitor '+monitor.nombres+' '+monitor.apellidos+'?',
+      title: '<small>Esta seguro de reactivar el monitor '+monitor.nomContEmer + '?<small>',
       text: "",
       icon: 'question',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, Confirmo la operación',
+      confirmButtonText: '<i class="fa fa-thumbs-up"></i> Sí, Reactivar!!',
+      cancelButtonText:'<i class="fa fa-thumbs-down"></i> Cancelar',
       backdrop: `
         rgba(0,0,123,0.4)
         url("./assets/images/gifs-swal/cat-nyan-cat.gif")
@@ -150,14 +157,14 @@ export class MonitoreswcComponent implements OnInit {
       `
     }).then((result) => {
       if (result.isConfirmed){
-        this.monitorService.modificarEstadoMonitor( monitor, true )
+        this.empleadosService.modificarEstadoEmpleado( monitor, true )
           .subscribe (resp => {
             Swal.fire(
               'Correcto!',
               'El monitor ha sido reactivado exitosamente en el sistema.',
               'success'
             );
-            this.cargarMonitores();   
+            this.cargarEmpleadosMonitores();   
           });
       }
     });
@@ -168,19 +175,9 @@ export class MonitoreswcComponent implements OnInit {
    * la cual es seleccionada en la vista principal por la grilla de monitors.
    * @param monitor Objeto tipo monitor a quien se le consultara la informacion
    */
-   verDetallesMonitor(monitor: MonitorWC) {
-    this.monitorService.buscarMonitorParticularWC( monitor ).subscribe( monitorRet => {
+   verDetallesMonitor(monitor: Empleado) {
+    this.empleadosService.buscarEmpleadoParticular( monitor ).subscribe( monitorRet => {
       this.monitorWCDetalle = monitorRet;
-
-      let fNacFormat = new Date(this.monitorWCDetalle.fechaNac);
-      let fIngFormat = new Date(this.monitorWCDetalle.fechaIngreso);
-      let fCreaFormat = new Date(this.monitorWCDetalle.fechaCreacionApp);
-      let fInacFormat = new Date(this.monitorWCDetalle.fechaInactivacion);
-
-      this.monitorWCDetalle.fechaNac = fNacFormat.getDate() + '-' + MAP_MONTHS.get(fNacFormat.getMonth()) + '-' + fNacFormat.getFullYear();
-      this.monitorWCDetalle.fechaIngreso = fIngFormat.getDate() + '-' + MAP_MONTHS.get(fIngFormat.getMonth()) + '-' + fIngFormat.getFullYear();
-      this.monitorWCDetalle.fechaCreacionApp = fCreaFormat.getDate() + '-' + MAP_MONTHS.get(fCreaFormat.getMonth()) + '-' + fCreaFormat.getFullYear();
-      this.monitorWCDetalle.fechaInactivacion = fInacFormat.getDate() + '-' + MAP_MONTHS.get(fInacFormat.getMonth()) + '-' + fInacFormat.getFullYear();
     });
   }
 

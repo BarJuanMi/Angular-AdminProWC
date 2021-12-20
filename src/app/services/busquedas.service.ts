@@ -6,6 +6,8 @@ import { Usuario } from '../models/usuario.model';
 import { ModeloWC } from '../models/modelowc.model';
 import { MonitorWC } from '../models/monitorwc.model';
 import { AdmonWC } from '../models/admonwc.model';
+import { Empleado } from '../models/empleado.model';
+import { Aspirante } from '../models/aspirante.model';
 
 const base_url = environment.base_url;
 
@@ -34,40 +36,27 @@ export class BusquedasService {
     );
   }
 
-  transformarModelos(resultados: any[]): ModeloWC[] {
+  transformarEmpleado(resultados: any[]): Empleado[] {
     return resultados.map(
-      modelo => new ModeloWC(modelo._id, modelo.documento, modelo.tipoDocumento, 
-        modelo.genero, modelo.nombres, modelo.apellidos, modelo.fechaNac, 
-        modelo.direccion, modelo.emailCorporativo, modelo.telCelular, 
-        modelo.rh, modelo.nomContEmer, modelo.telContEmer, modelo.fechaIngreso, 
-        modelo.estado, modelo.numHijos, modelo.fechaCreacionApp, modelo.nacionalidad, 
-        modelo.ciudadResidencia, '', modelo.entidadBanco, 
-        modelo.numCuentaBanco, modelo.fechaInactivacion, modelo.img)
+      empleado => new Empleado(empleado._id, empleado.documento, empleado.tipoDocumento, empleado.genero, empleado.nombres, empleado.apellidos, empleado.nombApellConca, 
+        empleado.tipoEmpleado, empleado.fechaNac, empleado.direccion, empleado.emailCorporativo, empleado.telCelular, empleado.rh, empleado.nomContEmer,
+        empleado.telContEmer, empleado.fechaIngreso, empleado.estado, empleado.numHijos, empleado.fechaCreacionApp, empleado.nacionalidad, empleado.ciudadResidencia,
+        empleado.epsSalud, empleado.arlTrabajo, empleado.usuarioCreacion, empleado.numHuellero, empleado.entidadBanco, empleado.numCuentaBanco, empleado.fechaInactivacion, 
+        empleado.img)
     );
   }
 
-  transformarMonitores(resultados: any[]): MonitorWC[] {
+  transformarAspirante(resultados: any[]): Aspirante[] {
     return resultados.map(
-      monitor => new MonitorWC(monitor._id, monitor.documento, monitor.tipoDocumento, monitor.genero, monitor.nombres, monitor.apellidos, monitor.fechaNac, 
-        monitor.direccion, monitor.emailCorporativo, monitor.telCelular, monitor.rh, monitor.nomContEmer,
-        monitor.telContEmer, monitor.fechaNac, monitor.estado, monitor.recomendado, monitor.numHijos, monitor.fechaCreacionApp,
-        '', monitor.entidadBanco, monitor.numCuentaBanco, monitor.fechaInactivacion, monitor.img)
+      aspirante => new Aspirante(aspirante._id, aspirante.documento, aspirante.nombres, aspirante.apellidos, aspirante.nombApellAspConcat, aspirante.edad,
+                                aspirante.email, aspirante.numCelular, aspirante.usuarioCreacion, aspirante.cargoAspirante, aspirante.estado,
+                                aspirante.notasEntrevistador, aspirante.direccion, aspirante.localidad, aspirante.experienciaPrevia, aspirante.fechaRegistro,
+                                aspirante.fechaEntrevista, aspirante.pathResultadoPDF, aspirante.estadoResCargoPDF, aspirante.pathHojaVidaPDF, 
+                                aspirante.estadoHVCargoPDF)
     );
   }
 
-  transformarAdmons(resultados: any[]): AdmonWC[] {
-    return resultados.map(
-      administrativo => new AdmonWC(administrativo._id, administrativo.documento, administrativo.tipoDocumento, 
-        administrativo.genero, administrativo.nombres, administrativo.apellidos, administrativo.fechaNac, 
-        administrativo.direccion, administrativo.emailCorporativo, administrativo.telCelular, 
-        administrativo.rh, administrativo.nomContEmer, administrativo.telContEmer, administrativo.fechaIngreso, 
-        administrativo.estado, administrativo.numHijos, administrativo.fechaCreacionApp, administrativo.nacionalidad, 
-        administrativo.ciudadResidencia, '', administrativo.entidadBanco, 
-        administrativo.numCuentaBanco, administrativo.fechaInactivacion, administrativo.img)
-    );
-  }
-
-  buscarPorColeccion(tipo: 'usuarios'|'medicos'|'hospitales'|'modelos'|'monitores'|'administrativos', termino: string) {
+  buscarPorColeccion(tipo: 'usuarios'|'medicos'|'hospitales', termino: string) {
     //localhost:3001/api/busqueda/coleccion/usuarios/***
     const url = `${ base_url }/busqueda/coleccion/${tipo}/${termino}`;
     return this.http.get<any[]>( url , this.headers)
@@ -77,18 +66,29 @@ export class BusquedasService {
             case 'usuarios':
               return this.transformarUsuarios(resp.resultados);
 
-            case 'modelos':
-              return this.transformarModelos(resp.resultados);
-
-            case 'monitores':
-              return this.transformarMonitores(resp.resultados);
-
-            case 'administrativos':
-              return this.transformarAdmons(resp.resultados);
-
             default:
               return[];
           }
+        }));
+  }
+
+  buscarTerminoEnEmpleados(tipo: string, subTipo: string, termino: string) {
+    //localhost:3001/api/busqueda/coleccion/empleados/modelo/***
+    const url = `${ base_url }/busqueda/coleccion/${tipo}/${subTipo}/${termino}`;
+    return this.http.get<any[]>( url , this.headers)
+      .pipe(
+        map( (resp: any) => {
+              return this.transformarEmpleado(resp.resultados);
+        }));
+  }
+
+  buscarTerminoEnAspirantes(tipo: string, termino: string) {
+    //localhost:3001/api/busqueda/coleccion/aspirantes/modelo/***
+    const url = `${ base_url }/busqueda/coleccion/${tipo}/${termino}`;
+    return this.http.get<any[]>( url , this.headers)
+      .pipe(
+        map( (resp: any) => {
+              return this.transformarAspirante(resp.resultados);
         }));
   }
 }

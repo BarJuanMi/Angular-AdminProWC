@@ -47,7 +47,7 @@
                                 <td class="text-center">
                                     <img [src]="vacunado.imagenUrl" class="avatar-w40 cursor" alt="Carnet de vacunación" (click)="abrilModalImagenLarge( vacunado )">
                                 </td>
-                                <td><small>{{vacunado.modelo.documento}} - {{vacunado.modelo.nombres}} {{vacunado.modelo.apellidos}}</small></td>
+                                <td><small>{{vacunado.empleado.documento}} - {{vacunado.empleado.nombApellConca}}</small></td>
                                 <td class="text-center"><small>{{vacunado.farmaceutica}}</small></td>
                                 <td class="text-center"><small>{{vacunado.fechaPriDosis | date}}</small></td>
                                 <td class="text-center"><small>{{vacunado.fechaSecDosis | date}}</small></td>

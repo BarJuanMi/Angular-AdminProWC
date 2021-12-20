@@ -15,6 +15,7 @@ export class Empleado {
         public genero: string,
         public nombres: string,
         public apellidos: string,
+        public nombApellConca: string,
         public tipoEmpleado: TipoEmpleado,
         public fechaNac: Date,
         public direccion: string,

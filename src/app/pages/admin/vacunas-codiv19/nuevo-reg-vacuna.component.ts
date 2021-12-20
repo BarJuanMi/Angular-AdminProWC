@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ModeloWC } from 'src/app/models/modelowc.model';
 import { Usuario } from 'src/app/models/usuario.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ModelosService } from 'src/app/services/modelos.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Vacunado } from 'src/app/models/vacunado.model';
 import { VacunadosService } from '../../../services/vacunas.service';
 import Swal from 'sweetalert2';
+import { Empleado } from '../../../models/empleado.model';
+import { EmpleadosService } from 'src/app/services/empleados.service';
 
 @Component({
   selector: 'app-nuevo-reg-vacuna',
@@ -17,14 +17,14 @@ import Swal from 'sweetalert2';
 })
 export class NuevoRegVacunaComponent implements OnInit {
 
-  public modelosList: ModeloWC[] = [];
+  public empleadosList: Empleado[] = [];
   public usuario: Usuario;
   public primDosisForm: FormGroup;
   public vacunado: Vacunado;
 
   constructor(
     private router: Router,
-    private modeloService: ModelosService,
+    private empleadoService: EmpleadosService,
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
     private vacunadosService: VacunadosService
@@ -36,7 +36,7 @@ export class NuevoRegVacunaComponent implements OnInit {
   ngOnInit(): void {
     this.cargarListadoModelosEstado();
     this.primDosisForm = this.fb.group({
-      modelo: [this.vacunado.modelo, Validators.required],
+      empleado: [this.vacunado.empleado, Validators.required],
       usuarioNombre: [this.usuario.nombre],
       regulador: [this.vacunado.regulador],
       fechaPriDosis: [this.vacunado.fechaPriDosis],
@@ -47,8 +47,8 @@ export class NuevoRegVacunaComponent implements OnInit {
 
   cargarListadoModelosEstado() {
     const estado : string = 'true';
-    this.modeloService.cargarModelosFiltroEstado(estado).subscribe(({modelos}) => {
-      this.modelosList = modelos;
+    this.empleadoService.cargarEmpleadosFiltroEstado(estado).subscribe(({empleados}) => {
+      this.empleadosList = empleados;
     });
   }
 

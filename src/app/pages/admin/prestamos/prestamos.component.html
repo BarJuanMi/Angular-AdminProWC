@@ -43,7 +43,7 @@
                         <tbody>
                             <tr *ngFor="let prestamo of prestamos">
                                 <td><small><a href="" (click)="verDetallesPrestamo(prestamo)" data-toggle="modal" data-target="#datosPrestamoModal">{{prestamo._id}}</a></small></td>
-                                <td><small>{{prestamo.modelo.documento}}-{{prestamo.modelo.nombres}} {{prestamo.modelo.apellidos}}</small></td>
+                                <td><small>{{prestamo.empleado.documento}} - {{prestamo.empleado.nombApellConca}}</small></td>
                                 <td class="text-center"><small>{{prestamo.monto}}</small></td>
                                 <td>
                                     <small>

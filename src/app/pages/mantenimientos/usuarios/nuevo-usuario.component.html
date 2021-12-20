@@ -2,7 +2,7 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header bg-info">
-                <h4 class="m-b-0 text-white">Detalles de Nuevo Prestamo</h4>
+                <h4 class="m-b-0 text-white">Detalles de Nuevo Usuario en la aplicación</h4>
             </div>
             <div class="card-body">
                 <form class="form p-t-20" [formGroup]="usuarioAppForm" (submit)="crearNuevoUsuarioApp()">
@@ -13,7 +13,7 @@
                                 <label class="control-label label-form-decora">Nombres y Apellidos</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-user"></i></div>
-                                    <input type="text" class="form-control" id="namessurnames" autocomplete="off" formControlName="nombre" required>
+                                    <input type="text" class="form-control" id="namessurnames" placeholder="Pedro Perez" autocomplete="off" formControlName="nombre" required>
                                 </div>
                             </div>
                         </div>
@@ -39,7 +39,7 @@
                                 <label class="control-label label-form-decora">Correo electrónico</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-email"></i></div>
-                                    <input type="text" class="form-control" id="email" autocomplete="off" formControlName="email" required>
+                                    <input type="text" class="form-control" id="email" autocomplete="off" placeholder="test@test.com" formControlName="email" required>
                                 </div>
                             </div>
                         </div>

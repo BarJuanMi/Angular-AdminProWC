@@ -3,7 +3,6 @@ import { Prestamo } from 'src/app/models/prestamo.model';
 import { Usuario } from 'src/app/models/usuario.model';
 import { PrestamosService } from 'src/app/services/prestamos.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { MAP_MONTHS } from 'src/app/utils/config';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -20,7 +19,7 @@ export class PrestamosComponent implements OnInit {
   public cargando: boolean = true;
   public desde: number = 0;
   public mostrarBotones: boolean = true;
-  public prestamoDetalle: Prestamo = new Prestamo('','','','',null,'','',null, null, '');
+  public prestamoDetalle: Prestamo = new Prestamo('','',null,'',null,'','',null, null, '');
   public usuario: Usuario;
 
   constructor(private prestamoService: PrestamosService,

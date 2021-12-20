@@ -2,10 +2,10 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header bg-info">
-                <h4 class="m-b-0 text-white">Información Personal del Monitor</h4>
+                <h4 class="m-b-0 text-white">Información Personal {{labelTitle}} {{tipoEmpleCrear}}</h4>
             </div>
             <div class="card-body">
-                <form class="form p-t-20" [formGroup]="monitorwcForm" (submit)="crearNuevoMonitor()">
+                <form class="form p-t-20" [formGroup]="empleadoWCForm" (submit)="crearNuevoEmpleado()">
 
                     <div class="row p-t-20">
                         <div class="col-md-6">
@@ -56,19 +56,20 @@
                     </div>
 
                     <div class="row p-t-20">
+
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label label-form-decora">Genero</label>
+                                <label class="control-label label-form-decora">Nacionalidad</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-anchor"></i></div>
-                                    <select class="form-control custom-select" formControlName="genero" required>
-                                        <option value="">--Seleccione una opción--</option>
-                                        <option value="FEMENINO">Femenino</option>
-                                        <option value="MASCULINO">Masculino</option>
+                                    <select class="form-control custom-select" formControlName="nacionalidad" required>
+                                        <option value="null">--Seleccione una opción--</option>
+                                        <option *ngFor="let pais of paisesList" [value]="pais._id">{{pais.countryCode}} - {{pais.countryName}}</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label label-form-decora">Fecha Nacimiento</label>
@@ -111,6 +112,22 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Ciudad de Residencia</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-anchor"></i></div>
+                                    <select class="form-control custom-select" formControlName="ciudadResidencia" required>
+                                        <option value="null">--Seleccione una opción--</option>
+                                        <option *ngFor="let ciudad of ciudadesList" [value]="ciudad._id">{{ciudad.ciudadName}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row p-t-20">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label label-form-decora">RH Sanguineo</label>
@@ -126,6 +143,20 @@
                                         <option value="B-">B-</option>
                                         <option value="AB-">AB-</option>
                                         <option value="AB+">AB+</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Genero</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-anchor"></i></div>
+                                    <select class="form-control custom-select" formControlName="genero" required>
+                                        <option value="">--Seleccione una opción--</option>
+                                        <option value="FEMENINO">Femenino</option>
+                                        <option value="MASCULINO">Masculino</option>
                                     </select>
                                 </div>
                             </div>
@@ -177,7 +208,7 @@
                     <div class="row p-t-20">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label label-form-decora">Entidad Bancaria</label>
+                                <label class="control-label label-form-decora">Entidad Bancaria para pagos</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-stats-up"></i></div>
                                     <select formControlName="entidadBanco" class="form-control custom-select" required>
@@ -202,15 +233,15 @@
                                         <option value="Nequi-Bancolombia">Nequi-Bancolombia</option>
                                         <option value="Super Giros">Super Giros</option>
                                         <option value="Movii S.A.">Movii S.A.</option>
-                                        <option value="RappiPay">Movii S.A.</option>
-                                        <option value="No Aplica">No Aplica</option>
+                                        <option value="RappiPay">RappiPay</option>
+                                        <option value="Efectivo">Efectivo</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label label-form-decora">Cuenta Bancaria</label>
+                                <label class="control-label label-form-decora">Cuenta Bancaria para pagos</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="
                                         ti-money "></i></div>
@@ -218,18 +249,62 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
 
+                    <div class="row p-t-20">
                         <div class="col-md-6">
-                            <div class="switch">
-                                <label class="control-label label-form-decora">Monitor Recomendado por Agencia
-                                    <input type="checkbox" checked="" class="form-control" formControlName="recomendado"><span class="lever"></span>
-                                </label>
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">EPS / IPS</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-anchor"></i></div>
+                                    <select class="form-control custom-select" formControlName="epsSalud" required>
+                                        <option value="">--Seleccione una opción--</option>
+                                        <option value="Compensar E.P.S.">Compensar E.P.S.</option>
+                                        <option value="E.P.S. Sanitas S.A.">E.P.S. Sanitas S.A.</option>
+                                        <option value="E.P.S. Famisanar LTDA.">E.P.S. Famisanar LTDA.</option>
+                                        <option value="E.P.S. Saludcoop">E.P.S. Saludcoop</option>
+                                        <option value="Cruz Blanca EPS S.A.">Cruz Blanca EPS S.A.</option>
+                                        <option value="Salud Colpatria E.P.S.">Salud Colpatria E.P.S.</option>
+                                        <option value="Coomeva E.P.S. S.A.">Coomeva E.P.S. S.A.</option>
+                                        <option value="Humana Vivir S.A. E.P.S. ">Humana Vivir S.A. E.P.S.</option>
+                                        <option value="Salud Colmena E.P.S. S.A.">Salud Colmena E.P.S. S.A.</option>
+                                        <option value="Salud Total S.A. E.P.S.">Salud Total S.A. E.P.S.</option>
+                                        <option value="Cafesalud E.P.S. S.A.">Cafesalud E.P.S. S.A.</option>
+                                        <option value="Instituto de Seguros Sociales EPS">Instituto de Seguros Sociales EPS</option>
+                                        <option value="Unimec E.P.S. S.A.">Unimec E.P.S. S.A.</option>
+                                        <option value="EPS Progr. Comfenalco Antioquia">EPS Progr. Comfenalco Antioquia</option>
+                                        <option value="SuSalud EPS ">SuSalud EPS</option>
+                                        <option value="Colseguros E.P.S.">Colseguros E.P.S.</option>
+                                        <option value="Comfenalco Valle E.P.S.">Comfenalco Valle E.P.S.</option>
+                                        <option value="Caprecom EPS">Caprecom EPS</option>
+                                        <option value="EPS CONVIDA">EPS CONVIDA</option>
+                                        <option value="CAJANAL EPS">CAJANAL EPS</option>
+                                        <option value="CAPRESOCA EPS">CAPRESOCA EPS</option>
+                                        <option value="SOLSALUD E.P.S. S.A.">SOLSALUD E.P.S. S.A.</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
 
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">ARL</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-anchor"></i></div>
+                                    <select class="form-control custom-select" formControlName="arlTrabajo" required>
+                                        <option value="">--Seleccione una opción--</option>
+                                        <option value="ARL Sura.">ARL Sura.</option>
+                                        <option value="ARL Positiva.">ARL Positiva.</option>
+                                        <option value="ARL Axa Colpatria.">ARL Axa Colpatria.</option>
+                                        <option value="ARL Colmena.">ARL Colmena.</option>
+                                        <option value="ARL Bolívar.">ARL Bolívar.</option>
+                                        <option value="ARL La Equidad">ARL La Equidad</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    &nbsp;
                     <div>
                         <button type="submit" class="btn btn-success waves-effect waves-light m-r-10"><i class="fa fa-save"></i>  Guardar</button>
                     </div>

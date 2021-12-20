@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AdmonWC } from 'src/app/models/admonwc.model';
+import { Empleado } from 'src/app/models/empleado.model';
 import { delay } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
@@ -8,7 +8,9 @@ import { Ciudad } from 'src/app/models/ciudad.util.model';
 import { BusquedasService } from 'src/app/services/busquedas.service';
 import { ModalImagenService } from 'src/app/services/modal-imagen.service';
 import { MAP_MONTHS } from 'src/app/utils/config';
-import { AdmonsService } from 'src/app/services/admons.service';
+import { TipoEmpleado } from 'src/app/models/tipoempleado.model';
+import { Usuario } from 'src/app/models/usuario.model';
+import { EmpleadosService } from 'src/app/services/empleados.service';
 
 @Component({
   selector: 'app-admonswc',
@@ -19,35 +21,36 @@ import { AdmonsService } from 'src/app/services/admons.service';
 export class AdmonswcComponent implements OnInit {
 
   public totalAdmons: number = 0;
-  public admons: AdmonWC[] = [];
-  public admonsTemp: AdmonWC[] = [];
-  public admonWCDetalle: AdmonWC = new AdmonWC('', '', '', '', '', '', '', '', '', '', '', '', '', '',
-                      false, '', '', new Pais('', '', '', ''), new Ciudad('', '', ''), '', '', '', '', '');
+  public admons: Empleado[] = [];
+  public admonsTemp: Empleado[] = [];
+  public admonWCDetalle: Empleado = new Empleado('','','','','','','',new TipoEmpleado('','',''),null,'','','','','','',null,
+                                                false,'',null,new Pais('','','',''),new Ciudad('','',''),'','',
+                                                new Usuario('','',null,'','','',false,'','',''),'','','',null,'');
   public imgSubs: Subscription;
   public desde: number = 0;
   public cargando: boolean = true;
   public mostrarBotones: boolean = true;
 
-  constructor(private admonService: AdmonsService,
+  constructor(private empleadosService: EmpleadosService,
               private busquedasService: BusquedasService,
               private modalImagenService: ModalImagenService) { }
 
   ngOnInit(): void {
-    this.cargarAdmons();
+    this.cargarEmpleadosAdmons();
     this.imgSubs = this.modalImagenService.nuevaImagen
     .pipe(delay(300))
-    .subscribe ( img => this.cargarAdmons() );
+    .subscribe ( img => this.cargarEmpleadosAdmons() );
   }
 
   /**
    * 
    */
-   cargarAdmons() {
+   cargarEmpleadosAdmons() {
     this.cargando = true;
-    this.admonService.cargarAdmonsDesde(this.desde).subscribe( ({ total, administrativos}) => {
+    this.empleadosService.cargarEmpleadosxTipoDesde('administrativo',this.desde).subscribe( ({ total, empleados}) => {
       this.totalAdmons = total;
-      this.admons = administrativos;
-      this.admonsTemp = administrativos;
+      this.admons = empleados;
+      this.admonsTemp = empleados;
       this.cargando = false;
     });
 
@@ -67,7 +70,7 @@ export class AdmonswcComponent implements OnInit {
       this.desde -=  valor;
     }
 
-    this.cargarAdmons();
+    this.cargarEmpleadosAdmons();
   }
 
   /**
@@ -85,8 +88,8 @@ export class AdmonswcComponent implements OnInit {
       return this.admons = this.admonsTemp;
     }
 
-    this.busquedasService.buscarPorColeccion( 'administrativos', termino)
-        .subscribe( (resultados: AdmonWC[]) => {
+    this.busquedasService.buscarTerminoEnEmpleados( 'empleados', 'administrativo', termino)
+        .subscribe( (resultados: Empleado[]) => {
           this.admons = resultados;
         });
   }
@@ -95,7 +98,7 @@ export class AdmonswcComponent implements OnInit {
    * 
    * @param administrativo 
    */
-   abrilModalImagen( administrativo: AdmonWC ) {
+   abrilModalImagen( administrativo: Empleado ) {
     this.modalImagenService.abrirModal('administrativos', administrativo._id, administrativo.img);
   }
 
@@ -103,9 +106,9 @@ export class AdmonswcComponent implements OnInit {
    * Metodo que permite inactivar a un administrativo, cambiando el estado de la misma en el sistema
    * @param administrativo Objeto de tipo administrativo al cual se le cambiará el estado
    */
-  inactivarAdmon( administrativo: AdmonWC ) {
+  inactivarAdmon( administrativo: Empleado ) {
     Swal.fire({
-      title: '<small>Esta seguro de inactivar al empleado ' + administrativo.nombres + ' ' + administrativo.apellidos + '?</small>',
+      title: '<small>Esta seguro de inactivar al empleado ' + administrativo.nombApellConca + '?</small>',
       text: '',
       icon: 'question',
       showCancelButton: true,
@@ -121,14 +124,14 @@ export class AdmonswcComponent implements OnInit {
       `
     }).then((result) => {
       if (result.isConfirmed){
-        this.admonService.modificarEstadoAdministrativo( administrativo, false )
+        this.empleadosService.modificarEstadoEmpleado( administrativo, false )
           .subscribe (resp => {
             Swal.fire(
               'Correcto!',
               'El empleado administrativo ha sido inactivada exitosamente.',
               'success'
             );
-            this.cargarAdmons();
+            this.cargarEmpleadosAdmons();
           });
       }
     });
@@ -138,9 +141,9 @@ export class AdmonswcComponent implements OnInit {
    * Metodo que permite reactivar a un administrativo, cambiando el estado de la misma en el sistema
    * @param administrativo Objeto de tipo administrativo al cual se le cambiará el estado
    */
-   reActivarAdmon( administrativo: AdmonWC) {
+   reActivarAdmon( administrativo: Empleado) {
     Swal.fire({
-      title: '<small>Esta seguro de reactivar al empleado ' + administrativo.nombres + ' ' + administrativo.apellidos + '?</small>',
+      title: '<small>Esta seguro de reactivar al empleado ' + administrativo.nombApellConca + '?</small>',
       text: '',
       icon: 'question',
       showCancelButton: true,
@@ -156,14 +159,14 @@ export class AdmonswcComponent implements OnInit {
       `
     }).then((result) => {
       if (result.isConfirmed){
-        this.admonService.modificarEstadoAdministrativo( administrativo, true )
+        this.empleadosService.modificarEstadoEmpleado( administrativo, true )
           .subscribe (resp => {
             Swal.fire(
               'Correcto!',
               'El empleado administrativo ha sido reactivada exitosamente en el sistema.',
               'success'
             );
-            this.cargarAdmons();
+            this.cargarEmpleadosAdmons();
           });
       }
     });
@@ -174,22 +177,9 @@ export class AdmonswcComponent implements OnInit {
    * la cual es seleccionada en la vista principal por la grilla de administrativos.
    * @param administrativo Objeto tipo administrativo a quien se le consultara la informacion
    */
-   verDetallesAdmon(administrativo: AdmonWC) {
-    this.admonService.buscarAdministrativoParticularWC( administrativo ).subscribe( administrativoRet => {
+   verDetallesAdmon(administrativo: Empleado) {
+    this.empleadosService.buscarEmpleadoParticular( administrativo ).subscribe( administrativoRet => {
       this.admonWCDetalle = administrativoRet;
-
-      const fNacFormat = new Date(this.admonWCDetalle.fechaNac);
-      const fIngFormat = new Date(this.admonWCDetalle.fechaIngreso);
-      const fCreaFormat = new Date(this.admonWCDetalle.fechaCreacionApp);
-      const fInacFormat = new Date(this.admonWCDetalle.fechaInactivacion);
-
-      this.admonWCDetalle.fechaNac = fNacFormat.getDate() + '-' + MAP_MONTHS.get(fNacFormat.getMonth()) + '-' + fNacFormat.getFullYear();
-      this.admonWCDetalle.fechaIngreso = fIngFormat.getDate() + '-' + MAP_MONTHS.get(fIngFormat.getMonth())
-      + '-' + fIngFormat.getFullYear();
-      this.admonWCDetalle.fechaCreacionApp = fCreaFormat.getDate() + '-' + MAP_MONTHS.get(fCreaFormat.getMonth())
-      + '-' + fCreaFormat.getFullYear();
-      this.admonWCDetalle.fechaInactivacion = fInacFormat.getDate() + '-' + MAP_MONTHS.get(fInacFormat.getMonth())
-      + '-' + fInacFormat.getFullYear();
     });
   }
 

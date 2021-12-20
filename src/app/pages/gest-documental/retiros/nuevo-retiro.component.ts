@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import { ModeloWC } from 'src/app/models/modelowc.model';
 import { Retiro } from 'src/app/models/retiro.model';
 import { Usuario } from 'src/app/models/usuario.model';
-import { ModelosService } from 'src/app/services/modelos.service';
 import { RetirosService } from 'src/app/services/retiros.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { Empleado } from 'src/app/models/empleado.model';
+import { EmpleadosService } from 'src/app/services/empleados.service';
 
 @Component({
   selector: 'app-nuevo-retiro',
@@ -17,7 +17,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 })
 export class NuevoRetiroComponent implements OnInit {
 
-  public modelosList: ModeloWC[] = [];
+  public empleadosList: Empleado[] = [];
   public retiroForm: FormGroup;
   public retiro: Retiro;
   public usuario: Usuario;
@@ -25,7 +25,7 @@ export class NuevoRetiroComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private modeloService: ModelosService,
+    private empleadoService: EmpleadosService,
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
     private retiroService: RetirosService) 
@@ -36,9 +36,9 @@ export class NuevoRetiroComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.cargarListadoModelosEstado();
+    this.cargarListadoEmpleadosEstado();
     this.retiroForm = this.fb.group({
-      modelo: [this.retiro.modelo, Validators.required],
+      empleado: [this.retiro.empleado, Validators.required],
       usuarioNombre: [this.usuario.nombre],
       estado: [this.retiro.estado],
       motivoRetiro: [this.retiro.motivoRetiro, Validators.required],
@@ -48,10 +48,10 @@ export class NuevoRetiroComponent implements OnInit {
     });
   }
 
-  cargarListadoModelosEstado() {
+  cargarListadoEmpleadosEstado() {
     const estado : string = 'true';
-    this.modeloService.cargarModelosFiltroEstado(estado).subscribe(({modelos}) => {
-      this.modelosList = modelos;
+    this.empleadoService.cargarEmpleadosFiltroEstado(estado).subscribe(({empleados}) => {
+      this.empleadosList = empleados;
     });
   }
 

@@ -26,7 +26,7 @@
                     <table style="width:100%">
                         <tr>
                             <td style="text-align:left">
-                                <button [routerLink]="['/dashboard/nuevaModelo']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                                <button [routerLink]="['/dashboard/nuevoEmpleado/Modelo']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
                                 <i class="fa fa-user-plus"></i> Crear Modelo </button>
                             </td>
                             <td style="text-align:right">
@@ -57,7 +57,7 @@
                                     <img [src]="modelo.imagenUrl" class="avatar-w40 cursor" alt="Avatar de Usuario" (click)="abrilModalImagen( modelo )">
                                 </td>
                                 <td><small>{{modelo.tipoDocumento}}-{{modelo.documento}}</small></td>
-                                <td><small><a href="" (click)="verDetallesModelo(modelo)" data-toggle="modal" data-target="#datosModeloModal">{{modelo.nombres}} {{modelo.apellidos}}</a></small></td>
+                                <td><small><a href="" (click)="verDetallesModelo(modelo)" data-toggle="modal" data-target="#datosModeloModal">{{modelo.nombApellConca}}</a></small></td>
                                 <td><small>{{modelo.emailCorporativo}}</small></td>
                                 <td><small>{{modelo.telCelular}}</small></td>
                                 <td><small>{{modelo.entidadBanco}}</small></td>
@@ -67,7 +67,7 @@
                                     <span *ngIf="!modelo.estado" class="label label-danger">INACTIVO</span>
                                 </td>
                                 <td class="text-nowrap text-center">
-                                    <a [routerLink]="['/dashboard/actualizarModelo', modelo._id]" title="Actualizar Datos de Modelo" data-toggle="tooltip" data-original-title="Actualizar Datos de Modelo">
+                                    <a [routerLink]="['/dashboard/actualizarEmpleado/modelo', modelo._id]" title="Actualizar Datos de Modelo" data-toggle="tooltip" data-original-title="Actualizar Datos de Modelo">
                                         <i class="fa fa-pencil text-inverse m-r-10"></i>
                                     </a>
                                     &nbsp;
@@ -137,15 +137,15 @@
                             <tr style="color:cadetblue; font-size:13">{{ modeloWCDetalle.genero}}</tr>
                             <tr style="color:cadetblue; font-size:13">{{ modeloWCDetalle.nacionalidad.countryName}}</tr>
                             <tr style="color:cadetblue; font-size:13">{{ modeloWCDetalle.rh}}</tr>
-                            <tr style="color:cadetblue; font-size:13">{{ modeloWCDetalle.fechaNac}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ modeloWCDetalle.fechaNac | date}}</tr>
                             <tr style="color:cadetblue; font-size:13">{{ modeloWCDetalle.numHijos}}</tr>
                             <tr style="color:cadetblue; font-size:13">{{ modeloWCDetalle.nomContEmer}}</tr>
                             <tr style="color:cadetblue; font-size:13">{{ modeloWCDetalle.telContEmer}}</tr>
-                            <tr style="color:cadetblue; font-size:13">{{ modeloWCDetalle.fechaIngreso}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ modeloWCDetalle.fechaIngreso | date}}</tr>
                             <tr style="color:cadetblue; font-size:13">{{ modeloWCDetalle.ciudadResidencia.ciudadName}}</tr>
                             <tr style="color:cadetblue; font-size:13">{{ modeloWCDetalle.direccion}}</tr>
-                            <tr style="color:cadetblue; font-size:13">{{ modeloWCDetalle.fechaCreacionApp}}</tr>
-                            <tr *ngIf="!modeloWCDetalle.estado" style="color:rgb(214, 57, 57); font-size:13">{{ modeloWCDetalle.fechaInactivacion}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ modeloWCDetalle.fechaCreacionApp | date}}</tr>
+                            <tr *ngIf="!modeloWCDetalle.estado" style="color:rgb(214, 57, 57); font-size:13">{{ modeloWCDetalle.fechaInactivacion | date}}</tr>
                         </th>
                     </table>
                 </div>

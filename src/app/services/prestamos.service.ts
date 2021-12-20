@@ -37,7 +37,7 @@ export class PrestamosService {
         map( resp => {
           const prestamos = resp.prestamos.map( 
             prestamo => new Prestamo(prestamo._id, prestamo.monto, 
-              prestamo.modelo, prestamo.usuario, 
+              prestamo.empleado, prestamo.usuario, 
               prestamo.fechaCreacion, prestamo.estado, 
               prestamo.observaciones, prestamo.fechaActualizacion, prestamo.usuarioActualizacion)
           );

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ModeloWC } from 'src/app/models/modelowc.model';
 import { Prestamo } from 'src/app/models/prestamo.model';
 import { Usuario } from 'src/app/models/usuario.model';
-import { ModelosService } from 'src/app/services/modelos.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { PrestamosService } from '../../../services/prestamos.service';
 import Swal from 'sweetalert2';
+import { Empleado } from '../../../models/empleado.model';
+import { EmpleadosService } from 'src/app/services/empleados.service';
 
 @Component({
     selector: 'app-nuevo-monitor',
@@ -17,35 +17,35 @@ import Swal from 'sweetalert2';
   })
   export class NuevoPrestamoComponent implements OnInit {
 
-    public modelosList: ModeloWC[] = [];
+    public empleadosList: Empleado[] = [];
     public prestamoForm: FormGroup;
     public prestamo: Prestamo;
     public usuario: Usuario;
 
     constructor(private router: Router,
-                private modeloService: ModelosService,
+                private empleadoService: EmpleadosService,
                 private fb: FormBuilder,
                 private usuarioService: UsuarioService,
                 private prestamoService: PrestamosService)
     {
       this.usuario = usuarioService.usuario;
-      this.prestamo = new Prestamo('','','','',null,'','',null,null,'');
+      this.prestamo = new Prestamo('','',null,'',null,'','',null,null,'');
     }
 
     ngOnInit(): void {
-      this.cargarListadoModelosEstado();
+      this.cargarListadoEmpleadosEstado();
       this.prestamoForm = this.fb.group({
         monto: [this.prestamo.monto],
-        modelo: [this.prestamo.modelo],
+        empleado: [this.prestamo.empleado],
         observaciones: [this.prestamo.observaciones],
         usuarioNombre: [this.usuario.nombre]
       });
     }
 
-    cargarListadoModelosEstado() {
+    cargarListadoEmpleadosEstado() {
       const estado : string = 'true';
-      this.modeloService.cargarModelosFiltroEstado(estado).subscribe(({modelos}) => {
-        this.modelosList = modelos;
+      this.empleadoService.cargarEmpleadosFiltroEstado (estado).subscribe(({empleados}) => {
+        this.empleadosList = empleados;
       });
     }
 

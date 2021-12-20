@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { UsuarioService } from './usuario.service';
 import { CargarEmpleado } from '../interfaces/cargar-empleados.interface';
 import { Empleado } from '../models/empleado.model';
+import { RegisterForm } from '../interfaces/register-form.interface';
 
 const base_url = environment.base_url;
 
@@ -14,6 +15,7 @@ const base_url = environment.base_url;
   providedIn: 'root'
 })
 export class EmpleadosService {
+  
 
   constructor(private http: HttpClient, 
               private router: Router,
@@ -35,7 +37,7 @@ export class EmpleadosService {
         map( resp => {
           const empleados = resp.empleados.map( 
             empleado => new Empleado(empleado._id, empleado.documento, empleado.tipoDocumento, 
-              empleado.genero, empleado.nombres, empleado.apellidos, empleado.tipoEmpleado, empleado.fechaNac, 
+              empleado.genero, empleado.nombres, empleado.apellidos, empleado.nombApellConca, empleado.tipoEmpleado, empleado.fechaNac, 
               empleado.direccion, empleado.emailCorporativo, empleado.telCelular, 
               empleado.rh, empleado.nomContEmer, empleado.telContEmer, empleado.fechaIngreso, 
               empleado.estado, empleado.numHijos, empleado.fechaCreacionApp, empleado.nacionalidad,
@@ -49,6 +51,21 @@ export class EmpleadosService {
           };
         })
       )
+  }
+  
+  /**
+   * 
+   * @param formData 
+   * @param tipoEmpleCrear 
+   * @returns 
+   */
+  crearEmpleadoxTipo(formData: RegisterForm, tipoEmpleCrear: String) {
+    console.log('Invocación a ModelosService(Front) - crearEmpleadoxTipo');
+
+    let url: string = '';
+    url = `${base_url}/empleados/crearEmpleadoxTipo/${tipoEmpleCrear}`
+    console.log(url);
+    return this.http.post(url, formData, this.usuarioService.headers);
   }
 
   /**
@@ -103,5 +120,37 @@ export class EmpleadosService {
 
     return this.http.put(`${base_url}/empleados/actualizarEmpleado/${ empleadoActualizar._id }`, 
                       empleadoActualizar, this.usuarioService.headers);
+  }
+
+  /**
+   * 
+   * @param estado 
+   * @returns 
+   */
+   cargarEmpleadosFiltroEstado(estado: string) {
+    console.log('Invocacion a EmpleadosService(Front) - cargarEmpleadosFiltroEstado');
+    const url = `${ base_url }/empleados/filtro?estado=${estado}`;
+
+    //let params = new HttpParams();
+    //params = params.append('estado', estado);
+
+    return this.http.get<CargarEmpleado>( url, this.usuarioService.headers)
+      .pipe(
+        map( resp => {
+          const empleados = resp.empleados.map( 
+            empleado => new Empleado(empleado._id, empleado.documento, empleado.tipoDocumento, 
+              empleado.genero, empleado.nombres, empleado.apellidos, empleado.nombApellConca, empleado.tipoEmpleado, empleado.fechaNac, 
+              empleado.direccion, empleado.emailCorporativo, empleado.telCelular, 
+              empleado.rh, empleado.nomContEmer, empleado.telContEmer, empleado.fechaIngreso, 
+              empleado.estado, empleado.numHijos, empleado.fechaCreacionApp, empleado.nacionalidad, 
+              empleado.ciudadResidencia,  empleado.epsSalud, empleado.arlTrabajo, empleado.usuarioCreacion, '', empleado.entidadBanco, 
+              empleado.numCuentaBanco, empleado.fechaInactivacion, empleado.img)
+          );
+          return {
+            empleados
+          };
+        })
+      )
+      //,params
   }
 }
