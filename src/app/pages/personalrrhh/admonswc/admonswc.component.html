@@ -26,7 +26,7 @@
                     <table style="width:100%">
                         <tr>
                             <td style="text-align:left">
-                                <button [routerLink]="['/dashboard/nuevoEmpleado/Administrador']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                                <button [routerLink]="['/dashboard/nuevoEmpleado/Administrativo']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
                                 <i class="fa fa-user-plus"></i> Crear Empleado Administrativo </button>
                             </td>
                             <td style="text-align:right">
@@ -137,15 +137,15 @@
                             <tr style="color:cadetblue; font-size:13">{{ admonWCDetalle.genero}}</tr>
                             <tr style="color:cadetblue; font-size:13">{{ admonWCDetalle.nacionalidad.countryName}}</tr>
                             <tr style="color:cadetblue; font-size:13">{{ admonWCDetalle.rh}}</tr>
-                            <tr style="color:cadetblue; font-size:13">{{ admonWCDetalle.fechaNac}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ admonWCDetalle.fechaNac | date}}</tr>
                             <tr style="color:cadetblue; font-size:13">{{ admonWCDetalle.numHijos}}</tr>
                             <tr style="color:cadetblue; font-size:13">{{ admonWCDetalle.nomContEmer}}</tr>
                             <tr style="color:cadetblue; font-size:13">{{ admonWCDetalle.telContEmer}}</tr>
-                            <tr style="color:cadetblue; font-size:13">{{ admonWCDetalle.fechaIngreso}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ admonWCDetalle.fechaIngreso | date}}</tr>
                             <tr style="color:cadetblue; font-size:13">{{ admonWCDetalle.ciudadResidencia.ciudadName}}</tr>
                             <tr style="color:cadetblue; font-size:13">{{ admonWCDetalle.direccion}}</tr>
-                            <tr style="color:cadetblue; font-size:13">{{ admonWCDetalle.fechaCreacionApp}}</tr>
-                            <tr *ngIf="!admonWCDetalle.estado" style="color:rgb(214, 57, 57); font-size:13">{{ admonWCDetalle.fechaInactivacion}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ admonWCDetalle.fechaCreacionApp | date}}</tr>
+                            <tr *ngIf="!admonWCDetalle.estado" style="color:rgb(214, 57, 57); font-size:13">{{ admonWCDetalle.fechaInactivacion | date}}</tr>
                         </th>
                     </table>
                 </div>

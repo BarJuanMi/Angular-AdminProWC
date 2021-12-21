@@ -19,7 +19,7 @@ export class VacunasCodiv19Component implements OnInit {
   public totalVacunados: number = 0;
   public vacunados: Vacunado[] = [];
   public vacunadosTemp: Vacunado[] = [];
-  public vacunadoDetalle: Vacunado = new Vacunado('','','',null,null,null,null,null,'',null,false,'');
+  public vacunadoDetalle: Vacunado = new Vacunado('','','','','','',null,null,null,null,null,'',null,false,'');
   public imgSubs: Subscription;
   public desde: number = 0;
   public cargando: boolean = true;
@@ -96,9 +96,25 @@ export class VacunasCodiv19Component implements OnInit {
             '<div class="input-group">'+
               '<div class="input-group-addon"><i class="ti-face-smile"></i></div>'+				
               '<select id="swal-input2" class="form-control custom-select">'+
-                '<option value="2daDosis">2da Dosis</option>'+
-                '<option value="3raDosis">3ra Dosis</option>'+
-                '<option value="4taDosis">4ta Dosis</option>'+
+                '<option value="2">2da Dosis</option>'+
+                '<option value="3">3ra Dosis</option>'+
+                '<option value="4">4ta Dosis</option>'+
+              '</select>'+
+            '</div>'+
+          '</div>'+
+        '</div>'+
+        '<div class="col-md-12">'+
+          '<div class="form-group">'+
+            '<label class="control-label label-form-decora">Farmaceutica</label>'+
+            '<div class="input-group">'+
+              '<div class="input-group-addon"><i class="ti-heart"></i></div>'+
+              '<select id="swal-input3" class="form-control custom-select">'+
+                '<option value="">--Seleccione una opción--</option>'+
+                '<option value="Pfizer">Pfizer</option>'+
+                '<option value="Moderna">Moderna</option>'+
+                '<option value="Sinovac">Sinovac</option>'+
+                '<option value="Astrazeneca">Astrazeneca</option>'+
+                '<option value="Jansen">Jansen</option>'+
               '</select>'+
             '</div>'+
           '</div>'+
@@ -108,13 +124,14 @@ export class VacunasCodiv19Component implements OnInit {
       preConfirm: () => {
         return [
           (<HTMLInputElement>document.getElementById('swal-input1')).value,
-          (<HTMLInputElement>document.getElementById('swal-input2')).value
+          (<HTMLInputElement>document.getElementById('swal-input2')).value,
+          (<HTMLInputElement>document.getElementById('swal-input3')).value
         ]
       }
     })
 
     if (formValues) {
-      this.vacunadosService.crearRegistroDosis(vacunado, formValues[0], formValues[1])
+      this.vacunadosService.crearRegistroDosis(vacunado, formValues[0], formValues[1], formValues[2])
       .subscribe (resp => {
         Swal.fire(
           'Correcto!',

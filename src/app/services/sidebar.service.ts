@@ -24,7 +24,7 @@ export class SidebarService {
 
         {titulo: 'Hojas de vida', url: '/'},
         {titulo: 'Memorandos', url: '/'},
-        {titulo: 'Retiros de modelos', url: '/dashboard/retiros'},
+        {titulo: 'Retiros de empleados', url: '/dashboard/retiros'},
       ]
     },
     {
@@ -50,7 +50,7 @@ export class SidebarService {
       titulo: 'Proc. Internos',
       icono: 'mdi mdi-server',
       submenu: [
-        {titulo: 'Prestamos a modelos', url: '/dashboard/prestamos'},
+        {titulo: 'Prestamos a empleados', url: '/dashboard/prestamos'},
         {titulo: 'Registros de personal vacunados', url: '/dashboard/vacunados'}
       ]
     },

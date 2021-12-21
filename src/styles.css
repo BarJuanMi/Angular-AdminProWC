@@ -50,6 +50,11 @@
     border-radius: 75%;
 }
 
+.align-th-table {
+    vertical-align: right;
+    justify-content: right;
+}
+
 .img-cell-table {
     padding: 5px;
 }

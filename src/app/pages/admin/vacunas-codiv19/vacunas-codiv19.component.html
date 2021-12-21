@@ -31,14 +31,13 @@
                         <thead>
                             <tr>
                                 <th class="w50"></th>
-                                <th class="text-center">Empleado</th>
-                                <th class="text-center">Farmaceutica</th>
+                                <th class="text-center align-th-table">Empleado</th>
                                 <th class="text-center">1era Dosis</th>
                                 <th class="text-center">2da Dosis</th>
                                 <th class="text-center">3era Dosis</th>
                                 <th class="text-center">4ta Dosis</th>
                                 <th class="text-center">Regulador</th>
-                                <th class="text-center">Usuario registro</th>
+                                <th class="text-center">Usuario que registró</th>
                                 <th class="text-center">Acción</th>
                             </tr>
                         </thead>
@@ -48,17 +47,24 @@
                                     <img [src]="vacunado.imagenUrl" class="avatar-w40 cursor" alt="Carnet de vacunación" (click)="abrilModalImagenLarge( vacunado )">
                                 </td>
                                 <td><small>{{vacunado.empleado.documento}} - {{vacunado.empleado.nombApellConca}}</small></td>
-                                <td class="text-center"><small>{{vacunado.farmaceutica}}</small></td>
-                                <td class="text-center"><small>{{vacunado.fechaPriDosis | date}}</small></td>
-                                <td class="text-center"><small>{{vacunado.fechaSecDosis | date}}</small></td>
-                                <td class="text-center"><small>{{vacunado.fechaTerDosis | date}}</small></td>
-                                <td class="text-center"><small>{{vacunado.fechaCuarDosis | date}}</small></td>
+                                <td class="text-center">
+                                    <small>{{vacunado.farmaPriDosis}} <br> {{vacunado.fechaPriDosis | date}}</small>
+                                </td>
+                                <td class="text-center">
+                                    <small>{{vacunado.farmaSecDosis}} <br> {{vacunado.fechaSecDosis | date}}</small>
+                                </td>
+                                <td class="text-center">
+                                    <small>{{vacunado.farmaTerDosis}} <br> {{vacunado.fechaTerDosis | date}}</small>
+                                </td>
+                                <td class="text-center">
+                                    <small>{{vacunado.farmaCuarDosis}} <br> {{vacunado.fechaCuarDosis | date}}</small>
+                                </td>
                                 <td class="text-center"><small>{{vacunado.regulador}}</small></td>
                                 <td class="text-center"><small>{{vacunado.usuario.nombre}}</small></td>
 
                                 <td class="text-nowrap text-center">
-                                    <a class="cursor" title="Agregar registro de nueva dosis" data-toggle="tooltip" data-original-title="Agregar registro de nueva dosis" (click)="adicionarRegDosis(vacunado)">
-                                        <i class="fa fa-pencil text-inverse m-r-10"></i>
+                                    <a class="cursor" title="Agregar detalle de dosis 2,3,4..." data-toggle="tooltip" data-original-title="Agregar detalle de dosis 2,3,4..." (click)="adicionarRegDosis(vacunado)">
+                                        <i class="fa fa-plus-circle text-inverse m-r-10"></i>
                                     </a>
                                     &nbsp;
                                     <a class="cursor" title="Eliminar registro" data-toggle="tooltip" data-original-title="Eliminar registro" (click)="eliminarRegVacunado(vacunado)">

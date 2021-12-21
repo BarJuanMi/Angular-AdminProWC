@@ -9,7 +9,10 @@ export class Vacunado {
     constructor(
         public _id: string,
         public idRecortado: string,
-        public farmaceutica: string,
+        public farmaPriDosis: string,
+        public farmaSecDosis: string,
+        public farmaTerDosis: string,
+        public farmaCuarDosis: string,
         public fechaPriDosis: Date,
         public fechaSecDosis: Date,
         public fechaTerDosis: Date,

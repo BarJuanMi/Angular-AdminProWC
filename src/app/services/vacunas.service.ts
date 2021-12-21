@@ -34,7 +34,8 @@ export class VacunadosService {
         delay(500), 
         map( resp => {
           const vacunados = resp.vacunados.map( 
-            vacunado => new Vacunado(vacunado._id, '', vacunado.farmaceutica, vacunado.fechaPriDosis,
+            vacunado => new Vacunado(vacunado._id, '', vacunado.farmaPriDosis, vacunado.farmaSecDosis, 
+              vacunado.farmaTerDosis, vacunado.farmaCuarDosis, vacunado.fechaPriDosis,
               vacunado.fechaSecDosis, vacunado.fechaTerDosis, vacunado.fechaCuarDosis, vacunado.empleado, 
               vacunado.regulador, vacunado.usuario, false, vacunado.img)
           );
@@ -72,8 +73,10 @@ export class VacunadosService {
    * @param arg0 
    * @param arg1 
    */
-  crearRegistroDosis(vacunado: Vacunado, fechaDosisIN: string, numDosisIN: string) {
-    var jsonStruc = {fechaDosis: fechaDosisIN, numDosis: numDosisIN};
+  crearRegistroDosis(vacunado: Vacunado, fechaDosisIN: string, numDosisIN: string, farmaDosisIN: string) {
+    var jsonStruc = {fechaDosis: fechaDosisIN, numDosis: numDosisIN, farmaDosis: farmaDosisIN};
+
+    console.log(jsonStruc);
     console.log('Invocación a VacunadosService(Front) - crearRegistroDosis');
     return this.http.put(`${base_url}/vacunados/crearRegDosis/${ vacunado._id }`, jsonStruc, this.usuarioService.headers);
   }

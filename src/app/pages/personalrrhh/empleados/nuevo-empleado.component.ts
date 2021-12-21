@@ -31,7 +31,7 @@ export class NuevoEmpleadoComponent implements OnInit {
   {
     activatedRoute.params.subscribe( params => {
       this.tipoEmpleCrear = params['tipo'];
-      if (String(this.tipoEmpleCrear).toLowerCase() === 'modelo')
+      if (String(this.tipoEmpleCrear).toLowerCase() === 'Modelo')
         this.labelTitle = ' de la nueva';
     });
 
@@ -84,17 +84,19 @@ export class NuevoEmpleadoComponent implements OnInit {
   crearNuevoEmpleado() {
     this.empleadosService.crearEmpleadoxTipo( this.empleadoWCForm.value, this.tipoEmpleCrear )
       .subscribe( resp => {
-        if (this.tipoEmpleCrear === 'modelo') {
-          this.router.navigateByUrl('/dashboard/modelos/');
-        } else if(this.tipoEmpleCrear === 'monitor'){
-          this.router.navigateByUrl('/dashboard/monitores/');
-        } else if(this.tipoEmpleCrear === 'administrativo') {
-          this.router.navigateByUrl('/dashboard/administrativos/');
+        console.log('debe redirigir hacia y segun ' + this.tipoEmpleCrear);
+
+        if (this.tipoEmpleCrear === 'Modelo') {
+          this.router.navigateByUrl('/dashboard/modelos');
+        } else if(this.tipoEmpleCrear === 'Monitor'){
+          this.router.navigateByUrl('/dashboard/monitores');
+        } else if(this.tipoEmpleCrear === 'Administrativo') {
+          this.router.navigateByUrl('/dashboard/administrativos');
         } else{
           this.router.navigateByUrl('/dashboard/');
         }
         
-        Swal.fire('Guardado', 'Modelo Creada Satisfactoriamente', 'success');
+        Swal.fire('Guardado', 'Empleado ' + this.tipoEmpleCrear + ' Creado Satisfactoriamente', 'success');
       }, ( err ) => {
         Swal.fire('Error', err.error.msg, 'error');
       });

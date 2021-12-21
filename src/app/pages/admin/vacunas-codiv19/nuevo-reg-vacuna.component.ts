@@ -30,7 +30,7 @@ export class NuevoRegVacunaComponent implements OnInit {
     private vacunadosService: VacunadosService
   ) { 
     this.usuario = usuarioService.usuario;
-    this.vacunado = new Vacunado('','','',new Date(),null,null,null,null,'EPS PERSONAL',null,false,'');
+    this.vacunado = new Vacunado('','','','','','',new Date(),null,null,null,null,'EPS PERSONAL',null,false,'');
   }
 
   ngOnInit(): void {
@@ -40,7 +40,7 @@ export class NuevoRegVacunaComponent implements OnInit {
       usuarioNombre: [this.usuario.nombre],
       regulador: [this.vacunado.regulador],
       fechaPriDosis: [this.vacunado.fechaPriDosis],
-      farmaceutica: [this.vacunado.farmaceutica],
+      farmaPriDosis: [this.vacunado.farmaPriDosis],
       sintomatologia: [this.vacunado.sintomatologia]
     });
   }
