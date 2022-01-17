@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { map, delay } from 'rxjs/operators';
+import { map, delay, tap } from 'rxjs/operators';
 import { RegisterForm } from '../interfaces/register-form.interface';
 import { environment } from 'src/environments/environment';
 import { CargarVacunado } from '../interfaces/cargar-vacunados.interface';
@@ -76,8 +76,8 @@ export class VacunadosService {
   crearRegistroDosis(vacunado: Vacunado, fechaDosisIN: string, numDosisIN: string, farmaDosisIN: string) {
     var jsonStruc = {fechaDosis: fechaDosisIN, numDosis: numDosisIN, farmaDosis: farmaDosisIN};
 
-    console.log(jsonStruc);
     console.log('Invocación a VacunadosService(Front) - crearRegistroDosis');
-    return this.http.put(`${base_url}/vacunados/crearRegDosis/${ vacunado._id }`, jsonStruc, this.usuarioService.headers);
+    return this.http.put(`${base_url}/vacunados/crearRegDosis/${ vacunado._id }`, jsonStruc, this.usuarioService.headers)
+    .pipe(tap ( (resp :any) => {resp}));
   }
 }

@@ -57,7 +57,7 @@ export class NuevoRegVacunaComponent implements OnInit {
     .subscribe( resp => {
       // Navegar a la pantalla de vacunados
       this.router.navigateByUrl('/dashboard/vacunados');
-      Swal.fire('Guardado', 'Registro de Retiro Creado Satisfactoriamente', 'success');
+      Swal.fire('Guardado', 'El Registro de empleado vacunado fue creado satisfactoriamente', 'success');
     }, ( err ) => {
       Swal.fire('Error', err.error.msg, 'error');
       this.router.navigateByUrl('/dashboard/vacunados');

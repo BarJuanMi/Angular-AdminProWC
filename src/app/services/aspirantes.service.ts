@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { map, delay } from 'rxjs/operators';
+import { map, delay, tap } from 'rxjs/operators';
 import { Aspirante } from '../models/aspirante.model';
 import { UsuarioService } from './usuario.service';
 import { environment } from 'src/environments/environment';
@@ -58,6 +58,28 @@ export class AspirantesService {
    crearNuevoAspirante( formData: RegisterForm ) {
     console.log('Invocación a AspirantesService(Front) - crearNuevoAspirante');
     return this.http.post(`${base_url}/aspirantes/crearRegAspirante`, formData, this.usuarioService.headers);
+  }
+
+  /**
+   * 
+   * @param aspirante 
+   * @returns 
+   */
+  buscarAspiranteParticular( aspirante: Aspirante ) {
+    console.log('Invocacion a AspirantesService(Front) - buscarAspiranteParticular');
+    return this.http.get( `${ base_url }/aspirantes/buscarAspirantePorId/${ aspirante._id }`, 
+                      this.usuarioService.headers ).pipe(map( (resp: any) => resp.aspirante));
+  }
+
+  /**
+   * 
+   */
+  cambiarEstadoAspirante( aspirante: Aspirante, nuevoEstado: string) {
+    console.log('Invocacion a AspirantesService(Front) - cambiarEstadoAspirante');
+    aspirante.estado = nuevoEstado;
+    console.log(aspirante);
+    return this.http.put(`${base_url}/aspirantes/cambiarAspiranteEstado/${ aspirante._id }`, aspirante, this.usuarioService.headers)
+    .pipe(tap ( (resp :any) => {resp}));
   }
 
 }

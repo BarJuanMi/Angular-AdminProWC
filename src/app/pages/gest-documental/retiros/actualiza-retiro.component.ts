@@ -17,6 +17,7 @@ import { delay } from 'rxjs/operators';
   ]
 })
 export class ActualizaRetiroComponent implements OnInit {
+  
   public usuario: Usuario;
   public pdfSubir: File;
   retiroActualizar: Retiro = new Retiro("",null,"",null,null,"","",false,false,null,null,'','',false);

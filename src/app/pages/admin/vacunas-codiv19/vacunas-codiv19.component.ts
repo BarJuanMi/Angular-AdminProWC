@@ -133,11 +133,11 @@ export class VacunasCodiv19Component implements OnInit {
     if (formValues) {
       this.vacunadosService.crearRegistroDosis(vacunado, formValues[0], formValues[1], formValues[2])
       .subscribe (resp => {
-        Swal.fire(
-          'Correcto!',
-          'El registro se ha adicionado exitosamente.',
-          'success'
-        );
+        if(resp.status){
+          Swal.fire('Correcto!', resp.msg, 'success');
+        } else { 
+          Swal.fire('Error!', resp.msg, 'error');
+        }
         this.cargarVacunados();
       });
     }
@@ -148,15 +148,34 @@ export class VacunasCodiv19Component implements OnInit {
    * @param vacunado 
    */
   eliminarRegVacunado ( vacunado: Vacunado ) {
-    this.vacunadosService.eliminarRegVacunado( vacunado )
-      .subscribe (resp => {
-        Swal.fire(
-          'Correcto!',
-          'El registro ha sido eliminado exitosamente.',
-          'success'
-        );
-        this.cargarVacunados();
-      });
+    Swal.fire({
+      title: '<small>Esta seguro de eliminar el registro?</small>',
+      text: '',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '<i class="fa fa-thumbs-up"></i> Sí, Eliminar!',
+      cancelButtonText:'<i class="fa fa-thumbs-down"></i> Cancelar',
+      backdrop: `
+        rgba(0,0,123,0.4)
+        url("./assets/images/gifs-swal/cat-nyan-cat.gif")
+        left top
+        no-repeat
+      `
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.vacunadosService.eliminarRegVacunado( vacunado )
+          .subscribe (resp => {
+            Swal.fire(
+              'Correcto!',
+              'El registro ha sido eliminado exitosamente.',
+              'success'
+            );
+            this.cargarVacunados();
+          });
+      }
+    });
   }
 
 }

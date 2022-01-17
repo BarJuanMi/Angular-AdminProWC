@@ -38,7 +38,7 @@ import { EmpleadosService } from 'src/app/services/empleados.service';
         monto: [this.prestamo.monto],
         empleado: [this.prestamo.empleado],
         observaciones: [this.prestamo.observaciones],
-        usuarioNombre: [this.usuario.nombre]
+        usuarioNombre: [this.usuario.nombre],
       });
     }
 

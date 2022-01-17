@@ -30,12 +30,12 @@ export class FileUploadService {
 
       const data = await resp.json();
 
-      console.log(data);
+      //console.log(data);
 
       if ( data.status ) {
         return data.nombreArchivo;
       } else {
-        console.log(data.msg);
+        //console.log(data.msg);
         return false;
       }
 

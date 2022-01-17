@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
 import { delay } from 'rxjs/operators';
 
+const path_back = environment.base_url;
 const url_load_pdf_pys = environment.url_load_pdf_pazysalvo;
 
 @Component({

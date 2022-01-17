@@ -52,6 +52,7 @@ export class NuevoAspiranteComponent implements OnInit {
       edad: [this.aspirante.edad],
       notasEntrevistador: [this.aspirante.notasEntrevistador],
       experienciaPrevia: [this.aspirante.experienciaPrevia],
+      fechaEntrevista: [this.aspirante.fechaEntrevista]
     })
   }
 

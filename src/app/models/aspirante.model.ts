@@ -24,6 +24,8 @@ export class Aspirante {
         public pathResultadoPDF?: string,
         public estadoResCargoPDF?: boolean,
         public pathHojaVidaPDF?: string,
-        public estadoHVCargoPDF?: boolean
+        public estadoHVCargoPDF?: boolean,
+        public rutaCargueComplHVPDF?: string,
+        public rutaCargueComplResPDF?: string
     ) {}
 }

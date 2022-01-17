@@ -85,7 +85,7 @@
                                 <label class="control-label label-form-decora">Localidad</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-anchor"></i></div>
-                                    <select class="form-control custom-select" formControlName="cargoAspirante" required>
+                                    <select class="form-control custom-select" formControlName="localidad" required>
                                         <option value="null">--Seleccione una opción--</option>
                                         <option *ngFor="let localidad of localidadesList" [value]="localidad._id">{{localidad.localidadName}}</option>
                                     </select>
@@ -118,12 +118,21 @@
                     </div>
 
                     <div class="row p-t-20">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label label-form-decora">Notas y comentarios asociados:</label>
+                                <label class="control-label label-form-decora">Notas y comentarios de entrevista</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-comment"></i></div>
                                     <textarea class="form-control text-area" formControlName="notasEntrevistador"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Fecha de entrevista</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-calendar"></i></div>
+                                    <input type="date" id="inputJob" class="form-control" formControlName="fechaEntrevista" placeholder="dd/mm/yyyy" autocomplete="off" required>
                                 </div>
                             </div>
                         </div>

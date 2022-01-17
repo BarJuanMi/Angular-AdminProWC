@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <input type="text" class="form-control" placeholder="Buscar modelo..." #txtTermino (keyup)="buscarAspirantesTermino(txtTermino.value)" />
+                <input type="text" class="form-control" placeholder="Buscar aspirante por nombre..." #txtTermino (keyup)="buscarAspirantesTermino(txtTermino.value)" />
             </div>
         </div>
     </div>
@@ -42,20 +42,37 @@
                             <tr>
                                 <th>Documento</th>
                                 <th>Nombres y Apellidos</th>
-                                <th>Edad</th>
-                                <th>Correo Electrónico</th>
-                                <th>Tel. Celular</th>
-                                <th>Cargo Aspirante</th>
+                                <th class="text-center">Edad</th>
+                                <th class="text-center">Correo Electrónico</th>
+                                <th class="text-center">Tel. Celular</th>
+                                <th class="text-center">Estado</th>
+                                <th class="text-center">Experiencia</th>
+                                <th class="text-center">Cargo al que aspira</th>
+                                <th class="text-center">Acción</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let aspirante of aspirantes">
                                 <td><small>{{aspirante.documento}}</small></td>
                                 <td><small><a href="" (click)="verDetallesAspirante(aspirante)" data-toggle="modal" data-target="#datosAspiranteModal">{{aspirante.nombApellAspConcat}}</a></small></td>
-                                <td><small>{{aspirante.edad}}</small></td>
-                                <td><small>{{aspirante.email}}</small></td>
-                                <td><small>{{aspirante.numCelular}}</small></td>
-                                <td><small>{{aspirante.cargoAspirante.cargoDesc}}</small></td>
+                                <td class="text-center"><small>{{aspirante.edad}}</small></td>
+                                <td class="text-center"><small>{{aspirante.email}}</small></td>
+                                <td class="text-center"><small>{{aspirante.numCelular}}</small></td>
+                                <td class="text-center"><small>{{aspirante.estado}}</small></td>
+                                <td class="text-center">
+                                    <span *ngIf="aspirante.experienciaPrevia" class="label label-success">SI</span>
+                                    <span *ngIf="!aspirante.experienciaPrevia" class="label label-warning">NO</span>
+                                </td>
+                                <td class="text-center"><small>{{aspirante.cargoAspirante.cargoDesc}}</small></td>
+                                <td class="text-nowrap text-center">
+                                    <a [routerLink]="['/dashboard/uploadDocsApirante', aspirante._id]" title="Cargar Documentos de la Aspirante" data-toggle="tooltip" data-original-title="Cargar Documentos de la Aspirante">
+                                        <i class="fa fa-upload text-inverse m-r-10"></i>
+                                    </a>
+                                    &nbsp;
+                                    <a class="cursor" title="Cambiar Estado de la Aspirante" data-toggle="tooltip" data-original-title="Cambiar Estado de la aspirante" (click)="cambiarEstadoAspirante(aspirante)">
+                                        <i class="fa fa-comments text-inverse m-r-10"></i>
+                                    </a>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -72,6 +89,60 @@
                         <i class="fa fa-forward"></i>
                     </button>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="datosAspiranteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">Información adicional del aspirante</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="table responsive">
+                    <table class="table table-bordered table-decorator-modal">
+                        <th>
+                            <tr class="tabl-decorator-modal">ID Interno</tr>
+                            <tr>Fecha Registro</tr>
+                            <tr>Dirección</tr>
+                            <tr>Localidad</tr>
+                            <tr>Usuario que registro</tr>
+                            <tr>Fecha de entrevista</tr>
+                        </th>
+
+                        <th>
+                            <tr style="color:#346420; font-size:13">{{ aspiranteWCDetalle._id}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ aspiranteWCDetalle.fechaRegistro | date}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ aspiranteWCDetalle.direccion}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ aspiranteWCDetalle.localidad.localidadName}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ aspiranteWCDetalle.usuarioCreacion.nombre}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ aspiranteWCDetalle.fechaEntrevista | date}}</tr>
+                        </th>
+                    </table>
+                </div>
+
+                <div class="div-border-decorator">
+                    <p style="color:rgb(100, 17, 233); font-size:13"><b>Notas de la entrevista:</b></p>
+                    <p style="color:rgb(212, 94, 26); font-size:13">
+                        {{ aspiranteWCDetalle.notasEntrevistador}}
+                    </p>
+                </div>
+
+                <br>
+                <div class="div-border-decorator" *ngIf="aspiranteWCDetalle.estadoHVCargoPDF || aspiranteWCDetalle.estadoResCargoPDF">
+                    <a *ngIf="aspiranteWCDetalle.estadoHVCargoPDF" href="{{aspiranteWCDetalle.rutaCargueComplHVPDF}}" target="_blank">Descargar hoja de vida</a>
+                    <br>
+                    <a *ngIf="aspiranteWCDetalle.estadoResCargoPDF" href="{{aspiranteWCDetalle.rutaCargueComplResPDF}}" target="_blank">Descargar resultado de prueba psicológica </a>
+                </div>
+            </div>
+
+
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>

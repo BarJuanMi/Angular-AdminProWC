@@ -29,6 +29,7 @@ import { AspirantesComponent } from './personalrrhh/aspirantes/aspirantes.compon
 import { NuevoEmpleadoComponent } from './personalrrhh/empleados/nuevo-empleado.component';
 import { ActualizaEmpleadoComponent } from './personalrrhh/empleados/actualiza-empleado.component';
 import { NuevoAspiranteComponent } from './personalrrhh/aspirantes/nuevo-aspirante.component';
+import { UploadDocsAspiranteComponent } from './personalrrhh/aspirantes/upload-docs-aspirante.component';
 
 const routes: Routes = [
     {  
@@ -52,27 +53,26 @@ const routes: Routes = [
             {path: 'hospitales', component: HospitalesComponent, data: {titulo: 'Manejo de Hospitales'} },
             {path: 'medicos', component: MedicosComponent, data: {titulo: 'Manejo de Medicos'} },
 
-            //WebCam Modelos
-            {path: 'aspirantes', component: AspirantesComponent, data: {titulo: 'Administración de Aspirantes'} },
-
             //WebCam Empleados
             {path: 'nuevoEmpleado/:tipo', component: NuevoEmpleadoComponent, data: {titulo: 'Creación de nuevo empleado'} },
             {path: 'actualizarEmpleado/:tipo/:id', component: ActualizaEmpleadoComponent, data: {titulo: 'Actualización de datos de Empleado'} },
 
-            //WebCam Modelos - Monitores - Administrativos
+            //WebCam Modelos - Monitores - Administrativos - Aspirantes
+            {path: 'aspirantes', component: AspirantesComponent, data: {titulo: 'Administración de Aspirantes'} },
             {path: 'modelos', component: ModeloswcComponent, data: {titulo: 'Administración de Modelos'} },
             {path: 'monitores', component: MonitoreswcComponent, data: {titulo: 'Administración de Monitores'} },
             {path: 'administrativos', component: AdmonswcComponent, data: {titulo: 'Administración de Empleados Administrativos'} },
 
             //WebCam Aspirantes
             {path: 'nuevoAspirante', component: NuevoAspiranteComponent, data: {titulo: 'Creación de Nuevo Aspirante'} },
+            {path: 'uploadDocsApirante/:id', component: UploadDocsAspiranteComponent, data: {titulo: 'Cargue de documentos relacionados al aspirante'}},
 
             //WebCam Prestamos
-            {path: 'prestamos', component: PrestamosComponent, data: {titulo: 'Administración de Prestamos a Modelos'}},
+            {path: 'prestamos', component: PrestamosComponent, data: {titulo: 'Administración de Prestamos para empleados'}},
             {path: 'nuevoPrestamo', component: NuevoPrestamoComponent, data: {titulo: 'Creación de Nuevo Prestamo'} },
 
             //WebCam Retiros
-            {path: 'retiros', component: RetirosComponent, data: {titulo: 'Administración de Retiros de Modelos'}},
+            {path: 'retiros', component: RetirosComponent, data: {titulo: 'Administración de Retiros de empleados'}},
             {path: 'nuevoRetiro', component: NuevoRetiroComponent, data: {titulo: 'Creación de Nuevo Retiro'}},
             {path: 'actualizaRetiro/:id', component: ActualizaRetiroComponent, data: {titulo: 'Actualización Datos de Retiro'}},
 

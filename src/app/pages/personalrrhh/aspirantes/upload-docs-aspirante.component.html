@@ -1,0 +1,43 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Hoja de Vida asociada al aspirante</h4>
+                <br>
+                <h6 class="card-subtitle">Cargue el archivo PDF de la hoja de vida para el aspirante.</h6>
+                <br>
+                <img class="file-icon-load" src="./assets/images/icon/icon-pdf-adob.png">
+                <br>
+                <br>
+                <input type="file" (change)="cargarPDFHojaVida($event.target.files[0])">
+                <br>
+                <br>
+                <button type="button" class="btn btn-info waves-effect waves-light m-r-10" [disabled]="!pdfHVSubir" (click)="subirPDFHojaVida()">
+                <i class="fa fa-cloud-upload"></i>
+                Cargar Hoja de Vida
+            </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Resultado de prueba psicotécnica asociada al aspirante</h4>
+                <br>
+                <h6 class="card-subtitle">Cargue el archivo PDF del resultado de la prueba psicotécnica realizada al aspirante.</h6>
+                <br>
+                <img class="file-icon-load" src="./assets/images/icon/icon-pdf-adob.png">
+                <br>
+                <br>
+                <input type="file" (change)="cargarPDFResPsico($event.target.files[0])">
+                <br>
+                <br>
+                <button type="button" class="btn btn-info waves-effect waves-light m-r-10" [disabled]="!pdfResPsicoSubir" (click)="subirPDFResPsico()">
+                <i class="fa fa-cloud-upload"></i>
+                Cargar Resultado Prueba
+            </button>
+            </div>
+        </div>
+    </div>
+</div>
