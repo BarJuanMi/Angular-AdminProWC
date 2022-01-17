@@ -35,6 +35,7 @@ import { NuevoEmpleadoComponent } from './personalrrhh/empleados/nuevo-empleado.
 import { ActualizaEmpleadoComponent } from './personalrrhh/empleados/actualiza-empleado.component';
 import { NuevoAspiranteComponent } from './personalrrhh/aspirantes/nuevo-aspirante.component';
 import { UploadDocsAspiranteComponent } from './personalrrhh/aspirantes/upload-docs-aspirante.component';
+import { ServLavanderiaComponent } from './admin/serv-lavanderia/serv-lavanderia.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { UploadDocsAspiranteComponent } from './personalrrhh/aspirantes/upload-d
     NuevoEmpleadoComponent,
     ActualizaEmpleadoComponent,
     NuevoAspiranteComponent,
-    UploadDocsAspiranteComponent
+    UploadDocsAspiranteComponent,
+    ServLavanderiaComponent
   ],
   exports: [
     DashboardComponent,

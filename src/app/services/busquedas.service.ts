@@ -56,8 +56,8 @@ export class BusquedasService {
     );
   }
 
-  buscarPorColeccion(tipo: 'usuarios'|'medicos'|'hospitales', termino: string) {
-    //localhost:3001/api/busqueda/coleccion/usuarios/***
+  buscarPorColeccion(tipo: 'usuarios'|'medicos'|'hospitales'|'aspirantes', termino: string) {
+    //localhost:3001/api/busqueda/coleccion/tipo/***
     const url = `${ base_url }/busqueda/coleccion/${tipo}/${termino}`;
     return this.http.get<any[]>( url , this.headers)
       .pipe(
@@ -65,6 +65,9 @@ export class BusquedasService {
           switch (tipo) {
             case 'usuarios':
               return this.transformarUsuarios(resp.resultados);
+            
+            case 'aspirantes':
+              return this.transformarAspirante(resp.resultados);
 
             default:
               return[];
@@ -79,16 +82,6 @@ export class BusquedasService {
       .pipe(
         map( (resp: any) => {
               return this.transformarEmpleado(resp.resultados);
-        }));
-  }
-
-  buscarTerminoEnAspirantes(tipo: string, termino: string) {
-    //localhost:3001/api/busqueda/coleccion/aspirantes/modelo/***
-    const url = `${ base_url }/busqueda/coleccion/${tipo}/${termino}`;
-    return this.http.get<any[]>( url , this.headers)
-      .pipe(
-        map( (resp: any) => {
-              return this.transformarAspirante(resp.resultados);
         }));
   }
 }

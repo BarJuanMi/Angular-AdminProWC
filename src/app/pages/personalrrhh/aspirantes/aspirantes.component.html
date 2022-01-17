@@ -61,16 +61,20 @@
                                 <td class="text-center"><small>{{aspirante.estado}}</small></td>
                                 <td class="text-center">
                                     <span *ngIf="aspirante.experienciaPrevia" class="label label-success">SI</span>
-                                    <span *ngIf="!aspirante.experienciaPrevia" class="label label-warning">NO</span>
+                                    <span *ngIf="!aspirante.experienciaPrevia" class="label label-danger">NO</span>
                                 </td>
-                                <td class="text-center"><small>{{aspirante.cargoAspirante.cargoDesc}}</small></td>
+                                <td class="text-center">
+                                    <span *ngIf="aspirante.cargoAspirante.cargoId === '1'" class="label label-warning">{{aspirante.cargoAspirante.cargoDesc}}</span>
+                                    <span *ngIf="aspirante.cargoAspirante.cargoId === '2'" class="label label-primary">{{aspirante.cargoAspirante.cargoDesc}}</span>
+                                    <span *ngIf="aspirante.cargoAspirante.cargoId === '3'" class="label label-info">{{aspirante.cargoAspirante.cargoDesc}}</span>
+                                </td>
                                 <td class="text-nowrap text-center">
                                     <a [routerLink]="['/dashboard/uploadDocsApirante', aspirante._id]" title="Cargar Documentos de la Aspirante" data-toggle="tooltip" data-original-title="Cargar Documentos de la Aspirante">
                                         <i class="fa fa-upload text-inverse m-r-10"></i>
                                     </a>
                                     &nbsp;
                                     <a class="cursor" title="Cambiar Estado de la Aspirante" data-toggle="tooltip" data-original-title="Cambiar Estado de la aspirante" (click)="cambiarEstadoAspirante(aspirante)">
-                                        <i class="fa fa-comments text-inverse m-r-10"></i>
+                                        <i class="fa fa-list-ul text-inverse m-r-10"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -133,8 +137,11 @@
 
                 <br>
                 <div class="div-border-decorator" *ngIf="aspiranteWCDetalle.estadoHVCargoPDF || aspiranteWCDetalle.estadoResCargoPDF">
+                    &nbsp;<i class="fa fa-file-pdf-o text-inverse m-r-10"></i>
                     <a *ngIf="aspiranteWCDetalle.estadoHVCargoPDF" href="{{aspiranteWCDetalle.rutaCargueComplHVPDF}}" target="_blank">Descargar hoja de vida</a>
                     <br>
+                    <br>&nbsp;
+                    <i class="fa fa-file-pdf-o text-inverse m-r-10"></i>
                     <a *ngIf="aspiranteWCDetalle.estadoResCargoPDF" href="{{aspiranteWCDetalle.rutaCargueComplResPDF}}" target="_blank">Descargar resultado de prueba psicológica </a>
                 </div>
             </div>

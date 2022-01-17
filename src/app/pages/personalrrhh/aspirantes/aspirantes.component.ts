@@ -80,7 +80,7 @@ export class AspirantesComponent implements OnInit {
       return this.aspirantes = this.aspirantesTemp;
     }
 
-    this.busquedasService.buscarTerminoEnAspirantes( 'aspirantes', termino)
+    this.busquedasService.buscarPorColeccion( 'aspirantes', termino)
         .subscribe( (resultados: Aspirante[]) => {
           this.aspirantes = resultados;
         });
@@ -114,9 +114,9 @@ export class AspirantesComponent implements OnInit {
       '<div class="row p-t-20">'+
         '<div class="col-md-12">'+
           '<div class="form-group">'+
-            '<label class="control-label label-form-decora">Farmaceutica</label>'+
+            '<label class="control-label label-form-decora">Nuevo estado</label>'+
             '<div class="input-group">'+
-              '<div class="input-group-addon"><i class="ti-heart"></i></div>'+
+              '<div class="input-group-addon"><i class="ti-pin-alt"></i></div>'+
               '<select id="swal-input1" class="form-control custom-select">'+
                 '<option value="Registrado en App">Registrado en App</option>'+
                 '<option value="Aceptado - Contratado">Aceptado - Contratado</option>'+

@@ -30,6 +30,7 @@ import { NuevoEmpleadoComponent } from './personalrrhh/empleados/nuevo-empleado.
 import { ActualizaEmpleadoComponent } from './personalrrhh/empleados/actualiza-empleado.component';
 import { NuevoAspiranteComponent } from './personalrrhh/aspirantes/nuevo-aspirante.component';
 import { UploadDocsAspiranteComponent } from './personalrrhh/aspirantes/upload-docs-aspirante.component';
+import { ServLavanderiaComponent } from './admin/serv-lavanderia/serv-lavanderia.component';
 
 const routes: Routes = [
     {  
@@ -80,6 +81,9 @@ const routes: Routes = [
             {path: 'vacunados', component: VacunasCodiv19Component, data: {titulo: 'Administración de Registros de vacunas para empleados'}},
             {path: 'nuevoRegVacuna', component: NuevoRegVacunaComponent, data: {titulo: 'Creación de Nuevo Registro de Vacuna para empleado'}},
             {path: 'agregarRegDosis/:id', component: ActualizaRegVacunaComponent, data: {titulo: 'Agregar registro de dosis de vacuna para empleado'}},
+
+            //WebCam ServLavanderia
+            {path: 'servsLavanderia', component: ServLavanderiaComponent, data: {titulo: 'Registros de servicios de lavanderia para modelos'}},
         ]
     },
 ];

@@ -21,9 +21,7 @@ export class SidebarService {
       titulo: 'Gest. Documental',
       icono: 'mdi mdi-library-books',
       submenu: [
-
-        {titulo: 'Hojas de vida', url: '/'},
-        {titulo: 'Memorandos', url: '/'},
+        {titulo: 'Memorandos a empleados', url: '/'},
         {titulo: 'Retiros de empleados', url: '/dashboard/retiros'},
       ]
     },
@@ -50,8 +48,9 @@ export class SidebarService {
       titulo: 'Proc. Internos',
       icono: 'mdi mdi-server',
       submenu: [
-        {titulo: 'Prestamos a empleados', url: '/dashboard/prestamos'},
-        {titulo: 'Registros de personal vacunados', url: '/dashboard/vacunados'}
+        {titulo: 'Prestamos o adelantos a empleados', url: '/dashboard/prestamos'},
+        {titulo: 'Registros de personal vacunados', url: '/dashboard/vacunados'},
+        {titulo: 'Servicios de lavanderia a modelos', url: '/dashboard/servsLavanderia'}
       ]
     },
   ]
