@@ -67,12 +67,12 @@
                                     <span *ngIf="!admon.estado" class="label label-danger">INACTIVO</span>
                                 </td>
                                 <td class="text-nowrap text-center">
-                                    <a [routerLink]="['/dashboard/actualizarAdmon', admon._id]" title="Actualizar Datos de Empleado Administrativo" data-toggle="tooltip" data-original-title="Actualizar Datos de Empleado Administrativo">
+                                    <a [routerLink]="['/dashboard/actualizarEmpleado/administrativo', admon._id]" title="Actualizar Datos de Empleado Administrativo" data-toggle="tooltip" data-original-title="Actualizar Datos de Empleado Administrativo">
                                         <i class="fa fa-pencil text-inverse m-r-10"></i>
                                     </a>
                                     &nbsp;
                                     <a *ngIf="admon.estado" class="cursor" title="Inactivar Empleado Administrativo" data-toggle="tooltip" data-original-title="Inactivar Empleado Administrativo del Sistema" (click)="inactivarAdmon(admon)">
-                                        <i class="fa fa-close text-danger"></i>
+                                        <i class="fa fa-ban text-danger"></i>
                                     </a>
 
                                     <a *ngIf="!admon.estado" class="cursor" title="Reactivar Empleado Administrativo" data-toggle="tooltip" data-original-title="Reactivar Empleado Administrativo en el Sistema" (click)="reActivarAdmon(admon)">

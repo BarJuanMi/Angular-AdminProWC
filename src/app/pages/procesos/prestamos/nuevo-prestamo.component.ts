@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -5,7 +6,6 @@ import { Prestamo } from 'src/app/models/prestamo.model';
 import { Usuario } from 'src/app/models/usuario.model';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { PrestamosService } from '../../../services/prestamos.service';
-import Swal from 'sweetalert2';
 import { Empleado } from '../../../models/empleado.model';
 import { EmpleadosService } from 'src/app/services/empleados.service';
 

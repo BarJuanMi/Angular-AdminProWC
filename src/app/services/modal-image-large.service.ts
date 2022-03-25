@@ -10,7 +10,7 @@ export class ModalImageLargeService {
 
   private _ocultarModalLarge: boolean = true;
 
-  public tipo: 'vacunados';
+  public tipo: 'vacunados'|'servlavanderia';
   public id: string;
   public img: string;
 
@@ -20,7 +20,9 @@ export class ModalImageLargeService {
     return this._ocultarModalLarge;
   }
 
-  abrirModalLarge(tipo: 'vacunados', id: string, img: string = 'no-img') {
+  abrirModalLarge(tipo: 'vacunados'|'servlavanderia', 
+                  id: string, 
+                  img: string = 'no-img') {
     this._ocultarModalLarge = false;
     this.tipo = tipo;
     this.id = id;

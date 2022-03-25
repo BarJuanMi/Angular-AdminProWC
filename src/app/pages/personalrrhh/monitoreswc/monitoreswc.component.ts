@@ -97,7 +97,7 @@ export class MonitoreswcComponent implements OnInit {
    * @param monitor 
    */
    abrilModalImagen( monitor: Empleado) {
-    this.modalImagenService.abrirModal('monitores', monitor._id, monitor.img);
+    this.modalImagenService.abrirModal('empleados', monitor._id, monitor.img);
   }
 
   /**

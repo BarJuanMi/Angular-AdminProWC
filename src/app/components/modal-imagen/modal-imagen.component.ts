@@ -48,6 +48,7 @@ export class ModalImagenComponent implements OnInit {
    * 
    */
    subirImagenProfile() {
+
     const id = this.modalImagenService.id;
     const tipo = this.modalImagenService.tipo;
 

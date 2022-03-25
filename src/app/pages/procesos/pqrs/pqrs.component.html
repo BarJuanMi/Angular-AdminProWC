@@ -1,0 +1,157 @@
+<div class="row animated fadeIn fast" *ngIf="cargando">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor espere...</p>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn fast" *ngIf="!cargando">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="col-12">
+                    <table style="width:100%">
+                        <tr>
+                            <td style="text-align:left">
+                                <button [routerLink]="['/dashboard/nuevoPQRS']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                                <i class="fa fa-user-plus"></i> Crear PQRS </button>
+                            </td>
+
+                            <td style="text-align:center">
+                                <button type="button" class="btn waves-effect waves-light btn-rounded btn-link" (click)="filterPQRSToMe()">
+                                <i class="fa fa-filter"></i> Filtrar PQRS asignadas a mi </button>
+                            </td>
+
+                            <td style="text-align:right">
+                                <h6>PQRS registradas (<small>{{ totalPQRS }}</small>)</h6>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                &nbsp;
+                <div class="table-responsive">
+                    <table class="table table-bordered color-bordered-table inverse-bordered-table">
+                        <thead>
+                            <tr>
+                                <th class="w50"></th>
+                                <th class="text-center">Tipo PQRS</th>
+                                <th class="text-center">Prioridad</th>
+                                <th class="text-center">Estado</th>
+                                <th>Ocurrió el</th>
+                                <th class="text-center">Sede</th>
+                                <th>Asignado a</th>
+                                <th>Registrado por</th>
+                                <th class="text-center">Fecha Registró</th>
+                                <th class="text-center">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let pqr of pqrsi">
+                                <td class="text-center">
+                                    <img [src]="pqr.imagenUrl" class="avatar-w40 cursor" alt="Evidencia de PQRS" (click)="abrilModalImagen( pqr )">
+                                </td>
+                                <td><small><a href="" (click)="verDetallesPQRS(pqr)" data-toggle="modal" data-target="#datosPQRSModal">{{pqr.tipo.tipopqrsDesc}}</a></small></td>
+                                <td class="text-center">
+                                    <span *ngIf="pqr.prioridad === 'URGENTE'" class="label label-primary">URGENTE</span>
+                                    <span *ngIf="pqr.prioridad === 'ALTA'" class="label label-danger">ALTA</span>
+                                    <span *ngIf="pqr.prioridad === 'MEDIA'" class="label label-warning">MEDIA</span>
+                                    <span *ngIf="pqr.prioridad === 'BAJA'" class="label label-info">BAJA</span>
+                                </td>
+                                <td class="text-center">
+                                    <span *ngIf="pqr.estado === 'ABIERTO'" class="label label-info">ABIERTO</span>
+                                    <span *ngIf="pqr.estado === 'PENDIENTE'" class="label label-danger">PENDIENTE</span>
+                                    <span *ngIf="pqr.estado === 'INVESTIGANDO'" class="label label-warning">INVESTIGANDO</span>
+                                    <span *ngIf="pqr.estado === 'RESUELTO'" class="label label-success">RESUELTO</span>
+                                </td>
+                                <td><small>{{pqr.fechaOcurrencia | date}}</small></td>
+                                <td class="text-center {{pqr.sede.stylePre}}">{{pqr.sede.nombre}}</td>
+                                <td><small>{{pqr.usuarioAsignado.nombre}}</small></td>
+                                <td><small>{{pqr.usuarioRegistro.nombre}}</small></td>
+                                <td class="text-center"><small>{{pqr.fechaRegistro | date}}</small></td>
+                                <td class="text-nowrap text-center">
+                                    <a class="cursor" title="Actualizar estado de la PQRS" data-toggle="tooltip" data-original-title="Actualizar estado de la PQRS" (click)="actualizarEstadoPQRS(pqr)">
+                                        <i class="fa fa-pencil text-inverse m-r-10"></i>
+                                    </a>
+                                    &nbsp; &nbsp;
+                                    <a class="cursor" title="Eliminar definitivamente la PQRS" data-toggle="tooltip" data-original-title="Eliminar definitivamente la PQRS" (click)="eliminarPQRS(pqr)">
+                                        <i class="fa fa-trash text-danger"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="text-center" *ngIf="mostrarBotones">
+                    <button (click)="cambiarPagina(-20)" class="btn btn-secondary">
+                        <i class="fa fa-backward"></i>&nbsp;
+                        Anteriores
+                    </button> &nbsp; &nbsp; &nbsp;
+
+                    <button (click)="cambiarPagina(20)" class="btn btn-secondary">
+                        Siguientes &nbsp;
+                        <i class="fa fa-forward"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="datosPQRSModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">Información Detallada de PQRS</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="table responsive">
+                    <table class="table table-bordered table-decorator-modal">
+                        <th>
+                            <tr class="tabl-decorator-modal">ID Interno</tr>
+                            <tr>Empleado Asociado</tr>
+                        </th>
+
+                        <th>
+                            <tr style="color:#346420; font-size:13">{{ pqrsiDetalle._id}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ pqrsiDetalle.empleadoAsociado.nombApellConca}}</tr>
+                        </th>
+                    </table>
+
+                    <div class="div-border-decorator">
+                        <p class="font-weight-bold" style="color:rgb(100, 17, 233); font-size:13"><b>Detalle de PQRS o Incidente:</b></p>
+                        <p style="color:rgb(230, 19, 100); font-size:13">
+                            {{ pqrsiDetalle.detallePrimario}}
+                        </p>
+                    </div>
+                    <br>
+                    <span *ngIf="pqrsiDetalle.respuestaAsociadaOne !== '-'">
+                        <div class="div-border-decorator">
+                            <p class="font-weight-bold" style="color:rgb(100, 17, 233); font-size:13"><b>Respuesta, Replica o Aclaración de 1era instancia:</b></p>
+                            <p style="color:rgb(230, 19, 100); font-size:13">
+                                {{ pqrsiDetalle.respuestaAsociadaOne}}
+                            </p>
+                        </div>
+                    </span>
+                    <br>
+                    <span *ngIf="pqrsiDetalle.respuestaAsociadaTwo !== '-'">
+                        <div class="div-border-decorator">
+                            <p class="font-weight-bold" style="color:rgb(100, 17, 233); font-size:13"><b>Respuesta, Replica o Aclaración de 2da instancia:</b></p>
+                            <p style="color:rgb(230, 19, 100); font-size:13">
+                                {{ pqrsiDetalle.respuestaAsociadaTwo}}
+                            </p>
+                        </div>
+                    </span>
+                    <br>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

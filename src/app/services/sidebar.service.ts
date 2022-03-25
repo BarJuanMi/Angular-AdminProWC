@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class SidebarService {
 
-  menu: any[] = [
+  menuAdmin: any[] = [
     {
       titulo: 'Ejemplos...',
       icono: 'mdi mdi-gauge',
@@ -48,11 +48,23 @@ export class SidebarService {
       titulo: 'Proc. Internos',
       icono: 'mdi mdi-server',
       submenu: [
-        {titulo: 'Prestamos o adelantos a empleados', url: '/dashboard/prestamos'},
-        {titulo: 'Registros de personal vacunados', url: '/dashboard/vacunados'},
-        {titulo: 'Servicios de lavanderia a modelos', url: '/dashboard/servsLavanderia'}
+        {titulo: 'PQRS e Incidentes ', url: '/dashboard/pqrsi'},
+        {titulo: 'Prestamos o adelantos', url: '/dashboard/prestamos'},
+        {titulo: 'Personal vacunados', url: '/dashboard/vacunados'},
+        {titulo: 'Servicios de lavanderia', url: '/dashboard/servsLavanderia'},
       ]
     },
+  ]
+
+  menuUserApp: any[] = [
+    {
+      titulo: 'Proc. Internos',
+      icono: 'mdi mdi-server',
+      submenu: [
+        {titulo: 'PQRS e Incidentes ', url: '/dashboard/pqrsi'},
+        {titulo: 'Servicios de lavanderia', url: '/dashboard/servsLavanderia'},
+      ]
+    }
   ]
 
   constructor() { }

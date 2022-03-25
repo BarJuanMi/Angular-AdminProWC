@@ -39,11 +39,6 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log(this.usuarioLogged.role);
-    if ( this.usuarioLogged.role != 'ADMIN_ROLE' && this.usuarioLogged.role != 'GOD_ROLE') {
-      Swal.fire('Error', 'No puedes acceder a esta sección, no tienes los privilegios suficientes.', 'error');
-      this.router.navigateByUrl('/');
-    }
     this.cargarUsuarios();
     this.imgSubs = this.modalImagenService.nuevaImagen
     .pipe(delay(300))

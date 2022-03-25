@@ -25,7 +25,7 @@ export class UsuarioService {
                private router: Router,
                private ngZone: NgZone) { 
                  
-    this.googleInit();
+    //this.googleInit();
   }
 
   get uid():string {
@@ -48,7 +48,7 @@ export class UsuarioService {
    * 
    * @returns 
    */
-  googleInit() {
+  /*googleInit() {
     console.log('Invocación a UsuarioService(Front) - googleInit');
     return new Promise<void> ( resolve => {
       gapi.load('auth2', () => {
@@ -60,7 +60,7 @@ export class UsuarioService {
         resolve();
       });
     });
-  }
+  }*/
   
   /**
    * 
@@ -68,11 +68,11 @@ export class UsuarioService {
   logout() {
     console.log('Invocación a UsuarioService(Front) - logout');
     localStorage.removeItem('token');
-    this.auth2.signOut().then(() => {
-      this.ngZone.run(() => {
+    //this.auth2.signOut().then(() => {
+      //this.ngZone.run(() => {
         this.router.navigateByUrl('/login');
-      });
-    });
+      //});
+    //});
   }
   
   /**

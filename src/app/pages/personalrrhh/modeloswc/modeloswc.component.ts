@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { delay } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
-import { ModeloWC } from 'src/app/models/modelowc.model';
 import { BusquedasService } from 'src/app/services/busquedas.service';
 import { ModalImagenService } from 'src/app/services/modal-imagen.service';
 import { Pais } from 'src/app/models/pais.util.model';
@@ -97,8 +96,8 @@ export class ModeloswcComponent implements OnInit {
    * 
    * @param modelo 
    */
-  abrilModalImagen( modelo: ModeloWC) {
-    this.modalImagenService.abrirModal('modelos', modelo._id, modelo.img);
+  abrilModalImagen( modelo: Empleado) {
+    this.modalImagenService.abrirModal('empleados', modelo._id, modelo.img);
   }
 
   /**

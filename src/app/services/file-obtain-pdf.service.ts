@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { map, delay } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { MonitorWC } from '../models/monitorwc.model';
 import { UsuarioService } from './usuario.service';
 
 const base_url = environment.base_url;

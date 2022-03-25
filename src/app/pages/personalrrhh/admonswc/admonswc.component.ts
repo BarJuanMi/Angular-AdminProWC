@@ -99,7 +99,7 @@ export class AdmonswcComponent implements OnInit {
    * @param administrativo 
    */
    abrilModalImagen( administrativo: Empleado ) {
-    this.modalImagenService.abrirModal('administrativos', administrativo._id, administrativo.img);
+    this.modalImagenService.abrirModal('empleados', administrativo._id, administrativo.img);
   }
 
   /**

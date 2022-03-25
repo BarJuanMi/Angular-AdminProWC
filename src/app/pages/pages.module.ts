@@ -18,16 +18,16 @@ import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.comp
 import { MedicosComponent } from './mantenimientos/medicos/medicos.component';
 import { ModeloswcComponent } from './personalrrhh/modeloswc/modeloswc.component';
 import { MonitoreswcComponent } from './personalrrhh/monitoreswc/monitoreswc.component';
-import { PrestamosComponent } from './admin/prestamos/prestamos.component';
-import { NuevoPrestamoComponent } from './admin/prestamos/nuevo-prestamo.component';
+import { PrestamosComponent } from './procesos/prestamos/prestamos.component';
+import { NuevoPrestamoComponent } from './procesos/prestamos/nuevo-prestamo.component';
 import { RetirosComponent } from './gest-documental/retiros/retiros.component';
 import { NuevoRetiroComponent } from './gest-documental/retiros/nuevo-retiro.component';
 import { ActualizaRetiroComponent } from './gest-documental/retiros/actualiza-retiro.component';
 import { NuevoUsuarioComponent } from './mantenimientos/usuarios/nuevo-usuario.component';
 import { ActualizarUsuarioComponent } from './mantenimientos/usuarios/actualizar-usuario.component';
-import { VacunasCodiv19Component } from './admin/vacunas-codiv19/vacunas-codiv19.component';
-import { NuevoRegVacunaComponent } from './admin/vacunas-codiv19/nuevo-reg-vacuna.component';
-import { ActualizaRegVacunaComponent } from './admin/vacunas-codiv19/actualiza-reg-vacuna.component';
+import { VacunasCodiv19Component } from './procesos/vacunas-codiv19/vacunas-codiv19.component';
+import { NuevoRegVacunaComponent } from './procesos/vacunas-codiv19/nuevo-reg-vacuna.component';
+import { ActualizaRegVacunaComponent } from './procesos/vacunas-codiv19/actualiza-reg-vacuna.component';
 import { AdmonswcComponent } from './personalrrhh/admonswc/admonswc.component';
 import { AspirantesComponent } from './personalrrhh/aspirantes/aspirantes.component';
 import { EmpleadosComponent } from './personalrrhh/empleados/empleados.component';
@@ -35,7 +35,11 @@ import { NuevoEmpleadoComponent } from './personalrrhh/empleados/nuevo-empleado.
 import { ActualizaEmpleadoComponent } from './personalrrhh/empleados/actualiza-empleado.component';
 import { NuevoAspiranteComponent } from './personalrrhh/aspirantes/nuevo-aspirante.component';
 import { UploadDocsAspiranteComponent } from './personalrrhh/aspirantes/upload-docs-aspirante.component';
-import { ServLavanderiaComponent } from './admin/serv-lavanderia/serv-lavanderia.component';
+import { ServLavanderiaComponent } from './procesos/serv-lavanderia/serv-lavanderia.component';
+import { NuevoServLavanderiaComponent } from './procesos/serv-lavanderia/nuevo-serv-lavanderia.component';
+import { PqrsComponent } from './procesos/pqrs/pqrs.component';
+import { NuevoPqrsComponent } from './procesos/pqrs/nuevo-pqrs.component';
+import { ActualizaPqrsComponent } from './procesos/pqrs/actualiza-pqrs.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +73,11 @@ import { ServLavanderiaComponent } from './admin/serv-lavanderia/serv-lavanderia
     ActualizaEmpleadoComponent,
     NuevoAspiranteComponent,
     UploadDocsAspiranteComponent,
-    ServLavanderiaComponent
+    ServLavanderiaComponent,
+    NuevoServLavanderiaComponent,
+    PqrsComponent,
+    NuevoPqrsComponent,
+    ActualizaPqrsComponent
   ],
   exports: [
     DashboardComponent,

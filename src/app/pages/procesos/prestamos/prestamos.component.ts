@@ -4,6 +4,8 @@ import { Usuario } from 'src/app/models/usuario.model';
 import { PrestamosService } from 'src/app/services/prestamos.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-prestamos',
@@ -17,16 +19,16 @@ export class PrestamosComponent implements OnInit {
   public prestamos: Prestamo[] = [];
   public prestamosTemp: Prestamo[] = [];
   public cargando: boolean = true;
+  public imgSubs: Subscription;
   public desde: number = 0;
   public mostrarBotones: boolean = true;
   public prestamoDetalle: Prestamo = new Prestamo('','',null,'',null,'','',null, null, '');
   public usuario: Usuario;
 
-  constructor(private prestamoService: PrestamosService,
-              private usuarioService: UsuarioService) 
-  {
-    this.usuario = usuarioService.usuario;
-  }
+  constructor( private router: Router,
+               private prestamoService: PrestamosService,
+               private usuarioService: UsuarioService) 
+  {}
 
   ngOnInit(): void {
     this.cargarPrestamos();
@@ -105,39 +107,34 @@ export class PrestamosComponent implements OnInit {
    * @param prestamo 
    */
   eliminarPrestamo(prestamo: Prestamo) {
-    if(this.usuario.role != 'ADMIN_ROLE'){
-      Swal.fire('Error', 'No es posible eliminar la transacción, no tienes los privilegios suficientes.', 'error');
-      this.cargarPrestamos();
-    } else {
-      Swal.fire({
-        title: '<small>Esta seguro de eliminar la transacción </br>' + prestamo._id + '?</small>',
-        text: '',
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: '<i class="fa fa-thumbs-up"></i> Sí, Eliminar!',
-        cancelButtonText:'<i class="fa fa-thumbs-down"></i> Cancelar',
-        backdrop: `
-          rgba(0,0,123,0.4)
-          url("./assets/images/gifs-swal/cat-nyan-cat.gif")
-          left top
-          no-repeat
-        `
-      }).then((result) => {
-        if (result.isConfirmed){
-          this.prestamoService.eliminarPrestamo( prestamo )
-            .subscribe (resp => {
-              Swal.fire(
-                'Correcto!',
-                'La transacción ha sido realizada exitosamente.',
-                'success'
-              );
-              this.cargarPrestamos();
-            });
-        }
-      });
-    }
+    Swal.fire({
+      title: '<small>Esta seguro de eliminar la transacción </br>' + prestamo._id + '?</small>',
+      text: '',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '<i class="fa fa-thumbs-up"></i> Sí, Eliminar!',
+      cancelButtonText:'<i class="fa fa-thumbs-down"></i> Cancelar',
+      backdrop: `
+        rgba(0,0,123,0.4)
+        url("./assets/images/gifs-swal/cat-nyan-cat.gif")
+        left top
+        no-repeat
+      `
+    }).then((result) => {
+      if (result.isConfirmed){
+        this.prestamoService.eliminarPrestamo( prestamo )
+          .subscribe (resp => {
+            Swal.fire(
+              'Correcto!',
+              'La transacción ha sido realizada exitosamente.',
+              'success'
+            );
+            this.cargarPrestamos();
+          });
+      }
+    });
   }
 
 }

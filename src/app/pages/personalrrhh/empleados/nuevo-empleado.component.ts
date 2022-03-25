@@ -84,8 +84,6 @@ export class NuevoEmpleadoComponent implements OnInit {
   crearNuevoEmpleado() {
     this.empleadosService.crearEmpleadoxTipo( this.empleadoWCForm.value, this.tipoEmpleCrear )
       .subscribe( resp => {
-        console.log('debe redirigir hacia y segun ' + this.tipoEmpleCrear);
-
         if (this.tipoEmpleCrear === 'Modelo') {
           this.router.navigateByUrl('/dashboard/modelos');
         } else if(this.tipoEmpleCrear === 'Monitor'){

@@ -1,0 +1,63 @@
+<div class="row animated fadeInLeft">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header bg-info">
+                <h4 class="m-b-0 text-white">Datos Generales del Servicio de Lavanderia</h4>
+            </div>
+            <div class="card-body">
+                <form class="form p-t-20" [formGroup]="servLavanForm" (submit)="crearNuevoServLavan()">
+
+                    <div class="row p-t-20">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Sede</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-layout-menu-v"></i></div>
+                                    <select class="form-control custom-select" formControlName="sede" required>
+                                        <option value="null">--Seleccione una opción--</option>
+                                        <option *ngFor="let sede of sedesList" [value]="sede._id">{{sede.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Cant. Prendas</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-face-smile"></i></div>
+                                    <input type="text" id="documentNumber" class="form-control" formControlName="cantidadColchas" placeholder="########" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row p-t-20">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Fecha de Salida</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-calendar"></i></div>
+                                    <input type="date" id="inputJob" class="form-control" formControlName="fechaSalidaColchas" placeholder="dd/mm/yyyy" autocomplete="off" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Observaciones de salida de prendas</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-comment"></i></div>
+                                    <textarea class="form-control text-area" formControlName="obsSalidaColchas"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    &nbsp;
+                    <div>
+                        <button type="submit" class="btn btn-success waves-effect waves-pupple m-r-10" [disabled]="servLavanForm.invalid"><i class="fa fa-save"></i>  Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

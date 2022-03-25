@@ -67,12 +67,12 @@
                                     <span *ngIf="!monitor.estado" class="label label-danger">INACTIVO</span>
                                 </td>
                                 <td class="text-nowrap text-center">
-                                    <a [routerLink]="['/dashboard/actualizarMonitor', monitor._id]" data-toggle="tooltip" data-original-title="Actualizar Datos de Monitor" title="Actualizar Datos de Monitor">
+                                    <a [routerLink]="['/dashboard/actualizarEmpleado/monitor', monitor._id]" data-toggle="tooltip" data-original-title="Actualizar Datos de Monitor" title="Actualizar Datos de Monitor">
                                         <i class="fa fa-pencil text-inverse m-r-10"></i>
                                     </a>
                                     &nbsp;
                                     <a *ngIf="monitor.estado" class="cursor" title="Inactivar monitor del sistema" data-toggle="tooltip" data-original-title="Inactivar monitor del sistema" (click)="inactivarMonitor(monitor)">
-                                        <i class="fa fa-close text-danger"></i>
+                                        <i class="fa fa-ban text-danger"></i>
                                     </a>
 
                                     <a *ngIf="!monitor.estado" class="cursor" title="Reactivar monitor en el sistema" data-toggle="tooltip" data-original-title="Reactivar monitor en el sistema" (click)="reActivarMonitor(monitor)">

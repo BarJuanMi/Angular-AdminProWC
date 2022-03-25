@@ -12,11 +12,17 @@ import { Usuario } from '../../models/usuario.model';
 export class SidebarComponent implements OnInit {
 
   public menuItems: any[];
-  public usuario: Usuario;
+  public usuarioLogged: Usuario;
 
   constructor(private sidebarService: SidebarService, private usuarioService: UsuarioService) { 
-    this.menuItems = sidebarService.menu;
-    this.usuario = usuarioService.usuario;
+    
+    this.usuarioLogged = usuarioService.usuario;
+
+    if ( this.usuarioLogged.role != 'ADMIN_ROLE' && this.usuarioLogged.role != 'GOD_ROLE') {
+      this.menuItems = sidebarService.menuUserApp; 
+    } else {
+      this.menuItems = sidebarService.menuAdmin;
+    }
   }
 
   ngOnInit(): void {

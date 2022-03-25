@@ -5,7 +5,6 @@ import { BusquedasService } from 'src/app/services/busquedas.service';
 import { ModalImageLargeService } from 'src/app/services/modal-image-large.service';
 import { VacunadosService } from 'src/app/services/vacunas.service';
 import { delay } from 'rxjs/operators';
-import { ModalImagenService } from 'src/app/services/modal-imagen.service';
 import Swal from 'sweetalert2';
 
 @Component({

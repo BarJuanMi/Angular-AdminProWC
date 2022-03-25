@@ -129,7 +129,7 @@ export class EmpleadosService {
    */
    cargarEmpleadosFiltroEstado(estado: string) {
     console.log('Invocacion a EmpleadosService(Front) - cargarEmpleadosFiltroEstado');
-    const url = `${ base_url }/empleados/filtro?estado=${estado}`;
+    const url = `${ base_url }/empleados/filtro/estado/estado=${estado}`;
 
     //let params = new HttpParams();
     //params = params.append('estado', estado);

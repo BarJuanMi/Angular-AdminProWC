@@ -11,6 +11,11 @@ import { CargarCargoAspirante } from '../interfaces/cargar-cargoaspirante.interf
 import { CargoAspirante } from '../models/cargoaspirante.model';
 import { Localidad } from '../models/localidad.util.model';
 import { CargarLocalidad } from '../interfaces/cargar-localidades.interface';
+import { Sede } from '../models/sede.util.model';
+import { CargarSede } from '../interfaces/cargar-sedes.interface';
+import { TipoPQRS } from '../models/tipopqrs.model';
+import { Usuario } from '../models/usuario.model';
+import { CargarTipoPQRS } from '../interfaces/cargar-tipopqrs.interface';
 
 const base_url = environment.base_url;
 
@@ -23,6 +28,23 @@ export class UtileslistService {
 
   constructor(private http: HttpClient, 
               private router: Router) { }
+
+  cargarSedesList() {
+    console.log('Invocacion a UtileslistService(Front) - cargarSedesList');
+    const url = `${ base_url }/utiles/sedes`;
+
+    return this.http.get<CargarSede>( url )
+      .pipe(
+        map( resp => {
+          const sedes = resp.sedes.map( 
+            sede => new Sede(sede._id, sede.nombre, sede.telefonoPrinc, sede.telefonoSec, sede.direccion, sede.ciudad, sede.localidad)
+          );
+          return {
+            sedes
+          };
+        })
+      )
+  }
 
   cargarPaisesList() {
     console.log('Invocacion a UtileslistService(Front) - cargarPaisesList');
@@ -90,6 +112,27 @@ export class UtileslistService {
 
           return {
             localidades
+          };
+        })
+      )
+  }
+
+  cargarTipoPQRSList() {
+    console.log('Invocacion a UtileslistService(Front) - cargarTipoPQRSList');
+    const url = `${ base_url }/utiles/tipopqrs`;
+
+    return this.http.get<CargarTipoPQRS>( url)
+      .pipe(
+        map( resp => {
+
+          //console.log(JSON.stringify(resp));
+
+          const tipospqrs = resp.tipospqrs.map( 
+            tipopqrs => new TipoPQRS(tipopqrs._id, tipopqrs.tipopqrsId, tipopqrs.tipopqrsDesc, tipopqrs.usuarioAsig)
+          );
+          
+          return {
+            tipospqrs
           };
         })
       )

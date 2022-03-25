@@ -3,9 +3,6 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Usuario } from '../models/usuario.model';
-import { ModeloWC } from '../models/modelowc.model';
-import { MonitorWC } from '../models/monitorwc.model';
-import { AdmonWC } from '../models/admonwc.model';
 import { Empleado } from '../models/empleado.model';
 import { Aspirante } from '../models/aspirante.model';
 

@@ -92,10 +92,13 @@ export class ActualizaEmpleadoComponent implements OnInit {
         switch(this.tipoEmpleActua) {
           case 'monitor':
             this.router.navigateByUrl('/dashboard/monitores');
+            break;
           case 'administrativo':
             this.router.navigateByUrl('/dashboard/administrativos');
+            break;
           case 'modelo':
             this.router.navigateByUrl('/dashboard/modelos');
+            break;
         }
 
         Swal.fire('Guardado', 'Datos de empleado administrativo actualizado satisfactoriamente', 'success');
