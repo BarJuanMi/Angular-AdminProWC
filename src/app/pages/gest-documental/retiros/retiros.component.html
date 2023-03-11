@@ -1,3 +1,14 @@
+<div class="row animated fadeIn fast">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <input type="text" class="form-control" placeholder="Filtrar retiros por nombre de empleado..." #txtTermino (keyup)="buscarRetirosPorNombreEmp(txtTermino.value)" />
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="row animated fadeIn fast" *ngIf="cargando">
     <div class="col-12">
         <div class="alert alert-info text-center">
@@ -17,7 +28,7 @@
                         <tr>
                             <td style="text-align:left">
                                 <button [routerLink]="['/dashboard/nuevoRetiro']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
-                                <i class="fa fa-user-plus"></i> Crear Retiro </button>
+                                <i class="fa fa-leaf"></i> Crear Nuevo Retiro </button>
                             </td>
                             <td style="text-align:right">
                                 <h6>Retiros Registrados (<small>{{ totalRetiros }}</small>)</h6>
@@ -30,7 +41,7 @@
                     <table class="table table-bordered color-bordered-table inverse-bordered-table">
                         <thead>
                             <tr>
-                                <th>Id de transacción</th>
+                                <th>Detalles</th>
                                 <th>Empleado asociado al retiro</th>
                                 <th class="text-center">Estado</th>
                                 <th class="text-center">PDF</th>
@@ -43,8 +54,8 @@
 
                         <tbody>
                             <tr *ngFor="let retiro of retiros">
-                                <td><small><a href="" (click)="verDetallesRetiro(retiro)" data-toggle="modal" data-target="#datosRetiroModal">{{retiro._id}}</a></small></td>
-                                <td><small>{{retiro.empleado.documento}} - {{retiro.empleado.nombApellConca}}</small></td>
+                                <td><small><a href="" (click)="verDetallesRetiro(retiro)" data-toggle="modal" data-target="#datosRetiroModal">Ver más...</a></small></td>
+                                <td><small>{{retiro.empleado.nombApellConca}}</small></td>
                                 <td class="text-center">
                                     <span *ngIf="retiro.estado === 'GENERADO'" class="label label-info">{{retiro.estado}}</span>
                                     <span *ngIf="retiro.estado === 'FIRMADO'" class="label label-success">{{retiro.estado}}</span>
@@ -54,11 +65,11 @@
                                     <span *ngIf="retiro.estadoCargoPDF" class="label label-success">SI</span>
                                 </td>
                                 <td class="text-center"><small>{{retiro.fechaRenuncia | date}}</small></td>
-                                <td class="text-center"><small>{{retiro.usuarioCreacion.nombre}}</small></td>
+                                <td class="text-center"><small>{{retiro.usuarioRegistro.nombre}}</small></td>
                                 <td class="text-center"><small>{{retiro.fechaRegistro | date}}</small></td>
                                 <td class="text-nowrap text-center">
                                     <a [routerLink]="['/dashboard/actualizaRetiro', retiro._id]" class="cursor" title="Actualizar Transacción" data-toggle="tooltip" data-original-title="Actualizar Transacción del sistema">
-                                        <i class="fa fa-pencil text-inverse m-r-10"></i>
+                                        <i class="fa fa-reply text-inverse m-r-10"></i>
                                     </a>
                                     &nbsp; &nbsp;
                                     <a class="cursor" title="Eliminar Transacción" data-toggle="tooltip" data-original-title="Eliminar Transacción del sistema" (click)="eliminarRetiro(retiro)">
@@ -98,8 +109,8 @@
                     <th>
                         <tr>ID de transacción:</tr>
                         <tr>Motivo de retiro:</tr>
-                        <tr>Presento encuesta de retiro:</tr>
-                        <tr>Presento entrevista de retiro:</tr>
+                        <tr>Encuesta de retiro:</tr>
+                        <tr>Entrevista de retiro:</tr>
                         <tr *ngIf="retiroDetalle.estado === 'FIRMADO'">Fecha de firma:</tr>
                         <tr *ngIf="retiroDetalle.estadoCargoPDF">Usuario que cargo PDF:</tr>
                         <tr *ngIf="retiroDetalle.estadoCargoPDF">Fecha de cargue PDF:</tr>

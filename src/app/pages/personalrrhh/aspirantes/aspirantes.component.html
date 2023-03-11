@@ -40,8 +40,8 @@
                     <table class="table table-bordered color-bordered-table inverse-bordered-table">
                         <thead>
                             <tr>
-                                <th>Documento</th>
-                                <th>Nombres y Apellidos</th>
+                                <th>No. Documento</th>
+                                <th>Nombres y Apellidos del Aspirante</th>
                                 <th class="text-center">Edad</th>
                                 <th class="text-center">Correo Electrónico</th>
                                 <th class="text-center">Tel. Celular</th>
@@ -83,12 +83,12 @@
                 </div>
 
                 <div class="text-center" *ngIf="mostrarBotones">
-                    <button (click)="cambiarPagina(-10)" class="btn btn-secondary">
+                    <button (click)="cambiarPagina(-25)" class="btn btn-secondary">
                         <i class="fa fa-backward"></i>&nbsp;
                         Anteriores
                     </button> &nbsp; &nbsp; &nbsp;
 
-                    <button (click)="cambiarPagina(10)" class="btn btn-secondary">
+                    <button (click)="cambiarPagina(25)" class="btn btn-secondary">
                         Siguientes &nbsp;
                         <i class="fa fa-forward"></i>
                     </button>

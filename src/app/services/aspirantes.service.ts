@@ -23,9 +23,9 @@ export class AspirantesService {
                public usuarioService: UsuarioService) { }
 
   /**
-   * 
-   * @param desde 
-   * @returns 
+   * Metodo que permite cargar todos los aspirantes que se encuentren en la base de datos.
+   * @param desde es el filtro desde donde marcara para obtener los aspirante desde ahi en adelante.
+   * @returns Listado de aspirantes.
    */
    cargarAspirantesDesde( desde: number = 0) {
     console.log('Invocación a AspirantesService(Front) - cargarAspirantesDesde');
@@ -51,9 +51,9 @@ export class AspirantesService {
   }
 
   /**
-   * 
-   * @param formData 
-   * @returns 
+   * Metodo que permite crear un registro de aspirante nuevo en la base de datos
+   * @param formData Objeto con la informacion del nuevo aspirante
+   * @returns Informacion del proceso si fue o no exitoso en la insercion
    */
    crearNuevoAspirante( formData: RegisterForm ) {
     console.log('Invocación a AspirantesService(Front) - crearNuevoAspirante');
@@ -61,9 +61,9 @@ export class AspirantesService {
   }
 
   /**
-   * 
-   * @param aspirante 
-   * @returns 
+   * Metodo que permite cargar un aspirante en especifico buscandolo mediante su id interno
+   * @param id numero de representacion del aspirante dentro de la base de datos
+   * @returns Objeto de aspirante que fue retornado por la base de datos
    */
   buscarAspiranteParticular( aspirante: Aspirante ) {
     console.log('Invocacion a AspirantesService(Front) - buscarAspiranteParticular');
@@ -72,7 +72,10 @@ export class AspirantesService {
   }
 
   /**
-   * 
+   * Metodo que permite actualizar un registro de aspirante en la base de datos
+   * @param aspirante Objeto con la informacion del aspirante que se va a actualizar
+   * @param nuevoEstado Objeto con la informacion del nuevo estado
+   * @returns Informacion del proceso si fue o no exitoso en la actualizacion
    */
   cambiarEstadoAspirante( aspirante: Aspirante, nuevoEstado: string) {
     console.log('Invocacion a AspirantesService(Front) - cambiarEstadoAspirante');

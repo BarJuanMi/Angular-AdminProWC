@@ -47,6 +47,7 @@ export class PrestamosComponent implements OnInit {
 
       this.prestamos.forEach(element => {
         element.monto = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(Number(element.monto));
+        console.log(JSON.stringify(element));
       });
     });
   }
@@ -92,13 +93,12 @@ export class PrestamosComponent implements OnInit {
       this.prestamoService.actualizarEstadoPrestamo( prestamo )
       .subscribe ( resp => {
         Swal.fire('Guardado', 'Se cambio el estado de ' + prestamo._id+ ' a CANCELADO.', 'success');
+        this.cargarPrestamos();
       }, ( err ) => {
         Swal.fire('Error', err.error.msg, 'error');
-        this.cargarPrestamos();
       });
     } else {
       Swal.fire('Error', 'No es posible hacer el cambio, el prestamo ya se encontraba cancelado.', 'error');
-      this.cargarPrestamos();
     }
   }
   
@@ -128,7 +128,7 @@ export class PrestamosComponent implements OnInit {
           .subscribe (resp => {
             Swal.fire(
               'Correcto!',
-              'La transacción ha sido realizada exitosamente.',
+              'El registro ha sido eliminado exitosamente.',
               'success'
             );
             this.cargarPrestamos();

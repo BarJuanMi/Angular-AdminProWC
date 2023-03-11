@@ -55,6 +55,7 @@ export class VacunadosService {
    */
   crearPrimerRegVacunado( formData: RegisterForm ) {
     console.log('Invocación a VacunadosService(Front) - crearPrimerRegVacunado');
+
     return this.http.post(`${base_url}/vacunados/crearRegVacunado`, formData, this.usuarioService.headers);
   }
 
@@ -65,6 +66,7 @@ export class VacunadosService {
    */
     eliminarRegVacunado( vacunado: Vacunado ) {
     console.log('Invocación a VacunadosService(Front) - eliminarRegVacunado');
+
     return this.http.delete(`${ base_url }/vacunados/eliminarRegVacunado/${ vacunado._id }`, this.usuarioService.headers);
   }
   
@@ -77,6 +79,7 @@ export class VacunadosService {
     var jsonStruc = {fechaDosis: fechaDosisIN, numDosis: numDosisIN, farmaDosis: farmaDosisIN};
 
     console.log('Invocación a VacunadosService(Front) - crearRegistroDosis');
+    
     return this.http.put(`${base_url}/vacunados/crearRegDosis/${ vacunado._id }`, jsonStruc, this.usuarioService.headers)
     .pipe(tap ( (resp :any) => {resp}));
   }

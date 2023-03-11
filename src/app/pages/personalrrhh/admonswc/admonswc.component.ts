@@ -178,12 +178,8 @@ export class AdmonswcComponent implements OnInit {
    * @param administrativo Objeto tipo administrativo a quien se le consultara la informacion
    */
    verDetallesAdmon(administrativo: Empleado) {
-    this.empleadosService.buscarEmpleadoParticular( administrativo ).subscribe( administrativoRet => {
+    this.empleadosService.buscarEmpleadoPorId( administrativo._id ).subscribe( administrativoRet => {
       this.admonWCDetalle = administrativoRet;
     });
   }
-
-
-
-
 }

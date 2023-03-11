@@ -176,7 +176,7 @@ export class ModeloswcComponent implements OnInit {
    * @param modelo Objeto tipo modelo a quien se le consultara la informacion
    */
    verDetallesModelo(modelo: Empleado) {
-    this.empleadosService.buscarEmpleadoParticular( modelo ).subscribe( modeloRet => {
+    this.empleadosService.buscarEmpleadoPorId( modelo._id ).subscribe( modeloRet => {
       this.modeloWCDetalle = modeloRet;
     });
   }

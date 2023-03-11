@@ -19,6 +19,14 @@ export class ModalPdfService {
     return this._ocultarModal;
   }
 
+  constructor() { }
+
+  /**
+   * Metodo que permite abrir un modal pequeño para cargar el pdf desde la bd
+   * @param tipo el nombre de la coleccion con la cual correlaciona el pdf
+   * @param id el registro o fila de la coleccion al cual se le asignara el path del pdf
+   * @param img el nombre del pdf que tiene en el disco
+   */
   abrirModal(
     tipo: 'contratos'|'desprendibles'|'incapacidades'|'pazysalvos',
     id: string,
@@ -32,5 +40,5 @@ export class ModalPdfService {
     this._ocultarModal = true;
   }
 
-  constructor() { }
+  
 }

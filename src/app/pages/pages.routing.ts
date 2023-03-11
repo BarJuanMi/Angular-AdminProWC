@@ -23,7 +23,6 @@ import { NuevoUsuarioComponent } from './mantenimientos/usuarios/nuevo-usuario.c
 import { ActualizarUsuarioComponent } from './mantenimientos/usuarios/actualizar-usuario.component';
 import { VacunasCodiv19Component } from './procesos/vacunas-codiv19/vacunas-codiv19.component';
 import { NuevoRegVacunaComponent } from './procesos/vacunas-codiv19/nuevo-reg-vacuna.component';
-import { ActualizaRegVacunaComponent } from './procesos/vacunas-codiv19/actualiza-reg-vacuna.component';
 import { AdmonswcComponent } from './personalrrhh/admonswc/admonswc.component';
 import { AspirantesComponent } from './personalrrhh/aspirantes/aspirantes.component';
 import { NuevoEmpleadoComponent } from './personalrrhh/empleados/nuevo-empleado.component';
@@ -34,6 +33,12 @@ import { ServLavanderiaComponent } from './procesos/serv-lavanderia/serv-lavande
 import { NuevoServLavanderiaComponent } from './procesos/serv-lavanderia/nuevo-serv-lavanderia.component';
 import { NuevoPqrsComponent } from './procesos/pqrs/nuevo-pqrs.component';
 import { PqrsComponent } from './procesos/pqrs/pqrs.component';
+import { AusentismosComponent } from './gest-documental/ausentismos/ausentismos.component';
+import { NuevoAusentismoComponent } from './gest-documental/ausentismos/nuevo-ausentismo.component';
+import { FacturasComponent } from './contabilidad/facturas/facturas.component';
+import { MemorandosComponent } from './gest-documental/memorandos/memorandos.component';
+import { ContratosComponent } from './gest-documental/contratos/contratos.component';
+import { NuevoMemorandoComponent } from './gest-documental/memorandos/nuevo-memorando.component';
 
 const routes: Routes = [
     {  
@@ -83,7 +88,6 @@ const routes: Routes = [
             //WebCam Vacunas
             {path: 'vacunados', component: VacunasCodiv19Component, data: {titulo: 'Administración de Registros de vacunas para empleados'}},
             {path: 'nuevoRegVacuna', component: NuevoRegVacunaComponent, data: {titulo: 'Creación de Nuevo Registro de Vacuna para empleado'}},
-            {path: 'agregarRegDosis/:id', component: ActualizaRegVacunaComponent, data: {titulo: 'Agregar registro de dosis de vacuna para empleado'}},
 
             //WebCam ServLavanderia
             {path: 'servsLavanderia', component: ServLavanderiaComponent, data: {titulo: 'Registros de servicios de lavanderia para sedes'}},
@@ -92,6 +96,20 @@ const routes: Routes = [
             //WebCam PQRS
             {path: 'pqrsi', component: PqrsComponent, data: {titulo: 'Administración de PQRS o Incidentes'}},
             {path: 'nuevoPQRS', component: NuevoPqrsComponent, data: {titulo: 'Creacion de Nuevo PQRS o Incidente'}},
+
+            //WebCam Ausentismos
+            {path: 'ausentismos', component: AusentismosComponent, data: {titulo: 'Administración de Ausentismos y Permisos Temporales'}},
+            {path: 'nuevoAusentismo', component: NuevoAusentismoComponent, data: {titulo: 'Creacion de Nuevo Registro de Ausentimo Temporal'}},
+
+            //WebCam Facturas
+            {path: 'facturas', component: FacturasComponent, data: {titulo: 'Administración de Facturas Internas del Estudio'}},
+
+            //WebCam Memorandos
+            {path: 'memorandos', component: MemorandosComponent, data: {titulo: 'Administración de Memorandos para el Personal'}},
+            {path: 'nuevoMemorando', component: NuevoMemorandoComponent, data: {titulo: 'Creacion de Nuevo Registro de Memorando'}},
+
+            //WebCam Contratos
+            {path: 'contratos', component: ContratosComponent, data: {titulo: 'Administración de Contratos con el Personal'}},
         ]
     },
 ];

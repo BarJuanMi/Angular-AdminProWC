@@ -1,0 +1,161 @@
+<div class="row animated fadeIn fast">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <input type="text" class="form-control" placeholder="Filtrar memorandos por nombre de empleado..." #txtTermino (keyup)="buscarMemorandosPorNombreEmp(txtTermino.value)" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn fast" *ngIf="cargando">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor espere...</p>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn fast" *ngIf="!cargando">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="col-12">
+                    <table style="width:100%">
+                        <tr>
+                            <td style="text-align:left">
+                                <button [routerLink]="['/dashboard/nuevoMemorando']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                                <i class="fa fa-exclamation-triangle"></i> Crear Nuevo Memorando </button>
+                            </td>
+                            <td style="text-align:right">
+                                <h6>Memorandos Registrados (<small>{{ totalMemorandos }}</small>)</h6>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                &nbsp;
+                <div class="table-responsive">
+                    <table class="table table-bordered color-bordered-table inverse-bordered-table">
+                        <thead>
+                            <tr>
+                                <th>Detalles</th>
+                                <th>Empleado asociado al memorando</th>
+                                <th class="text-center">Fecha de evento</th>
+                                <th class="text-center">Estado</th>
+                                <th class="text-center">Soporte PDF</th>
+                                <th class="text-center">Fecha de registro</th>
+                                <th class="text-center">Usuario que registró</th>
+                                <th class="text-center">Acción</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr *ngFor="let memorando of memorandos">
+                                <td><small><a href="" (click)="verDetallesMemorando(memorando)" data-toggle="modal" data-target="#datosMemorandoModal">Ver más...</a></small></td>
+                                <td><small>{{memorando.empleado.nombApellConca}}</small></td>
+                                <td class="text-center"><small>{{memorando.fechaEvento | date}}</small></td>
+                                <td class="text-center">
+                                    <span *ngIf="memorando.estado == 'CREADO SIN SOPORTE'" class="label label-warning">{{memorando.estado}}</span>
+                                    <span *ngIf="memorando.estado == 'CREADO CON SOPORTE'" class="label label-info">{{memorando.estado}}</span>
+                                    <span *ngIf="memorando.estado == 'NOTIFICADO Y RECHAZADO'" class="label label-danger">{{memorando.estado}}</span>
+                                    <span *ngIf="memorando.estado == 'NOTIFICADO Y ACEPTADO'" class="label label-success">{{memorando.estado}}</span>
+                                </td>
+                                <td class="text-center">
+                                    <span *ngIf="!memorando.estadoCargoPDF" class="label label-danger">NO</span>
+                                    <span *ngIf="memorando.estadoCargoPDF" class="label label-success">SI</span>
+                                </td>
+                                <td class="text-center"><small>{{memorando.fechaRegistro | date}}</small></td>
+                                <td class="text-center"><small>{{memorando.usuarioRegistro.nombre}}</small></td>
+                                <td class="text-nowrap text-center">
+                                    <a class="cursor" title="Dar Respuesta a la Petición" data-toggle="tooltip" data-original-title="Dar Respuesta a la Petición" (click)="responderSolicitudMemorando(memorando)">
+                                        <i class="fa fa-reply text-inverse m-r-10"></i>
+                                    </a>
+                                    &nbsp; &nbsp;
+                                    <a class="cursor" title="Cargar Documento de Memorando" data-toggle="tooltip" data-original-title="Cargar Documento de Memorando" (click)="mostrarSweetAlertCargue(memorando)">
+                                        <i class="fa fa-upload text-inverse m-r-10"></i>
+                                    </a>
+                                    &nbsp; &nbsp;
+                                    <a class="cursor" title="Eliminar Transacción" data-toggle="tooltip" data-original-title="Eliminar Registro del Sistema" (click)="eliminarMemorando(memorando)">
+                                        <i class="fa fa-trash-o text-danger"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="text-center" *ngIf="mostrarBotones">
+                    <button (click)="cambiarPagina(-25)" class="btn btn-secondary">
+                        <i class="fa fa-backward"></i>&nbsp;
+                        Anteriores
+                    </button> &nbsp; &nbsp; &nbsp;
+
+                    <button (click)="cambiarPagina(25)" class="btn btn-secondary">
+                        Siguientes &nbsp;
+                        <i class="fa fa-forward"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="datosMemorandoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">Información Detallada del Memorando</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <th>
+                        <tr>ID de transacción:</tr>
+                        <tr *ngIf="memorandoDetalle.estadoCargoPDF">Fecha de cargue PDF:</tr>
+                        <tr *ngIf="memorandoDetalle.estadoCargoPDF">Usuario que cargo PDF:</tr>
+                    </th>
+                    <th>
+                        <tr style="color:#346420; font-size:13">{{memorandoDetalle._id}}</tr>
+                        <tr *ngIf="memorandoDetalle.estadoCargoPDF" style="color:cadetblue;; font-size:13">{{memorandoDetalle.fechaCargoPDF | date}}</tr>
+                        <tr *ngIf="memorandoDetalle.estadoCargoPDF" style="color:cadetblue;; font-size:13">{{memorandoDetalle.usuarioCargoPDF.nombre}}</tr>
+                    </th>
+                </table>
+                <div class="div-border-decorator">
+                    <p class="font-weight-bold" style="color:#745af2; font-size:13"><b>Descripción de eventos en memorando:</b></p>
+                    <p style="color:rgb(66, 69, 85); font-size:13">
+                        {{ memorandoDetalle.descripcion}}
+                    </p>
+                </div>
+                <br>
+                <div class="div-border-decorator">
+                    <p class="font-weight-bold" style="color:#745af2; font-size:13"><b>Norma(s) Infringida(s) por empleado:</b></p>
+                    <p style="color:rgb(66, 69, 85); font-size:13">
+                        {{ memorandoDetalle.normaInfringida}}
+                    </p>
+                </div>
+                <br>
+                <div class="div-border-decorator">
+                    <p class="font-weight-bold" style="color:#745af2; font-size:13"><b>Posibles Consecuencias por Infracción:</b></p>
+                    <p style="color:rgb(66, 69, 85); font-size:13">
+                        {{ memorandoDetalle.posiblesConsecuencias}}
+                    </p>
+                </div>
+                <br>
+                <div class="div-border-decorator" *ngIf="memorandoDetalle.estado == 'NOTIFICADO Y RECHAZADO' || memorandoDetalle.estado == 'NOTIFICADO Y ACEPTADO'">
+                    <p class="font-weight-bold" style="color:#745af2; font-size:13"><b>Respuesta de memorando:</b></p>
+                    <p style="color:rgb(66, 69, 85); font-size:13">
+                        {{ memorandoDetalle.respuestaDeMemo}}
+                    </p>
+                </div>
+                <br>
+                <a *ngIf="memorandoDetalle.estadoCargoPDF" href="{{memorandoDetalle.rutaCargueCompletaPDF}}" target="_blank">Descargar pdf de soporte</a>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

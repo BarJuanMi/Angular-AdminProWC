@@ -16,6 +16,8 @@ import { CargarSede } from '../interfaces/cargar-sedes.interface';
 import { TipoPQRS } from '../models/tipopqrs.model';
 import { Usuario } from '../models/usuario.model';
 import { CargarTipoPQRS } from '../interfaces/cargar-tipopqrs.interface';
+import { CargarTipoAusentismo } from '../interfaces/cargar-tipoausentismo.interface';
+import { TipoAusentismo } from '../models/tipoausentismo.model';
 
 const base_url = environment.base_url;
 
@@ -29,6 +31,10 @@ export class UtileslistService {
   constructor(private http: HttpClient, 
               private router: Router) { }
 
+  /**
+   * 
+   * @returns 
+   */
   cargarSedesList() {
     console.log('Invocacion a UtileslistService(Front) - cargarSedesList');
     const url = `${ base_url }/utiles/sedes`;
@@ -46,6 +52,10 @@ export class UtileslistService {
       )
   }
 
+  /**
+   * 
+   * @returns 
+   */
   cargarPaisesList() {
     console.log('Invocacion a UtileslistService(Front) - cargarPaisesList');
     const url = `${ base_url }/utiles/paises`;
@@ -63,6 +73,10 @@ export class UtileslistService {
       )
   }
 
+  /**
+   * 
+   * @returns 
+   */
   cargarCiudadesList() {
     console.log('Invocacion a UtileslistService(Front) - cargarCiudadesList');
     const url = `${ base_url }/utiles/ciudades`;
@@ -81,6 +95,10 @@ export class UtileslistService {
       )
   }
 
+  /**
+   * 
+   * @returns 
+   */
   cargarCargosAspirantes() {
     console.log('Invocacion a UtileslistService(Front) - cargarCargosAspirantes');
     const url = `${ base_url }/utiles/cargosaspirante`;
@@ -99,6 +117,10 @@ export class UtileslistService {
       )
   }
 
+  /**
+   * 
+   * @returns 
+   */
   cargarLocalidadesCiudad() {
     console.log('Invocacion a UtileslistService(Front) - cargarLocalidadesCiudad');
     const url = `${ base_url }/utiles/localidadesciudad`;
@@ -117,6 +139,10 @@ export class UtileslistService {
       )
   }
 
+  /**
+   * 
+   * @returns 
+   */
   cargarTipoPQRSList() {
     console.log('Invocacion a UtileslistService(Front) - cargarTipoPQRSList');
     const url = `${ base_url }/utiles/tipopqrs`;
@@ -138,4 +164,25 @@ export class UtileslistService {
       )
   }
 
+  /**
+   * 
+   * @returns 
+   */
+  cargarTipoAusentismos() {
+    console.log('Invocacion a UtileslistService(Front) - cargarTipoAusentismos');
+    const url = `${ base_url }/utiles/tipoausentismo`;
+
+    return this.http.get<CargarTipoAusentismo>( url)
+      .pipe(
+        map( resp => {
+          const tipoausentismos = resp.tipoausentismos.map( 
+            tipoausentismo => new TipoAusentismo(tipoausentismo._id, tipoausentismo.tipoausentismoId, tipoausentismo.tipoausentismoDesc)
+          );
+
+          return {
+            tipoausentismos
+          };
+        })
+      )
+  }
 }

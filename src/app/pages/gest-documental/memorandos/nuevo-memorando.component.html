@@ -1,0 +1,85 @@
+<div class="row animated fadeInLeft">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header bg-info">
+                <h4 class="m-b-0 text-white">Detalles de Nuevo Retiro</h4>
+            </div>
+            <div class="card-body">
+                <form class="form p-t-20" [formGroup]="memoForm" (submit)="crearNuevoMemo()">
+
+                    <div class="row p-t-20">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Nombres y Apellidos de Empleado:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-face-smile"></i></div>
+                                    <select class="form-control custom-select" id="model" formControlName="empleado">
+                                        <option value="null">--Seleccione una opción--</option>
+                                        <option *ngFor="let empleado of empleadosList" [value]="empleado._id">{{empleado.nombApellConca}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Estado del memorando:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-anchor"></i></div>
+                                    <input type="text" class="form-control" id="estado" autocomplete="off" formControlName="estado" [readOnly]="true">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row p-t-20">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Fecha de ocurrencia del evento:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-calendar"></i></div>
+                                    <input type="date" id="fechaEvento" class="form-control" formControlName="fechaEvento" placeholder="dd/mm/yyyy" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Descripción del evento:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-comment"></i></div>
+                                    <textarea class="form-control text-area" formControlName="descripcion"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row p-t-20">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Norma infringida en el evento:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-comment"></i></div>
+                                    <textarea class="form-control text-area" formControlName="normaInfringida"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Posibles consecuencias disciplinarias:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-comment"></i></div>
+                                    <textarea class="form-control text-area" formControlName="posiblesConsecuencias"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    &nbsp;
+                    <div>
+                        <button type="submit" class="btn btn-success waves-effect waves-pupple m-r-10" [disabled]="memoForm.invalid"><i class="fa fa-save"></i>  Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

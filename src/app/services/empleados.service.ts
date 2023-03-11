@@ -22,15 +22,16 @@ export class EmpleadosService {
               public usuarioService: UsuarioService) { }
 
   /**
-   * 
-   * @param tipo 
-   * @param desde 
-   * @returns 
+   * Metodo que permite cargar todos los empleados que se encuentren en la base de datos.
+   * @param desde es el filtro desde donde marcara para obtener los empleado desde ahi en adelante.
+   * @param tipo es el filtro del tipo de empleados que servira a la peticion enviada al backend.
+   * @returns Listado de empleados.
    */
   cargarEmpleadosxTipoDesde( tipo: string, desde: number = 0) {
     console.log('Invocación a EmpleadosService(Front) - cargarEmpleadosxTipoDesde');
 
     const url = `${ base_url }/empleados/tipo/${tipo}?desde=${ desde }`;
+    
     return this.http.get<CargarEmpleado>( url ,  this.usuarioService.headers)
       .pipe(
         delay(500), 
@@ -54,28 +55,30 @@ export class EmpleadosService {
   }
   
   /**
-   * 
-   * @param formData 
-   * @param tipoEmpleCrear 
-   * @returns 
+   * Metodo que permite crear un registro de empleado nuevo en la base de datos.
+   * @param formData Objeto con la informacion del nuevo empleado.
+   * @param tipoEmpleCrear es el filtro del tipo de empleados que servira a la peticion enviada al backend.
+   * @returns Informacion del proceso si fue o no exitoso en la insercion.
    */
   crearEmpleadoxTipo(formData: RegisterForm, tipoEmpleCrear: String) {
     console.log('Invocación a ModelosService(Front) - crearEmpleadoxTipo');
 
     let url: string = '';
+
     url = `${base_url}/empleados/crearEmpleadoxTipo/${tipoEmpleCrear}`
     console.log(url);
     return this.http.post(url, formData, this.usuarioService.headers);
   }
 
   /**
-   * 
-   * @param empleado 
-   * @returns 
+   * Metodo que permite actualizar un registro de empleado en la base de datos
+   * @param empleado Objeto con la informacion del empleado que se va a actualizar
+   * @param estado Objeto con la informacion del nuevo estado
+   * @returns Informacion del proceso si fue o no exitoso en la actualizacion
    */
    modificarEstadoEmpleado( empleado: Empleado, estado: Boolean ) {
     console.log('Invocación a EmpleadosService(Front) - modificarEstadoEmpleado');
-    
+
     let url: string = '';
 
     if(!estado) { //le cambiaria el estado a false
@@ -88,9 +91,9 @@ export class EmpleadosService {
   }
 
   /**
-   * 
-   * @param id 
-   * @returns 
+   * Metodo que permite cargar un empleado en especifico buscandolo mediante su id interno
+   * @param id numero de representacion del empleado dentro de la base de datos
+   * @returns Objeto de empleado que fue retornado por la base de datos
    */
    buscarEmpleadoPorId( id: String) {
     console.log('Invocacion a EmpleadosService(Front) - buscarEmpleadoPorId');
@@ -100,8 +103,9 @@ export class EmpleadosService {
   }
 
   /**
-   * 
-   * @param empleado 
+   * Metodo que permite cargar un empleado en especifico buscandolo mediante su id interno
+   * @param id numero de representacion del empleado dentro de la base de datos
+   * @returns Objeto de empleado que fue retornado por la base de datos
    */
    buscarEmpleadoParticular( empleado: Empleado ) {
     console.log('Invocacion a ModelosService(Front) - buscarModeloParticularWC');
@@ -111,9 +115,9 @@ export class EmpleadosService {
   }
   
   /**
-   * 
-   * @param modeloActualizar 
-   * @returns 
+   * Metodo que permite actualizar un registro de empleado en la base de datos
+   * @param empleadoActualizar Objeto con la informacion del empleado que se va a actualizar
+   * @returns Informacion del proceso si fue o no exitoso en la actualizacion
    */
   actualizarEmpleadoPorId( empleadoActualizar: Empleado ) {
     console.log('Invocación a EmpleadosService(Front) - actualizarEmpleadoPorId');
@@ -123,9 +127,9 @@ export class EmpleadosService {
   }
 
   /**
-   * 
-   * @param estado 
-   * @returns 
+   * Metodo que permite cargar todos los empleados que se encuentren en la base de datos filtrandolo por el estado.
+   * @param estado es el filtro que se le aplicara a la busqueda.
+   * @returns Listado de empleados.
    */
    cargarEmpleadosFiltroEstado(estado: string) {
     console.log('Invocacion a EmpleadosService(Front) - cargarEmpleadosFiltroEstado');

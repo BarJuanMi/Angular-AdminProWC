@@ -17,7 +17,7 @@
                         <tr>
                             <td style="text-align:left">
                                 <button [routerLink]="['/dashboard/nuevoPrestamo']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
-                                <i class="fa fa-user-plus"></i> Crear Prestamo </button>
+                                <i class="fa fa-money"></i> Crear Nuevo Prestamo </button>
                             </td>
                             <td style="text-align:right">
                                 <h6>Prestamos Registrados (<small>{{ totalPrestamos }}</small>)</h6>
@@ -30,24 +30,24 @@
                     <table class="table table-bordered color-bordered-table inverse-bordered-table">
                         <thead>
                             <tr>
-                                <th>Id de TX</th>
-                                <th>Asignado a Empleado</th>
+                                <th>Asignado al Empleado</th>
                                 <th class="text-center">Monto Prestamo</th>
                                 <th class="text-center">Estado</th>
                                 <th class="text-center">Fecha de registro</th>
                                 <th class="text-center">Usuario que registró</th>
+                                <th class="text-center">Fecha de aprobación</th>
+                                <th class="text-center">Usuario que aprobó</th>
                                 <th class="text-center">Acción</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             <tr *ngFor="let prestamo of prestamos">
-                                <td><small><a href="" (click)="verDetallesPrestamo(prestamo)" data-toggle="modal" data-target="#datosPrestamoModal">{{prestamo._id}}</a></small></td>
-                                <td><small>{{prestamo.empleado.documento}} - {{prestamo.empleado.nombApellConca}}</small></td>
-                                <td class="text-center"><small>{{prestamo.monto}}</small></td>
+                                <td><small>{{prestamo.empleado.nombApellConca}}</small></td>
+                                <td class="text-center font-weight-bold text-primary">{{prestamo.monto}}</td>
                                 <td>
                                     <small>
-                                        <select class="form-control" [(ngModel)]="prestamo.estado" (change)="cambiarEstado(prestamo)">
+                                        <select class="form-control" style="font-size: 09;"  [(ngModel)]="prestamo.estado" (change)="cambiarEstado(prestamo)">
                                             <option value="COBRO PENDIENTE">COBRO PENDIENTE</option>
                                             <option value="CANCELADO TOTAL">CANCELADO TOTAL</option>
                                         </select>
@@ -55,9 +55,17 @@
                                 </td>
                                 <td class="text-center"><small>{{prestamo.fechaCreacion | date}}</small></td>
                                 <td class="text-center"><small>{{prestamo.usuario.nombre}}</small></td>
+                                <td class="text-center">
+                                    <span *ngIf="prestamo.estado == 'COBRO PENDIENTE'"><small>--/--/----</small></span>
+                                    <span *ngIf="prestamo.estado == 'CANCELADO TOTAL'"><small>{{prestamo.fechaActualizacion | date}}</small></span>
+                                </td>
+                                <td class="text-center">
+                                    <span *ngIf="prestamo.estado == 'COBRO PENDIENTE'"><small>-----</small></span>
+                                    <span *ngIf="prestamo.estado == 'CANCELADO TOTAL'"><small>{{prestamo.usuarioActualizacion.nombre}}</small></span>
+                                </td>
                                 <td class="text-nowrap text-center">
                                     <a class="cursor" title="Eliminar transacción" data-toggle="tooltip" data-original-title="Eliminar Transacción del sistema" (click)="eliminarPrestamo(prestamo)">
-                                        <i class="fa fa-close text-danger"></i>
+                                        <i class="fa fa-trash-o text-danger"></i>
                                     </a>
                                 </td>
                             </tr>

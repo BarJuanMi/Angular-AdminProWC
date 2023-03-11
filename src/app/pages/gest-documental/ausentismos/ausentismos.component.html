@@ -1,0 +1,138 @@
+<div class="row animated fadeIn fast">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <input type="text" class="form-control" placeholder="Filtrar ausentismos por nombre de empleado..." #txtTermino (keyup)="buscarAusentismosPorNombreEmp(txtTermino.value)" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn fast" *ngIf="cargando">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor espere...</p>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn fast" *ngIf="!cargando">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="col-12">
+                    <table style="width:100%">
+                        <tr>
+                            <td style="text-align:left">
+                                <button [routerLink]="['/dashboard/nuevoAusentismo']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                                <i class="fa fa-gavel"></i> Crear Nuevo Ausentismo </button>
+                            </td>
+                            <td style="text-align:right">
+                                <h6>Ausentismos Registrados (<small>{{ totalAusentismos }}</small>)</h6>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                &nbsp;
+                <div class="table-responsive">
+                    <table class="table table-bordered color-bordered-table inverse-bordered-table">
+                        <thead>
+                            <tr>
+                                <th>Detalles</th>
+                                <th>Empleado asociado al permiso</th>
+                                <th class="text-center">Estado</th>
+                                <th class="text-center">Fecha Inicio</th>
+                                <th class="text-center">Fecha Fin</th>
+                                <th class="text-center">Tipo Ausentismo</th>
+                                <th class="text-center">Fecha de registro</th>
+                                <th class="text-center">Acción</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr *ngFor="let ausentismo of ausentismos">
+                                <td><small><a href="" (click)="verDetallesAusentismo(ausentismo)" data-toggle="modal" data-target="#datosAusentismoModal">Ver más...</a></small></td>
+                                <td><small>{{ausentismo.empleado.nombApellConca}}</small></td>
+                                <td class="text-center">
+                                    <span *ngIf="ausentismo.estado == 'REVISADO Y APROBADO'" class="label label-success">{{ausentismo.estado}}</span>
+                                    <span *ngIf="ausentismo.estado == 'CREADO SIN SOPORTE'" class="label label-warning">{{ausentismo.estado}}</span>
+                                    <span *ngIf="ausentismo.estado == 'PENDIENTE DE REVISION'" class="label label-info">{{ausentismo.estado}}</span>
+                                    <span *ngIf="ausentismo.estado == 'REVISADO Y RECHAZADO'" class="label label-danger">{{ausentismo.estado}}</span>
+                                </td>
+                                <td class="text-center"><small>{{ausentismo.fechaInicio | date}}</small></td>
+                                <td class="text-center"><small>{{ausentismo.fechaFinalizacion | date}}</small></td>
+                                <td><small>{{ausentismo.tipoAusentismo.tipoausentismoDesc}}</small></td>
+                                <td class="text-center"><small>{{ausentismo.fechaRegistro | date}}</small></td>
+                                <td class="text-nowrap text-center">
+                                    <a class="cursor" title="Dar Respuesta a la Petición" data-toggle="tooltip" data-original-title="Dar Respuesta a la Petición" (click)="responderSolicitudAusentismo(ausentismo)">
+                                        <i class="fa fa-reply text-inverse m-r-10"></i>
+                                    </a>
+                                    &nbsp; &nbsp;
+                                    <a class="cursor" title="Cargar Formato de Ausencia" data-toggle="tooltip" data-original-title="Cargar Formato de Ausencia" (click)="mostrarSweetAlertCargue(ausentismo)">
+                                        <i class="fa fa-upload text-inverse m-r-10"></i>
+                                    </a>
+                                    &nbsp; &nbsp;
+                                    <a class="cursor" title="Eliminar Transacción" data-toggle="tooltip" data-original-title="Eliminar Registro del Sistema" (click)="eliminarAusentismo(ausentismo)">
+                                        <i class="fa fa-trash-o text-danger"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="text-center" *ngIf="mostrarBotones">
+                    <button (click)="cambiarPagina(-25)" class="btn btn-secondary">
+                        <i class="fa fa-backward"></i>&nbsp;
+                        Anteriores
+                    </button> &nbsp; &nbsp; &nbsp;
+
+                    <button (click)="cambiarPagina(25)" class="btn btn-secondary">
+                        Siguientes &nbsp;
+                        <i class="fa fa-forward"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="datosAusentismoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">Información Detallada del Ausentismo</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <th>
+                        <tr>ID de transacción:</tr>
+                        <tr>Usuario que registró:</tr>
+                        <tr *ngIf="ausentismoDetalle.estadoCargoPDF">Fecha de cargue PDF:</tr>
+                        <tr *ngIf="ausentismoDetalle.estadoCargoPDF">Usuario que cargo PDF:</tr>
+                        <tr *ngIf="evaluarEstadoAusentismo(ausentismoDetalle)">Fecha aprobación/rechazo:</tr>
+                        <tr *ngIf="evaluarEstadoAusentismo(ausentismoDetalle)">Usuario que aprobación/rechazo:</tr>
+                        <tr *ngIf="evaluarEstadoAusentismo(ausentismoDetalle)">Observación aprobación/rechazo:</tr>
+                    </th>
+                    <th>
+                        <tr style="color:#346420; font-size:13">{{ausentismoDetalle._id}}</tr>
+                        <tr style="color:cadetblue; font-size:13">{{ausentismoDetalle.usuarioRegistro.nombre}}</tr>
+                        <tr *ngIf="ausentismoDetalle.estadoCargoPDF" style="color:rgb(57, 69, 230); font-size:13">{{ausentismoDetalle.fechaCargoPDF | date}}</tr>
+                        <tr *ngIf="ausentismoDetalle.estadoCargoPDF" style="color:rgb(57, 69, 230); font-size:13">{{ausentismoDetalle.usuarioCargoPDF.nombre}}</tr>
+                        <tr *ngIf="evaluarEstadoAusentismo(ausentismoDetalle)" style="color:rgb(219, 41, 109); font-size:13">{{ausentismoDetalle.fechaAprobRecha | date}}</tr>
+                        <tr *ngIf="evaluarEstadoAusentismo(ausentismoDetalle)" style="color:rgb(219, 41, 109); font-size:13">{{ausentismoDetalle.usuarioAprobRecha.nombre}}</tr>
+                        <tr *ngIf="evaluarEstadoAusentismo(ausentismoDetalle)" style="color:rgb(219, 41, 109); font-size:13">{{ausentismoDetalle.obserAprobRecha}}</tr>
+                    </th>
+                </table>
+                <a *ngIf="ausentismoDetalle.estadoCargoPDF" href="{{ausentismoDetalle.rutaCargueCompletaPDF}}" target="_blank">Descargar pdf de soporte</a>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

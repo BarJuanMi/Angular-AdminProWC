@@ -3,12 +3,12 @@ import { Retiro } from 'src/app/models/retiro.model';
 import { Usuario } from 'src/app/models/usuario.model';
 import { RetirosService } from 'src/app/services/retiros.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { FileObtainPdfService } from 'src/app/services/file-obtain-pdf.service';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
 import { delay } from 'rxjs/operators';
+import { BusquedasService } from 'src/app/services/busquedas.service';
 
-const path_back = environment.base_url;
+const path_general_upload_file = environment.base_url;
 const url_load_pdf_pys = environment.url_load_pdf_pazysalvo;
 
 @Component({
@@ -25,12 +25,12 @@ export class RetirosComponent implements OnInit {
   public cargando: boolean = true;
   public desde: number = 0;
   public mostrarBotones: boolean = true;
-  public retiroDetalle = new Retiro("",null,"",null,null,"","",false,false,null,null,'','',false);
+  public retiroDetalle = new Retiro('',null,'','',null,null,'','',false,false,null,null,'','',false);
   public usuario: Usuario;
 
   constructor(private retiroService: RetirosService,
               private usuarioService: UsuarioService,
-              private fileObtainPDFService: FileObtainPdfService) 
+              private busquedasService: BusquedasService) 
   { 
     this.usuario = usuarioService.usuario;
   }
@@ -62,9 +62,30 @@ export class RetirosComponent implements OnInit {
       this.retiroDetalle = retiroRet;
       if(this.retiroDetalle.pathPDF !== undefined){
         this.retiroDetalle.pathPDFNoExt = retiro.pathPDF.split(".")[0];
-        this.retiroDetalle.rutaCargueCompletaPDF = url_load_pdf_pys + this.retiroDetalle.pathPDFNoExt;
+        this.retiroDetalle.rutaCargueCompletaPDF = path_general_upload_file + url_load_pdf_pys + this.retiroDetalle.pathPDFNoExt;
       }
     });
+  }
+
+  /**
+   * Metodo que permite buscar un ausentismo por el nombre del empleado al que esta asociado
+   * @param termino palabra o conjunto de letras
+   * @returns lista de retiros que caen en el filtro
+   */
+   buscarRetirosPorNombreEmp( termino: string) {
+    // Mientras escribe las letras para la busqueda, se esconden los botones
+    this.mostrarBotones = false;
+
+    if ( termino.length === 0) {
+      // Si ya no hay letras para la busqueda, aparecen los botones de nuevo
+      this.mostrarBotones = true;
+      return this.retiros = this.retirosTemp;
+    }
+
+    this.busquedasService.buscarPorColeccion( 'retiros', termino)
+        .subscribe( (resultados: Retiro[]) => {
+          this.retiros = resultados;
+        });
   }
 
   /**
@@ -83,8 +104,8 @@ export class RetirosComponent implements OnInit {
   }
 
   /**
-   * 
-   * @param prestamo 
+   * Metodo que permite eliminar un registro de retiro
+   * @param retiro Objeto tipo retiro que sera eliminado
    */
    eliminarRetiro(retiro: Retiro) {
     if(this.usuario.role != 'ADMIN_ROLE'){
@@ -112,7 +133,7 @@ export class RetirosComponent implements OnInit {
             .subscribe (resp => {
               Swal.fire(
                 'Correcto!',
-                'La transacción ha sido realizada exitosamente.',
+                'El registro ha sido eliminado exitosamente.',
                 'success'
               );
               this.cargarRetiros();

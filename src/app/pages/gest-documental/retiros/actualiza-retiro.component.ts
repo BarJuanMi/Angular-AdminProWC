@@ -20,7 +20,7 @@ export class ActualizaRetiroComponent implements OnInit {
   
   public usuario: Usuario;
   public pdfSubir: File;
-  retiroActualizar: Retiro = new Retiro("",null,"",null,null,"","",false,false,null,null,'','',false);
+  retiroActualizar: Retiro = new Retiro('',null,'','',null,null,'','',false,false,null,null,'','',false);
   estadoAct: string = '';
   id: string = '';
   public desde: number = 0;

@@ -43,8 +43,8 @@ export class ServLavanderiaService {
         map( resp => {
           const servlavanderias = resp.servlavanderias.map( 
             lavanderia => new Servlavanderia(lavanderia._id, lavanderia.cantidadColchas, lavanderia.sede, lavanderia.estado, lavanderia.usuarioRegistro,
-              lavanderia.fechaRegistro, lavanderia.fechaSalidaColchas, lavanderia.fechaEntregaColchas, lavanderia.obsSalidaColchas,
-              lavanderia.obsEntregaColchas, lavanderia.recibeSatisfaccion, lavanderia._id.substring(10,25), lavanderia.img)
+              lavanderia.fechaRegistro, lavanderia.fechaSalidaColchas, lavanderia.fechaRecibeColchas, lavanderia.obsSalidaColchas,
+              lavanderia.obsRecibeColchas, lavanderia.recibeSatisfaccion, lavanderia.usuarioRecibeColchas, lavanderia._id.substring(10,25), lavanderia.img)
           );
 
           return {
@@ -72,8 +72,8 @@ export class ServLavanderiaService {
    * @param arg2 
    * @param arg3 
    */
-  actualizaEstadoServLavan(servLava: Servlavanderia, fechaEntregaColchas: string, recibeSatisfaccion: string, obsEntregaColchas: string) {
-    var jsonStruc = {fechaEntregaColchas: fechaEntregaColchas, recibeSatisfaccion: recibeSatisfaccion, obsEntregaColchas: obsEntregaColchas};
+  actualizaEstadoServLavan(servLava: Servlavanderia, fechaRecibeColchas: string, recibeSatisfaccion: string, obsRecibeColchas: string) {
+    var jsonStruc = {fechaRecibeColchas: fechaRecibeColchas, recibeSatisfaccion: recibeSatisfaccion, obsRecibeColchas: obsRecibeColchas};
 
     console.log('Invocación a ServLavanderiaService(Front) - actualizaEstadoServLavan');
     return this.http.put(`${base_url}/lavanderias/actualizarServLavanderia/${ servLava._id }`, jsonStruc, this.usuarioService.headers)

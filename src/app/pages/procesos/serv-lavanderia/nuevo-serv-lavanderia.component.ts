@@ -30,7 +30,7 @@ export class NuevoServLavanderiaComponent implements OnInit {
               private utilesListService: UtileslistService) 
   { 
     this.usuario = usuarioService.usuario;
-    this.servLavan = new Servlavanderia('','',null,'',null,null,null,null,'','',false,'','');
+    this.servLavan = new Servlavanderia('','',null,'',null,null,null,null,'','',false,null,'','');
   }
 
   ngOnInit(): void {

@@ -10,9 +10,16 @@ export class FileUploadPdfService {
 
   constructor() { }
 
+  /**
+   * Metodo que permite actualizar o cargar inicialmente el pdf de un registro dentro de una coleccion
+   * @param archivo Objeto tipo File con el pdf
+   * @param tipo Nombre de la coleccion donde esta el registro
+   * @param id identificador del registro sobre el cual se asociara el pdf
+   * @returns Objeto con la respuesta e informacion 
+   */
   async actualizarPDF(
     archivo: File,
-    tipo: 'contratos'|'desprendibles'|'incapacidades'|'pazysalvos'|'hojasvida'|'respsicologico',
+    tipo: 'contratos'|'desprendibles'|'incapacidades'|'pazysalvos'|'hojasvida'|'respsicologico'|'ausentismos'|'memorandos',
     id: string
   ) {
     try {
@@ -30,12 +37,12 @@ export class FileUploadPdfService {
 
       const data = await resp.json();
 
-      console.log(data);
+      //console.log(data);
 
       if ( data.status ) {
         return data.nombreArchivo;
       } else {
-        console.log(data.msg);
+        //console.log(data.msg);
         return false;
       }
 

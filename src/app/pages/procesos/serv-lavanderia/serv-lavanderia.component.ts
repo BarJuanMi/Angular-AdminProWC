@@ -24,7 +24,8 @@ export class ServLavanderiaComponent implements OnInit {
   public desde: number = 0;
   public mostrarBotones: boolean = true;
   public servLavDetalle = new Servlavanderia('','',new Sede('','',0,0,'',new Ciudad('','',''),new Localidad('','',''))
-                                            ,'',new Usuario('','',null,'','','',false,'','',''),null,null,null,'','',false,'','');
+                                            ,'',new Usuario('','',null,'','','',false,'','',''),null,null,null,'','',false,
+                                            new Usuario('','',null,'','','',false,'','',''),'','');
   public imgSubs: Subscription;
   public usuario: Usuario;
 
@@ -123,7 +124,19 @@ export class ServLavanderiaComponent implements OnInit {
           '</div>'+
         '</div>'+
       '</div>',
-      focusConfirm: false,
+      focusConfirm: true,
+      showCancelButton: true,
+      showCloseButton: false,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '<i class="fa fa-thumbs-up"></i> OK!',
+      cancelButtonText:'<i class="fa fa-thumbs-down"></i> Cancelar',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      },
       preConfirm: () => {
         return [
           (<HTMLInputElement>document.getElementById('swal-input1')).value,
@@ -176,7 +189,7 @@ export class ServLavanderiaComponent implements OnInit {
           .subscribe (resp => {
             Swal.fire(
               'Correcto!',
-              'La transacción ha sido realizada exitosamente.',
+              'El registro ha sido eliminado exitosamente.',
               'success'
             );
             this.cargarServsLavanderia();

@@ -9,7 +9,7 @@ import { BusquedasService } from 'src/app/services/busquedas.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 
-const path_back = environment.base_url;
+const path_general_upload_file = environment.base_url;
 const url_load_pdf_hv = environment.url_load_pdf_hojas_vida;
 const url_load_pdf_res_psico = environment.url_load_pdf_resp_psico;
 
@@ -94,11 +94,11 @@ export class AspirantesComponent implements OnInit {
     this.aspirantesService.buscarAspiranteParticular( aspirante ).subscribe( aspiranteRet => {
       this.aspiranteWCDetalle = aspiranteRet;
       if(this.aspiranteWCDetalle.pathHojaVidaPDF !== undefined){
-        this.aspiranteWCDetalle.rutaCargueComplHVPDF = path_back + url_load_pdf_hv + aspirante.pathHojaVidaPDF.split(".")[0];
+        this.aspiranteWCDetalle.rutaCargueComplHVPDF = path_general_upload_file + url_load_pdf_hv + aspirante.pathHojaVidaPDF.split(".")[0];
       }
 
       if(this.aspiranteWCDetalle.pathResultadoPDF !== undefined){
-        this.aspiranteWCDetalle.rutaCargueComplResPDF = path_back + url_load_pdf_res_psico + aspirante.pathResultadoPDF.split(".")[0];
+        this.aspiranteWCDetalle.rutaCargueComplResPDF = path_general_upload_file + url_load_pdf_res_psico + aspirante.pathResultadoPDF.split(".")[0];
       }
     });
   }

@@ -176,7 +176,7 @@ export class MonitoreswcComponent implements OnInit {
    * @param monitor Objeto tipo monitor a quien se le consultara la informacion
    */
    verDetallesMonitor(monitor: Empleado) {
-    this.empleadosService.buscarEmpleadoParticular( monitor ).subscribe( monitorRet => {
+    this.empleadosService.buscarEmpleadoPorId( monitor._id ).subscribe( monitorRet => {
       this.monitorWCDetalle = monitorRet;
     });
   }

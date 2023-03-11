@@ -10,6 +10,13 @@ export class FileUploadService {
 
   constructor() { }
 
+  /**
+   * Metodo que permite actualizar o cargar inicialmente la imagen de un registro dentro de una coleccion
+   * @param archivo Objeto tipo File con la imagen
+   * @param tipo Nombre de la coleccion donde esta el registro
+   * @param id identificador del registro sobre el cual se asociara la imagen
+   * @returns Objeto con la respuesta e informacion 
+   */
   async actualizarFoto(
     archivo: File,
     tipo: 'usuarios'|'medicos'|'hospitales'|'empleados'|'vacunados'|'servlavanderia'|'pqrs',

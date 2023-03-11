@@ -4,7 +4,8 @@ export class Retiro {
     constructor(
         public _id: string,
         public empleado: Empleado,
-        public usuarioCreacion: string,
+        public emplNomApel: string,
+        public usuarioRegistro: string,
         public fechaRenuncia: Date,
         public fechaRegistro: Date,
         public estado: string,

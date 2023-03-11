@@ -21,7 +21,6 @@ export class NuevoRetiroComponent implements OnInit {
   public retiroForm: FormGroup;
   public retiro: Retiro;
   public usuario: Usuario;
-  fechaActual: Date;
 
   constructor(
     private router: Router,
@@ -31,8 +30,7 @@ export class NuevoRetiroComponent implements OnInit {
     private retiroService: RetirosService) 
   { 
     this.usuario = usuarioService.usuario;
-    this.retiro = new Retiro('',null,'',new Date(),null,'GENERADO','',false,false,null,null,'','',false);
-    this.fechaActual = new Date();
+    this.retiro = new Retiro('',null,'','',new Date(),null,'GENERADO','',false,false,null,null,'','',false);
   }
 
   ngOnInit(): void {

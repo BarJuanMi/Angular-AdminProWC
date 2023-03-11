@@ -20,6 +20,14 @@ export class ModalImagenService {
     return this._ocultarModal;
   }
 
+  constructor() { }
+
+  /**
+   * Metodo que permite abrir un modal pequeño para cargar la imagen desde la bd
+   * @param tipo el nombre de la coleccion con la cual correlaciona la imagen
+   * @param id el registro o fila de la coleccion al cual se le asignara el path de la imagen
+   * @param img el nombre de la imagen que tiene en el disco
+   */
   abrirModal(
     tipo: 'usuarios'|'medicos'|'hospitales'|'empleados'|'pqrs',
     id: string,
@@ -35,9 +43,10 @@ export class ModalImagenService {
       }
   }
 
+  /**
+   * Cierra el modal
+   */
   cerrarModal() {
     this._ocultarModal = true;
   }
-
-  constructor() { }
 }

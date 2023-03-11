@@ -150,7 +150,7 @@ export class PqrsComponent implements OnInit {
             .subscribe (resp => {
               Swal.fire(
                 'Correcto!',
-                'La eliminación ha sido realizada exitosamente.',
+                'El registro ha sido eliminado exitosamente.',
                 'success'
               );
               this.cargarPQRSI();
@@ -206,7 +206,19 @@ export class PqrsComponent implements OnInit {
           '</div>'+
         '</div>'+
       '</div>',
-      focusConfirm: false,
+      focusConfirm: true,
+      showCancelButton: true,
+      showCloseButton: false,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '<i class="fa fa-thumbs-up"></i> OK!',
+      cancelButtonText:'<i class="fa fa-thumbs-down"></i> Cancelar',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      },
       preConfirm: () => {
         return [
           (<HTMLInputElement>document.getElementById('swal-input1')).value,
@@ -217,7 +229,7 @@ export class PqrsComponent implements OnInit {
     })
 
     if (formValues) {
-      if(formValues[0] !== '') {
+      if(formValues[2] !== '') {
         this.pqrsiService.actualizarEstadoPQRS( pqrs, formValues[0], formValues[1], formValues[2])
           .subscribe (resp => {
             if(resp.status){
@@ -228,7 +240,7 @@ export class PqrsComponent implements OnInit {
             this.cargarPQRSI();
           });  
       }else{
-        Swal.fire('Error!', 'Debes proveer una fecha de Recepción', 'error');
+        Swal.fire('Error!', 'Debes proveer una respuesta.', 'error');
       }
     }
   }

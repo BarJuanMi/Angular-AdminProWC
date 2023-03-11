@@ -169,7 +169,7 @@ export class UsuarioService {
    */
   cargarUsuariosDesde( desde: number = 0) {
     console.log('Invocación a UsuarioService(Front) - cargarUsuariosDesde');
-    //localhost:3001/api/usuarios?desde=5
+    //44.208.35.77:3001/api/usuarios?desde=5
     const url = `${ base_url }/usuarios?desde=${ desde }`;
     return this.http.get<CargarUsuario>( url , this.headers)
       .pipe(

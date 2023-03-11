@@ -29,7 +29,7 @@ export class PrestamosService {
    */
    cargarPrestamosDesde( desde: number = 0) {
     console.log('Invocación a PrestamosService(Front) - cargarPrestamosDesde');
-    //localhost:3001/api/prestamos?desde=5
+    //44.208.35.77:3001/api/prestamos?desde=5
     const url = `${ base_url }/prestamos?desde=${ desde }`;
     return this.http.get<CargarPrestamo>( url , this.usuarioService.headers)
       .pipe(
@@ -57,6 +57,7 @@ export class PrestamosService {
    */
    buscarPrestamoPorId( id: String) {
     console.log('Invocacion a PrestamosService(Front) - buscarPrestamoPorId');
+    
     const url = `${ base_url }/prestamos/buscarPrestamoId/${ id }`;
     return this.http.get( url, this.usuarioService.headers ).pipe(map( (resp: any) => resp.prestamo));
   }

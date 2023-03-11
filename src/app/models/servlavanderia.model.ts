@@ -13,10 +13,11 @@ export class Servlavanderia {
         public usuarioRegistro: Usuario,
         public fechaRegistro: Date,
         public fechaSalidaColchas: Date,
-        public fechaEntregaColchas?: Date,
+        public fechaRecibeColchas?: Date,
         public obsSalidaColchas?: string,
-        public obsEntregaColchas?: string,
+        public obsRecibeColchas?: string,
         public recibeSatisfaccion?: boolean,
+        public usuarioRecibeColchas?: Usuario,
         public idCorto?: string,
         public img?: string
     ){}

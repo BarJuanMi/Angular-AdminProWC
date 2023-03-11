@@ -7,7 +7,7 @@
                         <tr>
                             <td style="text-align:left">
                                 <button [routerLink]="['/dashboard/nuevoServLavan']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
-                                <i class="fa fa-user-plus"></i> Crear Nuevo Servicio </button>
+                                <i class="fa fa-shower "></i> Crear Nuevo Servicio </button>
                             </td>
                             <td style="text-align:right">
                                 <h6>Servicios de lavanderia registrados (<small>{{ totalServicios }}</small>)</h6>
@@ -21,7 +21,7 @@
                         <thead>
                             <tr>
                                 <th class="w50"></th>
-                                <th class="text-center">Id de TX</th>
+                                <th class="text-center">Detalles</th>
                                 <th class="text-center">Sede</th>
                                 <th class="text-center">Estado</th>
                                 <th class="text-center"># Prendas</th>
@@ -38,30 +38,30 @@
                                 <td class="text-center">
                                     <img [src]="servLava.imagenUrl" class="avatar-w40 cursor" alt="Listado de modelos" (click)="abrilModalImagenLarge( servLava )">
                                 </td>
-                                <td class="text-center"><small><a href="" (click)="verDetallesServLavan(servLava)" data-toggle="modal" data-target="#datosServLavanModal">{{servLava._id}}</a></small></td>
+                                <td><small><a href="" (click)="verDetallesServLavan(servLava)" data-toggle="modal" data-target="#datosServLavanModal">Ver más...</a></small></td>
                                 <td class="text-center text-uppercase font-weight-bold">{{servLava.sede.nombre}}</td>
                                 <td class="text-center">
                                     <span *ngIf="servLava.estado === 'EN LA LAVANDERIA'" class="label label-info">{{servLava.estado}}</span>
-                                    <span *ngIf="servLava.estado === 'ENTREGADO A SEDE'" class="label label-success">{{servLava.estado}}</span>
+                                    <span *ngIf="servLava.estado === 'ENTREGADO EN LA SEDE'" class="label label-success">{{servLava.estado}}</span>
                                 </td>
                                 <td class="text-center font-weight-bold text-primary">{{servLava.cantidadColchas}}</td>
                                 <td class="text-center"><small>{{servLava.fechaSalidaColchas | date}}</small></td>
-                                <td class="text-center"><small>{{servLava.fechaEntregaColchas | date}}</small></td>
+                                <td class="text-center"><small>{{servLava.fechaRecibeColchas | date}}</small></td>
                                 <td class="text-center">
                                     <small>
                                         <span *ngIf="!servLava.recibeSatisfaccion && servLava.estado === 'EN LA LAVANDERIA'" class="label label-warning">PENDIENTE</span>
-                                        <span *ngIf="!servLava.recibeSatisfaccion && servLava.estado === 'ENTREGADO A SEDE'" class="label label-danger">NO</span>
-                                        <span *ngIf="servLava.recibeSatisfaccion && servLava.estado === 'ENTREGADO A SEDE'" class="label label-success">SI</span>
+                                        <span *ngIf="!servLava.recibeSatisfaccion && servLava.estado === 'ENTREGADO EN LA SEDE'" class="label label-danger">NO</span>
+                                        <span *ngIf="servLava.recibeSatisfaccion && servLava.estado === 'ENTREGADO EN LA SEDE'" class="label label-success">SI</span>
                                     </small>
                                 </td>
                                 <td class="text-center"><small>{{servLava.fechaRegistro | date}}</small></td>
                                 <td class="text-nowrap text-center">
                                     <a class="cursor" title="Actualizar Estado de la Transacción" data-toggle="tooltip" data-original-title="Actualizar Estado de la Transacción" (click)="actualizarEstadoServLavan(servLava)">
-                                        <i class="fa fa-pencil text-inverse m-r-10"></i>
+                                        <i class="fa fa-reply text-inverse m-r-10"></i>
                                     </a>
                                     &nbsp; &nbsp;
                                     <a class="cursor" title="Eliminar Transacción" data-toggle="tooltip" data-original-title="Eliminar Transacción del sistema" (click)="eliminarServLavan(servLava)">
-                                        <i class="fa fa-close text-danger"></i>
+                                        <i class="fa fa-trash-o text-danger"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -96,25 +96,31 @@
                 <table class="table">
                     <th>
                         <tr>ID de transacción:</tr>
-                        <tr>Usuario que registro</tr>
+                        <tr>Usuario que registro:</tr>
                     </th>
                     <th>
                         <tr style="color:#346420; font-size:13">{{servLavDetalle._id}}</tr>
                         <tr style="color:cadetblue; font-size:13">{{servLavDetalle.usuarioRegistro.nombre}}</tr>
                     </th>
                 </table>
-
                 <div class="div-border-decorator">
                     <p class="font-weight-bold" style="color:rgb(100, 17, 233); font-size:13"><b>Observaciones cuando salieron las prendas:</b></p>
                     <p style="color:rgb(230, 19, 100); font-size:13">
                         {{ servLavDetalle.obsSalidaColchas}}
                     </p>
                 </div>
-                <br>
+                <table class="table">
+                    <th>
+                        <tr>Usuario que recibio:</tr>
+                    </th>
+                    <th>
+                        <tr style="color:cadetblue; font-size:13">{{servLavDetalle.usuarioRecibeColchas.nombre}}</tr>
+                    </th>
+                </table>
                 <div class="div-border-decorator">
                     <p class="font-weight-bold" style="color:rgb(19, 114, 7); font-size:13"><b>Observaciones cuando recibieron las prendas:</b></p>
                     <p style="color:rgb(230, 86, 19); font-size:13">
-                        {{ servLavDetalle.obsEntregaColchas}}
+                        {{ servLavDetalle.obsRecibeColchas}}
                     </p>
                 </div>
             </div>

@@ -119,7 +119,19 @@ export class VacunasCodiv19Component implements OnInit {
           '</div>'+
         '</div>'+
       '</div>',
-      focusConfirm: false,
+      focusConfirm: true,
+      showCancelButton: true,
+      showCloseButton: false,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '<i class="fa fa-thumbs-up"></i> OK!',
+      cancelButtonText:'<i class="fa fa-thumbs-down"></i> Cancelar',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      },
       preConfirm: () => {
         return [
           (<HTMLInputElement>document.getElementById('swal-input1')).value,
@@ -130,15 +142,19 @@ export class VacunasCodiv19Component implements OnInit {
     })
 
     if (formValues) {
-      this.vacunadosService.crearRegistroDosis(vacunado, formValues[0], formValues[1], formValues[2])
-      .subscribe (resp => {
-        if(resp.status){
-          Swal.fire('Correcto!', resp.msg, 'success');
-        } else { 
-          Swal.fire('Error!', resp.msg, 'error');
-        }
-        this.cargarVacunados();
-      });
+      if(formValues[0] !== '') {
+        this.vacunadosService.crearRegistroDosis(vacunado, formValues[0], formValues[1], formValues[2])
+        .subscribe (resp => {
+          if(resp.status){
+            Swal.fire('Correcto!', resp.msg, 'success');
+          } else { 
+            Swal.fire('Error!', resp.msg, 'error');
+          }
+          this.cargarVacunados();
+        });
+      } else {
+        Swal.fire('Error!', 'Debes proveer una fecha de dosis aplicada', 'error');
+      }
     }
   }
   
@@ -148,7 +164,7 @@ export class VacunasCodiv19Component implements OnInit {
    */
   eliminarRegVacunado ( vacunado: Vacunado ) {
     Swal.fire({
-      title: '<small>Esta seguro de eliminar el registro?</small>',
+      title: '<small>Esta seguro de eliminar la transacción </br>' + vacunado._id + '?</small>',
       text: '',
       icon: 'question',
       showCancelButton: true,

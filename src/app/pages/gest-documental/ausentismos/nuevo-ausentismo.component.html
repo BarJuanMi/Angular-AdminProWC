@@ -1,0 +1,66 @@
+<div class="row animated fadeInLeft">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header bg-info">
+                <h4 class="m-b-0 text-white">Detalles de Nuevo Retiro</h4>
+            </div>
+            <div class="card-body">
+                <form class="form p-t-20" [formGroup]="ausentismoForm" (submit)="crearNuevoAusentismo()">
+                    <div class="row p-t-20">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Nombres y Apellidos de Empleado:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-face-smile"></i></div>
+                                    <select class="form-control custom-select" id="employed" formControlName="empleado">
+                                        <option value="null">--Seleccione una opción--</option>
+                                        <option *ngFor="let empleado of empleadosList" [value]="empleado._id">{{empleado.nombApellConca}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Tipo de ausentismo:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-face-smile"></i></div>
+                                    <select class="form-control custom-select" id="type" formControlName="tipo">
+                                        <option value="null">--Seleccione una opción--</option>
+                                        <option *ngFor="let tipoausentismo of tipoAusentismosList" [value]="tipoausentismo._id">{{tipoausentismo.tipoausentismoDesc}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row p-t-20">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Fecha Inicio:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-calendar"></i></div>
+                                    <input type="date" id="fechaRenuncia" class="form-control" formControlName="fechaInicio" placeholder="dd/mm/yyyy" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Fecha Finalización:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-calendar"></i></div>
+                                    <input type="date" id="fechaRenuncia" class="form-control" formControlName="fechaFinalizacion" placeholder="dd/mm/yyyy" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <button type="submit" class="btn btn-success waves-effect waves-pupple m-r-10" [disabled]="ausentismoForm.invalid"><i class="fa fa-save"></i>  Guardar </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

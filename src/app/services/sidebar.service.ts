@@ -21,8 +21,17 @@ export class SidebarService {
       titulo: 'Gest. Documental',
       icono: 'mdi mdi-library-books',
       submenu: [
-        {titulo: 'Memorandos a empleados', url: '/'},
-        {titulo: 'Retiros de empleados', url: '/dashboard/retiros'},
+        {titulo: 'Memorandos', url: '/dashboard/memorandos'},
+        {titulo: 'Contratos', url: '/dashboard/contratos'},
+        {titulo: 'Retiros', url: '/dashboard/retiros'},
+        {titulo: 'Ausentismos', url: '/dashboard/ausentismos'},
+      ]
+    },
+    {
+      titulo: 'Contabilidad',
+      icono: 'mdi mdi-server',
+      submenu: [
+        {titulo: 'Facturas', url: '/dashboard/facturas'},
       ]
     },
     {
@@ -48,7 +57,7 @@ export class SidebarService {
       titulo: 'Proc. Internos',
       icono: 'mdi mdi-server',
       submenu: [
-        {titulo: 'PQRS e Incidentes ', url: '/dashboard/pqrsi'},
+        {titulo: 'PQRS e Incidentes', url: '/dashboard/pqrsi'},
         {titulo: 'Prestamos o adelantos', url: '/dashboard/prestamos'},
         {titulo: 'Personal vacunados', url: '/dashboard/vacunados'},
         {titulo: 'Servicios de lavanderia', url: '/dashboard/servsLavanderia'},

@@ -1,0 +1,138 @@
+<div class="row animated fadeIn fast">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <input type="text" class="form-control" placeholder="Filtrar contratos por nombre de empleado..." #txtTermino (keyup)="buscarContratosPorNombreEmp(txtTermino.value)" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn fast" *ngIf="cargando">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor espere...</p>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn fast" *ngIf="!cargando">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="col-12">
+                    <table style="width:100%">
+                        <tr>
+                            <td style="text-align:left">
+                                <button [routerLink]="['/dashboard/nuevoContrato']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                                <i class="fa fa-sitemap"></i> Crear Nuevo Contrato </button>
+                            </td>
+                            <td style="text-align:right">
+                                <h6>Contratos Registrados (<small>{{ totalContratos }}</small>)</h6>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                &nbsp;
+                <div class="table-responsive">
+                    <table class="table table-bordered color-bordered-table inverse-bordered-table">
+                        <thead>
+                            <tr>
+                                <th>Detalles</th>
+                                <th>Empleado asociado al contrato</th>
+                                <th class="text-center">Fecha Inicio</th>
+                                <th class="text-center">Fecha Fin</th>
+                                <th class="text-center">Estado</th>
+                                <th class="text-center">Soporte PDF</th>
+                                <th class="text-center">Fecha de registro</th>
+                                <th class="text-center">Usuario que registró</th>
+                                <th class="text-center">Acción</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr *ngFor="let contrato of contratos">
+                                <td><small><a href="" (click)="verDetallesContrato(contrato)" data-toggle="modal" data-target="#datosContratoModal">Ver más...</a></small></td>
+                                <td><small>{{contrato.empleado.nombApellConca}}</small></td>
+                                <td class="text-center"><small>{{contrato.fechaInicioContrato | date}}</small></td>
+                                <td class="text-center"><small>{{contrato.fechaFinContrato | date}}</small></td>
+                                <td class="text-center">
+                                    <span *ngIf="contrato.estado == 'EN EJECUCIÓN'" class="label label-success">{{contrato.estado}}</span>
+                                    <span *ngIf="contrato.estado == 'YA FINALIZADO'" class="label label-danger">{{contrato.estado}}</span>
+                                </td>
+                                <td class="text-center">
+                                    <span *ngIf="!contrato.estadoCargoPDF" class="label label-danger">NO</span>
+                                    <span *ngIf="contrato.estadoCargoPDF" class="label label-success">SI</span>
+                                </td>
+                                <td class="text-center"><small>{{contrato.fechaRegistro | date}}</small></td>
+                                <td class="text-center"><small>{{contrato.usuarioRegistro.nombre}}</small></td>
+                                <td class="text-nowrap text-center">
+                                    &nbsp; &nbsp;
+                                    <a class="cursor" title="Cargar Documento de Contrato" data-toggle="tooltip" data-original-title="Cargar PDF de Contrato" (click)="mostrarSweetAlertCargue(contrato)">
+                                        <i class="fa fa-upload text-inverse m-r-10"></i>
+                                    </a>
+                                    &nbsp; &nbsp;
+                                    <a class="cursor" title="Eliminar Transacción" data-toggle="tooltip" data-original-title="Eliminar Registro del Sistema" (click)="eliminarContrato(contrato)">
+                                        <i class="fa fa-trash-o text-danger"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="text-center" *ngIf="mostrarBotones">
+                    <button (click)="cambiarPagina(-25)" class="btn btn-secondary">
+                        <i class="fa fa-backward"></i>&nbsp;
+                        Anteriores
+                    </button> &nbsp; &nbsp; &nbsp;
+
+                    <button (click)="cambiarPagina(25)" class="btn btn-secondary">
+                        Siguientes &nbsp;
+                        <i class="fa fa-forward"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="datosContratoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">Información Detallada del Contrato</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <th>
+                        <tr>ID de transacción:</tr>
+                        <tr *ngIf="contratoDetalle.estadoCargoPDF">Fecha de cargue PDF:</tr>
+                        <tr *ngIf="contratoDetalle.estadoCargoPDF">Usuario que cargo PDF:</tr>
+                    </th>
+                    <th>
+                        <tr style="color:#346420; font-size:13">{{contratoDetalle._id}}</tr>
+                        <tr *ngIf="contratoDetalle.estadoCargoPDF" style="color:cadetblue;; font-size:13">{{contratoDetalle.fechaCargoPDF | date}}</tr>
+                        <tr *ngIf="contratoDetalle.estadoCargoPDF" style="color:cadetblue;; font-size:13">{{contratoDetalle.usuarioCargoPDF.nombre}}</tr>
+                    </th>
+                </table>
+                <div class="div-border-decorator" *ngIf="contratoDetalle.observaciones != ''">
+                    <p class="font-weight-bold" style="color:#745af2; font-size:13"><b>Detalles adicionales del contrato:</b></p>
+                    <p style="color:rgb(66, 69, 85); font-size:13">
+                        {{ contratoDetalle.observaciones}}
+                    </p>
+                </div>
+                <br>
+                <br>
+                <a *ngIf="contratoDetalle.estadoCargoPDF" href="{{contratoDetalle.rutaCargueCompletaPDF}}" target="_blank">Descargar pdf del contrato</a>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

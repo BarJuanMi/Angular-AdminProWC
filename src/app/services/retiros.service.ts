@@ -23,21 +23,21 @@ export class RetirosService {
                public usuarioService: UsuarioService) { }
 
   /**
-   * 
-   * @param desde 
-   * @returns 
+   * Metodo que permite cargar todos los retiros que se encuentren en la base de datos.
+   * @param desde es el filtro desde donde marcara para obtener los retiro desde ahi en adelante.
+   * @returns Listado de retiros.
    */
    cargarRetirosDesde( desde: number = 0) {
     console.log('Invocación a RetirosService(Front) - cargarRetirosDesde');
-    //localhost:3001/api/retiros?desde=5
+    //44.208.35.77:3001/api/retiros?desde=25
     const url = `${ base_url }/retiros?desde=${ desde }`;
     return this.http.get<CargarRetiro>( url , this.usuarioService.headers)
       .pipe(
         delay(500), 
         map( resp => {
           const retiros = resp.retiros.map( 
-            retiro => new Retiro(retiro._id, retiro.empleado, 
-              retiro.usuarioCreacion, retiro.fechaRenuncia, retiro.fechaRegistro,
+            retiro => new Retiro(retiro._id, retiro.empleado, retiro.emplNomApel,
+              retiro.usuarioRegistro, retiro.fechaRenuncia, retiro.fechaRegistro,
               retiro.estado, retiro.motivoRetiro, retiro.entrevista, 
               retiro.encuesta, retiro.fechaFirma, retiro.fechaCargoPDF,
               retiro.usuarioCargoPDF, retiro.pathPDF, retiro.estadoCargoPDF)
@@ -52,9 +52,9 @@ export class RetirosService {
   }
 
   /**
-   * 
-   * @param id 
-   * @returns 
+   * Metodo que permite cargar un retiro en especifico buscandolo mediante su id interno
+   * @param id numero de representacion del retiro dentro de la base de datos
+   * @returns Objeto de retiro que fue retornado por la base de datos
    */
    buscarRetiroPorId( id: String) {
     console.log('Invocacion a RetirosService(Front) - buscarRetiroPorId');
@@ -63,9 +63,9 @@ export class RetirosService {
   }
   
   /**
-   * 
-   * @param formData 
-   * @returns 
+   * Metodo que permite crear un registro de retiro nuevo en la base de datos
+   * @param formData Objeto con la informacion del nuevo retiro
+   * @returns Informacion del proceso si fue o no exitoso en la insercion
    */
   crearNuevoRetiro( formData: RegisterForm ) {
     console.log('Invocación a RetirosService(Front) - crearNuevoRetiro');
@@ -73,9 +73,9 @@ export class RetirosService {
   }
   
   /**
-   * 
-   * @param retiro 
-   * @returns 
+   * Metodo que permite eliminar un registro de retiro en la base de datos
+   * @param retiro Objeto con la informacion del retiro que se va a eliminar
+   * @returns Informacion del proceso si fue o no exitoso en la eliminacion
    */
   eliminarRetiro( retiro: Retiro) {
     console.log('Invocación a RetirosService(Front) - eliminarRetiro');
@@ -83,8 +83,9 @@ export class RetirosService {
   }
 
   /**
-   * 
-   * @param retiro 
+   * Metodo que permite actualizar un registro de retiro en la base de datos
+   * @param retiro Objeto con la informacion del retiro que se va a actualizar
+   * @returns Informacion del proceso si fue o no exitoso en la actualizacion
    */
   actualizarRetiro( retiro: Retiro) {
     console.log('Invocación a RetirosService(Front) - actualizarRetiro');

@@ -17,7 +17,7 @@
                         <tr>
                             <td style="text-align:left">
                                 <button [routerLink]="['/dashboard/nuevoRegVacuna']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
-                                <i class="fa fa-user-plus"></i> Crear Registro 1era Dosis </button>
+                                <i class="fa fa-eyedropper"></i> Crear Registro 1era Dosis </button>
                             </td>
                             <td style="text-align:right">
                                 <h6>Cantidad de registros (<small>{{ totalVacunados }}</small>)</h6>
@@ -31,12 +31,13 @@
                         <thead>
                             <tr>
                                 <th class="w50"></th>
-                                <th class="text-center align-th-table">Empleado</th>
+                                <th class="align-th-table">Nombre de Empleado</th>
                                 <th class="text-center">1era Dosis</th>
                                 <th class="text-center">2da Dosis</th>
                                 <th class="text-center">3era Dosis</th>
                                 <th class="text-center">4ta Dosis</th>
                                 <th class="text-center">Regulador</th>
+                                <th class="text-center">Sintomatología</th>
                                 <th class="text-center">Usuario que registró</th>
                                 <th class="text-center">Acción</th>
                             </tr>
@@ -46,20 +47,24 @@
                                 <td class="text-center">
                                     <img [src]="vacunado.imagenUrl" class="avatar-w40 cursor" alt="Carnet de vacunación" (click)="abrilModalImagenLarge( vacunado )">
                                 </td>
-                                <td><small>{{vacunado.empleado.documento}} - {{vacunado.empleado.nombApellConca}}</small></td>
-                                <td class="text-center">
+                                <td><small>{{vacunado.empleado.nombApellConca}}</small></td>
+                                <td style="color:rgb(63, 18, 223)" class="text-center">
                                     <small>{{vacunado.farmaPriDosis}} <br> {{vacunado.fechaPriDosis | date}}</small>
                                 </td>
-                                <td class="text-center">
+                                <td style="color:rgb(233, 110, 29)" class="text-center">
                                     <small>{{vacunado.farmaSecDosis}} <br> {{vacunado.fechaSecDosis | date}}</small>
                                 </td>
-                                <td class="text-center">
+                                <td style="color:rgb(37, 172, 48)" class="text-center">
                                     <small>{{vacunado.farmaTerDosis}} <br> {{vacunado.fechaTerDosis | date}}</small>
                                 </td>
-                                <td class="text-center">
+                                <td style="color:rgb(235, 47, 63)" class="text-center">
                                     <small>{{vacunado.farmaCuarDosis}} <br> {{vacunado.fechaCuarDosis | date}}</small>
                                 </td>
                                 <td class="text-center"><small>{{vacunado.regulador}}</small></td>
+                                <td class="text-center">
+                                    <span *ngIf="vacunado.sintomatologia" class="label label-success text-center">{{vacunado.sintomatologia}}</span>
+                                    <span *ngIf="!vacunado.sintomatologia" class="label label-warning text-center">{{vacunado.sintomatologia}}</span>
+                                </td>
                                 <td class="text-center"><small>{{vacunado.usuario.nombre}}</small></td>
 
                                 <td class="text-nowrap text-center">
@@ -68,7 +73,7 @@
                                     </a>
                                     &nbsp;
                                     <a class="cursor" title="Eliminar registro" data-toggle="tooltip" data-original-title="Eliminar registro" (click)="eliminarRegVacunado(vacunado)">
-                                        <i class="fa fa-close text-danger"></i>
+                                        <i class="fa fa-trash-o text-danger"></i>
                                     </a>
                                 </td>
                             </tr>
