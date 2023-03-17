@@ -89,8 +89,6 @@ export class ContratosComponent implements OnInit {
       .subscribe((resultados: Contrato[]) => {
         this.contratos = resultados;
       });
-    
-    console.log('POLOLOLOLOLOLO: ' + JSON.stringify(this.contratos));
   }
 
 }
