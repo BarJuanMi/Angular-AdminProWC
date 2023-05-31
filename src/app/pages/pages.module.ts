@@ -22,7 +22,6 @@ import { PrestamosComponent } from './procesos/prestamos/prestamos.component';
 import { NuevoPrestamoComponent } from './procesos/prestamos/nuevo-prestamo.component';
 import { RetirosComponent } from './gest-documental/retiros/retiros.component';
 import { NuevoRetiroComponent } from './gest-documental/retiros/nuevo-retiro.component';
-import { ActualizaRetiroComponent } from './gest-documental/retiros/actualiza-retiro.component';
 import { NuevoUsuarioComponent } from './mantenimientos/usuarios/nuevo-usuario.component';
 import { ActualizarUsuarioComponent } from './mantenimientos/usuarios/actualizar-usuario.component';
 import { VacunasCodiv19Component } from './procesos/vacunas-codiv19/vacunas-codiv19.component';
@@ -44,6 +43,7 @@ import { ContratosComponent } from './gest-documental/contratos/contratos.compon
 import { MemorandosComponent } from './gest-documental/memorandos/memorandos.component';
 import { FacturasComponent } from './contabilidad/facturas/facturas.component';
 import { NuevoMemorandoComponent } from './gest-documental/memorandos/nuevo-memorando.component';
+import { NuevoContratoComponent } from './gest-documental/contratos/nuevo-contrato.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +64,6 @@ import { NuevoMemorandoComponent } from './gest-documental/memorandos/nuevo-memo
     NuevoPrestamoComponent,
     RetirosComponent,
     NuevoRetiroComponent,
-    ActualizaRetiroComponent,
     NuevoUsuarioComponent,
     ActualizarUsuarioComponent,
     VacunasCodiv19Component,
@@ -86,6 +85,7 @@ import { NuevoMemorandoComponent } from './gest-documental/memorandos/nuevo-memo
     MemorandosComponent,
     FacturasComponent,
     NuevoMemorandoComponent,
+    NuevoContratoComponent,
   ],
   exports: [
     DashboardComponent,

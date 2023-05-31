@@ -42,10 +42,10 @@
                         <thead>
                             <tr>
                                 <th>Detalles</th>
-                                <th>Empleado asociado al retiro</th>
+                                <th class="text-center">Empleado</th>
                                 <th class="text-center">Estado</th>
-                                <th class="text-center">PDF</th>
-                                <th class="text-center">Fecha de renuncia</th>
+                                <th class="text-center">Soporte PDF</th>
+                                <th class="text-center">Fecha de Retiro</th>
                                 <th class="text-center">Usuario que registró</th>
                                 <th class="text-center">Fecha de registro</th>
                                 <th class="text-center">Acción</th>
@@ -68,12 +68,16 @@
                                 <td class="text-center"><small>{{retiro.usuarioRegistro.nombre}}</small></td>
                                 <td class="text-center"><small>{{retiro.fechaRegistro | date}}</small></td>
                                 <td class="text-nowrap text-center">
-                                    <a [routerLink]="['/dashboard/actualizaRetiro', retiro._id]" class="cursor" title="Actualizar Transacción" data-toggle="tooltip" data-original-title="Actualizar Transacción del sistema">
+                                    <a class="cursor" title="Cambiar Estado de Retiro" data-toggle="tooltip" data-original-title="Cambiar Estado de Retiro" (click)="cambiarEstadoRetiro(retiro)">
                                         <i class="fa fa-reply text-inverse m-r-10"></i>
                                     </a>
                                     &nbsp; &nbsp;
-                                    <a class="cursor" title="Eliminar Transacción" data-toggle="tooltip" data-original-title="Eliminar Transacción del sistema" (click)="eliminarRetiro(retiro)">
-                                        <i class="fa fa-close text-danger"></i>
+                                    <a class="cursor" title="Cargar Paz y Salvo de Retiro" data-toggle="tooltip" data-original-title="Cargar Paz y Salvo de Retiro" (click)="mostrarSweetAlertCargue(retiro)">
+                                        <i class="fa fa-upload text-inverse m-r-10"></i>
+                                    </a>
+                                    &nbsp; &nbsp;
+                                    <a class="cursor" title="Eliminar registro del sistema" data-toggle="tooltip" data-original-title="Eliminar registro del sistema" (click)="eliminarRetiro(retiro)">
+                                        <i class="fa fa-trash-o text-danger"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -108,6 +112,7 @@
                 <table class="table">
                     <th>
                         <tr>ID de transacción:</tr>
+                        <tr>Causal de retiro:</tr>
                         <tr>Motivo de retiro:</tr>
                         <tr>Encuesta de retiro:</tr>
                         <tr>Entrevista de retiro:</tr>
@@ -117,7 +122,8 @@
                     </th>
                     <th>
                         <tr style="color:#346420; font-size:13">{{retiroDetalle._id}}</tr>
-                        <tr style="color:cadetblue; font-size:13">{{retiroDetalle.motivoRetiro}}</tr>
+                        <tr style="color:cadetblue"><small>{{retiroDetalle.causalRetiro.causalretiroDesc}}</small></tr>
+                        <tr style="color:cadetblue"><small>{{retiroDetalle.motivoRetiro}}</small></tr>
                         <tr>
                             <span *ngIf="!retiroDetalle.encuesta" class="label label-danger">NO</span>
                             <span *ngIf="retiroDetalle.encuesta" class="label label-success">SI</span>

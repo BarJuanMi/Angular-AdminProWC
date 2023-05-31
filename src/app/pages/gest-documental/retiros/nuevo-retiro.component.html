@@ -38,14 +38,14 @@
                                 <label class="control-label label-form-decora">Motivo del Retiro:</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-comment"></i></div>
-                                    <textarea class="form-control text-area" formControlName="motivoRetiro"></textarea>
+                                    <textarea rows="3" class="form-control text-area" formControlName="motivoRetiro"></textarea>
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label label-form-decora">Fecha de Renuncia:</label>
+                                <label class="control-label label-form-decora">Fecha de Retiro:</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-calendar"></i></div>
                                     <input type="date" id="fechaRenuncia" class="form-control" formControlName="fechaRenuncia" placeholder="dd/mm/yyyy" autocomplete="off">
@@ -55,7 +55,22 @@
                     </div>
 
                     <div class="row p-t-20">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Causal de Retiro:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-face-smile"></i></div>
+                                    <select class="form-control custom-select" id="causal" formControlName="causal">
+                                        <option value="null">--Seleccione una opción--</option>
+                                        <option *ngFor="let causalretiro of causalesRetiroList" [value]="causalretiro._id">{{causalretiro.causalretiroDesc}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row p-t-20">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label label-form-decora">¿Presento entrevista de retiro?</label>
                                 <div class="switch">
@@ -63,7 +78,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label label-form-decora">¿Presento encuesta de retiro?</label>
                                 <div class="switch">

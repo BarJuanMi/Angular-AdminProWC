@@ -8,6 +8,8 @@ import { RetirosService } from 'src/app/services/retiros.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Empleado } from 'src/app/models/empleado.model';
 import { EmpleadosService } from 'src/app/services/empleados.service';
+import { CausalRetiro } from 'src/app/models/causalesretiro.model';
+import { UtileslistService } from 'src/app/services/utileslist.service';
 
 @Component({
   selector: 'app-nuevo-retiro',
@@ -18,6 +20,7 @@ import { EmpleadosService } from 'src/app/services/empleados.service';
 export class NuevoRetiroComponent implements OnInit {
 
   public empleadosList: Empleado[] = [];
+  public causalesRetiroList: CausalRetiro[] = [];
   public retiroForm: FormGroup;
   public retiro: Retiro;
   public usuario: Usuario;
@@ -25,20 +28,23 @@ export class NuevoRetiroComponent implements OnInit {
   constructor(
     private router: Router,
     private empleadoService: EmpleadosService,
+    private utilitiesService: UtileslistService,
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
     private retiroService: RetirosService) 
   { 
     this.usuario = usuarioService.usuario;
-    this.retiro = new Retiro('',null,'','',new Date(),null,'GENERADO','',false,false,null,null,'','',false);
+    this.retiro = new Retiro('',null,'','',new Date(),null,'GENERADO','',false,false,null,null,null,'','',false);
   }
 
   ngOnInit(): void {
     this.cargarListadoEmpleadosEstado();
+    this.cargarListadoCausalesRetiro();
     this.retiroForm = this.fb.group({
       empleado: [this.retiro.empleado, Validators.required],
       usuarioNombre: [this.usuario.nombre],
       estado: [this.retiro.estado],
+      causal: [this.retiro.causalRetiro],
       motivoRetiro: [this.retiro.motivoRetiro, Validators.required],
       entrevista: [this.retiro.entrevista],
       encuesta: [this.retiro.encuesta],
@@ -50,6 +56,12 @@ export class NuevoRetiroComponent implements OnInit {
     const estado : string = 'true';
     this.empleadoService.cargarEmpleadosFiltroEstado(estado).subscribe(({empleados}) => {
       this.empleadosList = empleados;
+    });
+  }
+
+  cargarListadoCausalesRetiro() {
+    this.utilitiesService.cargarCausalesRetiro().subscribe(({causalesretiro}) => {
+      this.causalesRetiroList = causalesretiro;
     });
   }
 

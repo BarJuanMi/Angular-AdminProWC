@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { map, delay } from 'rxjs/operators';
+import { map, delay, tap } from 'rxjs/operators';
 import { RegisterForm } from '../interfaces/register-form.interface';
 import { environment } from 'src/environments/environment';
 import { UsuarioService } from './usuario.service';
@@ -39,7 +39,7 @@ export class RetirosService {
             retiro => new Retiro(retiro._id, retiro.empleado, retiro.emplNomApel,
               retiro.usuarioRegistro, retiro.fechaRenuncia, retiro.fechaRegistro,
               retiro.estado, retiro.motivoRetiro, retiro.entrevista, 
-              retiro.encuesta, retiro.fechaFirma, retiro.fechaCargoPDF,
+              retiro.encuesta, retiro.causalRetiro, retiro.fechaFirma, retiro.fechaCargoPDF,
               retiro.usuarioCargoPDF, retiro.pathPDF, retiro.estadoCargoPDF)
           );
 
@@ -87,8 +87,10 @@ export class RetirosService {
    * @param retiro Objeto con la informacion del retiro que se va a actualizar
    * @returns Informacion del proceso si fue o no exitoso en la actualizacion
    */
-  actualizarRetiro( retiro: Retiro) {
+  actualizarRetiro( retiro: Retiro, estadoNew: string, fechaFirma: string) {
     console.log('Invocación a RetirosService(Front) - actualizarRetiro');
-    return this.http.put(`${ base_url }/retiros/actualizarRetiro/${ retiro._id }`, retiro, this.usuarioService.headers);
+    var jsonStruc = {estado: estadoNew, fechaFirma: new Date(fechaFirma)};
+    return this.http.put(`${ base_url }/retiros/actualizarRetiro/${ retiro._id }`, jsonStruc, this.usuarioService.headers)
+    .pipe(tap ( (resp :any) => {resp}));
   }
 }

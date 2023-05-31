@@ -18,7 +18,6 @@ import { PrestamosComponent } from './procesos/prestamos/prestamos.component';
 import { NuevoPrestamoComponent } from './procesos/prestamos/nuevo-prestamo.component';
 import { RetirosComponent } from './gest-documental/retiros/retiros.component';
 import { NuevoRetiroComponent } from './gest-documental/retiros/nuevo-retiro.component';
-import { ActualizaRetiroComponent } from './gest-documental/retiros/actualiza-retiro.component';
 import { NuevoUsuarioComponent } from './mantenimientos/usuarios/nuevo-usuario.component';
 import { ActualizarUsuarioComponent } from './mantenimientos/usuarios/actualizar-usuario.component';
 import { VacunasCodiv19Component } from './procesos/vacunas-codiv19/vacunas-codiv19.component';
@@ -39,6 +38,7 @@ import { FacturasComponent } from './contabilidad/facturas/facturas.component';
 import { MemorandosComponent } from './gest-documental/memorandos/memorandos.component';
 import { ContratosComponent } from './gest-documental/contratos/contratos.component';
 import { NuevoMemorandoComponent } from './gest-documental/memorandos/nuevo-memorando.component';
+import { NuevoContratoComponent } from './gest-documental/contratos/nuevo-contrato.component';
 
 const routes: Routes = [
     {  
@@ -83,7 +83,6 @@ const routes: Routes = [
             //WebCam Retiros
             {path: 'retiros', component: RetirosComponent, data: {titulo: 'Administración de Retiros de empleados'}},
             {path: 'nuevoRetiro', component: NuevoRetiroComponent, data: {titulo: 'Creación de Nuevo Retiro'}},
-            {path: 'actualizaRetiro/:id', component: ActualizaRetiroComponent, data: {titulo: 'Actualización Datos de Retiro'}},
 
             //WebCam Vacunas
             {path: 'vacunados', component: VacunasCodiv19Component, data: {titulo: 'Administración de Registros de vacunas para empleados'}},
@@ -110,6 +109,7 @@ const routes: Routes = [
 
             //WebCam Contratos
             {path: 'contratos', component: ContratosComponent, data: {titulo: 'Administración de Contratos con el Personal'}},
+            {path: 'nuevoContrato', component: NuevoContratoComponent, data: {titulo: 'Creacion de Nuevo Registro de Contrato Laboral'}},
         ]
     },
 ];

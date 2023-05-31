@@ -105,8 +105,15 @@ export class AusentismosComponent implements OnInit {
         this.fileUploadPdfService
           .actualizarPDF(file, 'ausentismos', ausentismo._id)
           .then(resp => {
-            Swal.fire('Guardado', 'Documento de soporte para ausencia cargado satisfactoriamente.', 'success');
-          }, (err) => {
+            console.log('resp: ' + resp);
+
+            if(resp !== undefined) {
+              Swal.fire('Guardado', 'Documento de soporte para ausencia cargado satisfactoriamente.', 'success');
+            } else {
+              Swal.fire('Error', 'No se pudo cargar el documento de soporte para ausencia. Recuerda que debe ser en formato PDF.', 'error');
+            }
+          }, (error) => {
+            console.log('error: ' + error);
             Swal.fire('Error', 'No se pudo cargar el documento de soporte para ausencia.', 'error');
           });
       }

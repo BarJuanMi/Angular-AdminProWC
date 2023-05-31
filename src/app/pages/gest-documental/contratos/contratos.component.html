@@ -45,9 +45,9 @@
                                 <th class="text-center">Fecha Inicio</th>
                                 <th class="text-center">Fecha Fin</th>
                                 <th class="text-center">Estado</th>
-                                <th class="text-center">Soporte PDF</th>
-                                <th class="text-center">Fecha de registro</th>
-                                <th class="text-center">Usuario que registró</th>
+                                <th class="text-center">Tipo de Contrato</th>
+                                <th class="text-center">Contrato Firmado</th>
+                                <th class="text-center">Docs Adicionales</th>
                                 <th class="text-center">Acción</th>
                             </tr>
                         </thead>
@@ -60,21 +60,33 @@
                                 <td class="text-center"><small>{{contrato.fechaFinContrato | date}}</small></td>
                                 <td class="text-center">
                                     <span *ngIf="contrato.estado == 'EN EJECUCIÓN'" class="label label-success">{{contrato.estado}}</span>
-                                    <span *ngIf="contrato.estado == 'YA FINALIZADO'" class="label label-danger">{{contrato.estado}}</span>
+                                    <span *ngIf="contrato.estado == 'SUSPENDIDO POR TRABAJADOR'" class="label label-warning">{{contrato.estado}}</span>
+                                    <span *ngIf="contrato.estado == 'FINALIZADO POR TRABAJADOR'" class="label label-danger">{{contrato.estado}}</span>
+                                    <span *ngIf="contrato.estado == 'SUSPENDIDO POR EMPLEADOR'" class="label label-warning">{{contrato.estado}}</span>
+                                    <span *ngIf="contrato.estado == 'FINALIZADO POR EMPLEADOR'" class="label label-danger">{{contrato.estado}}</span>
                                 </td>
+                                <td class="text-center font-weight-bold">{{contrato.tipoContrato.tipocontratoDesc}}</td>
                                 <td class="text-center">
                                     <span *ngIf="!contrato.estadoCargoPDF" class="label label-danger">NO</span>
-                                    <span *ngIf="contrato.estadoCargoPDF" class="label label-success">SI</span>
-                                </td>
-                                <td class="text-center"><small>{{contrato.fechaRegistro | date}}</small></td>
-                                <td class="text-center"><small>{{contrato.usuarioRegistro.nombre}}</small></td>
-                                <td class="text-nowrap text-center">
-                                    &nbsp; &nbsp;
-                                    <a class="cursor" title="Cargar Documento de Contrato" data-toggle="tooltip" data-original-title="Cargar PDF de Contrato" (click)="mostrarSweetAlertCargue(contrato)">
+                                    <span *ngIf="contrato.estadoCargoPDF" class="label label-success">SI</span> &nbsp; &nbsp;
+                                    <a class="cursor" title="Cargar Contrato Firmado" data-toggle="tooltip" data-original-title="Cargar Contrato Firmado" (click)="mostrarSweetAlertCarguePDF(contrato)">
                                         <i class="fa fa-upload text-inverse m-r-10"></i>
                                     </a>
+                                </td>
+                                <td class="text-center">
+                                    <span *ngIf="!contrato.estadoCargueDocsZIP" class="label label-danger">NO</span>
+                                    <span *ngIf="contrato.estadoCargueDocsZIP" class="label label-success">SI</span> &nbsp; &nbsp;
+                                    <a class="cursor" title="Cargar Documentos Adicionales de Contratación" data-toggle="tooltip" data-original-title="Cargar Documentos Adicionales de Contratación" (click)="mostrarSweetAlertCargueZIP(contrato)">
+                                        <i class="fa fa-upload text-inverse m-r-10"></i>
+                                    </a>
+                                </td>
+                                <td class="text-nowrap text-center">
                                     &nbsp; &nbsp;
-                                    <a class="cursor" title="Eliminar Transacción" data-toggle="tooltip" data-original-title="Eliminar Registro del Sistema" (click)="eliminarContrato(contrato)">
+                                    <a class="cursor" title="Cambiar el estado del contrato" data-toggle="tooltip" data-original-title="Cambiar el estado del contrato" (click)="cambiarEstadoContrato(contrato)">
+                                        <i class="fa fa-reply text-inverse m-r-10"></i>
+                                    </a>
+                                    &nbsp; &nbsp;
+                                    <a class="cursor" title="Eliminar registro del sistema" data-toggle="tooltip" data-original-title="Eliminar registro del sistema" (click)="eliminarContrato(contrato)">
                                         <i class="fa fa-trash-o text-danger"></i>
                                     </a>
                                 </td>
@@ -110,13 +122,21 @@
                 <table class="table">
                     <th>
                         <tr>ID de transacción:</tr>
-                        <tr *ngIf="contratoDetalle.estadoCargoPDF">Fecha de cargue PDF:</tr>
-                        <tr *ngIf="contratoDetalle.estadoCargoPDF">Usuario que cargo PDF:</tr>
+                        <tr>Fecha de registro</tr>
+                        <tr>Usuario que registró</tr>
+                        <tr *ngIf="contratoDetalle.fechaCargoPDF">Fecha de cargue PDF:</tr>
+                        <tr *ngIf="contratoDetalle.usuarioCargoPDF">Usuario que cargo PDF:</tr>
+                        <tr *ngIf="contratoDetalle.fechaCargueDocsZIP">Fecha de cargue Documentos:</tr>
+                        <tr *ngIf="contratoDetalle.usuarioCargueDocsZIP">Usuario que cargo Documentos:</tr>
                     </th>
                     <th>
                         <tr style="color:#346420; font-size:13">{{contratoDetalle._id}}</tr>
-                        <tr *ngIf="contratoDetalle.estadoCargoPDF" style="color:cadetblue;; font-size:13">{{contratoDetalle.fechaCargoPDF | date}}</tr>
-                        <tr *ngIf="contratoDetalle.estadoCargoPDF" style="color:cadetblue;; font-size:13">{{contratoDetalle.usuarioCargoPDF.nombre}}</tr>
+                        <tr style="color:#346420; font-size:13">{{contratoDetalle.fechaRegistro | date}}</tr>
+                        <tr style="color:#346420; font-size:13">{{contratoDetalle.usuarioRegistro.nombre}}</tr>
+                        <tr *ngIf="contratoDetalle.fechaCargoPDF" style="color:cadetblue;; font-size:13">{{contratoDetalle.fechaCargoPDF | date}}</tr>
+                        <tr *ngIf="contratoDetalle.usuarioCargoPDF" style="color:cadetblue;; font-size:13">{{contratoDetalle.usuarioCargoPDF.nombre}}</tr>
+                        <tr *ngIf="contratoDetalle.fechaCargueDocsZIP" style="color:cadetblue;; font-size:13">{{contratoDetalle.fechaCargueDocsZIP | date}}</tr>
+                        <tr *ngIf="contratoDetalle.usuarioCargueDocsZIP" style="color:cadetblue;; font-size:13">{{contratoDetalle.usuarioCargueDocsZIP.nombre}}</tr>
                     </th>
                 </table>
                 <div class="div-border-decorator" *ngIf="contratoDetalle.observaciones != ''">
@@ -126,8 +146,17 @@
                     </p>
                 </div>
                 <br>
+                <div class="div-border-decorator" *ngIf="contratoDetalle.detallesCambioEstado != ''">
+                    <p class="font-weight-bold" style="color:#745af2; font-size:13"><b>Razon para cambio de estado de contrato:</b></p>
+                    <p style="color:rgb(66, 69, 85); font-size:13">
+                        {{ contratoDetalle.detallesCambioEstado}}
+                    </p>
+                </div>
                 <br>
                 <a *ngIf="contratoDetalle.estadoCargoPDF" href="{{contratoDetalle.rutaCargueCompletaPDF}}" target="_blank">Descargar pdf del contrato</a>
+                <br>
+                <br>
+                <a *ngIf="contratoDetalle.estadoCargueDocsZIP" href="{{contratoDetalle.rutaCargueCompletaZIP}}" target="_blank">Descargar documentos adicionales de contrato</a>
             </div>
 
             <div class="modal-footer">

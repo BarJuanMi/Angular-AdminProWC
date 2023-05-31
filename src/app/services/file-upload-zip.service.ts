@@ -6,7 +6,7 @@ const base_url = environment.base_url;
 @Injectable({
   providedIn: 'root'
 })
-export class FileUploadPdfService {
+export class FileUploadZipService {
 
   constructor() { }
 
@@ -17,13 +17,13 @@ export class FileUploadPdfService {
    * @param id identificador del registro sobre el cual se asociara el pdf
    * @returns Objeto con la respuesta e informacion 
    */
-  async actualizarPDF(
+  async actualizarZIP(
     archivo: File,
-    tipo: 'contratos'|'desprendibles'|'incapacidades'|'pazysalvos'|'hojasvida'|'respsicologico'|'ausentismos'|'memorandos',
+    tipo: 'contratos'|'facturacion',
     id: string
   ) {
     try {
-      const url = `${ base_url }/files/uploadspdf/${ tipo }/${ id }`;
+      const url = `${ base_url }/files/uploadszip/${ tipo }/${ id }`;
       const formData = new FormData();
       formData.append('archivo', archivo);
 

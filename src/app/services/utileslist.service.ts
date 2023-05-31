@@ -18,6 +18,10 @@ import { Usuario } from '../models/usuario.model';
 import { CargarTipoPQRS } from '../interfaces/cargar-tipopqrs.interface';
 import { CargarTipoAusentismo } from '../interfaces/cargar-tipoausentismo.interface';
 import { TipoAusentismo } from '../models/tipoausentismo.model';
+import { CargarCausalesRetiro } from '../interfaces/cargar-causalesretiro.interfece';
+import { CausalRetiro } from '../models/causalesretiro.model';
+import { CargarTipoContrato } from '../interfaces/cargar-tipocontrato.interface';
+import { TipoContrato } from '../models/tipocontrato.model';
 
 const base_url = environment.base_url;
 
@@ -181,6 +185,50 @@ export class UtileslistService {
 
           return {
             tipoausentismos
+          };
+        })
+      )
+  }
+
+  /**
+   * 
+   * @returns 
+   */
+  cargarCausalesRetiro() {
+    console.log('Invocacion a UtileslistService(Front) - cargarCausalesRetiro');
+    const url = `${ base_url }/utiles/causalesretiro`;
+
+    return this.http.get<CargarCausalesRetiro>( url)
+      .pipe(
+        map( resp => {
+          const causalesretiro = resp.causalesretiro.map( 
+            causalretiro => new CausalRetiro(causalretiro._id, causalretiro.causalretiroId, causalretiro.causalretiroDesc)
+          );
+          return {
+            causalesretiro
+          };
+        })
+      )
+  }
+
+  /**
+   * 
+   * @returns 
+   */
+  cargarTipoContratos() {
+    console.log('Invocacion a UtileslistService(Front) - cargarTipoContratos');
+    const url = `${ base_url }/utiles/tipocontrato`;
+
+    return this.http.get<CargarTipoContrato>( url)
+      .pipe(
+        map( resp => {
+
+          const tipocontratos = resp.tipocontratos.map( 
+            tipocontrato => new TipoContrato(tipocontrato._id, tipocontrato.tipocontratoId, tipocontrato.tipocontratoDesc)
+          );
+
+          return {
+            tipocontratos
           };
         })
       )

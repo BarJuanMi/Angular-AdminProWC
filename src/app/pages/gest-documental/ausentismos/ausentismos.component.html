@@ -41,8 +41,9 @@
                         <thead>
                             <tr>
                                 <th>Detalles</th>
-                                <th>Empleado asociado al permiso</th>
+                                <th class="text-center">Empleado</th>
                                 <th class="text-center">Estado</th>
+                                <th class="text-center">Soporte PDF</th>
                                 <th class="text-center">Fecha Inicio</th>
                                 <th class="text-center">Fecha Fin</th>
                                 <th class="text-center">Tipo Ausentismo</th>
@@ -61,6 +62,10 @@
                                     <span *ngIf="ausentismo.estado == 'PENDIENTE DE REVISION'" class="label label-info">{{ausentismo.estado}}</span>
                                     <span *ngIf="ausentismo.estado == 'REVISADO Y RECHAZADO'" class="label label-danger">{{ausentismo.estado}}</span>
                                 </td>
+                                <td class="text-center">
+                                    <span *ngIf="!ausentismo.estadoCargoPDF" class="label label-danger">NO</span>
+                                    <span *ngIf="ausentismo.estadoCargoPDF" class="label label-success">SI</span>
+                                </td>
                                 <td class="text-center"><small>{{ausentismo.fechaInicio | date}}</small></td>
                                 <td class="text-center"><small>{{ausentismo.fechaFinalizacion | date}}</small></td>
                                 <td><small>{{ausentismo.tipoAusentismo.tipoausentismoDesc}}</small></td>
@@ -74,7 +79,7 @@
                                         <i class="fa fa-upload text-inverse m-r-10"></i>
                                     </a>
                                     &nbsp; &nbsp;
-                                    <a class="cursor" title="Eliminar Transacción" data-toggle="tooltip" data-original-title="Eliminar Registro del Sistema" (click)="eliminarAusentismo(ausentismo)">
+                                    <a class="cursor" title="Eliminar registro del sistema" data-toggle="tooltip" data-original-title="Eliminar registro del sistema" (click)="eliminarAusentismo(ausentismo)">
                                         <i class="fa fa-trash-o text-danger"></i>
                                     </a>
                                 </td>

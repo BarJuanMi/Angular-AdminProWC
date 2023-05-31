@@ -1,3 +1,4 @@
+import { CausalRetiro } from './causalesretiro.model';
 import { Empleado } from './empleado.model';
 
 export class Retiro {
@@ -12,6 +13,7 @@ export class Retiro {
         public motivoRetiro: string,
         public entrevista: boolean,
         public encuesta: boolean,
+        public causalRetiro: CausalRetiro,
         public fechaFirma?: Date,
         public fechaCargoPDF?: Date,
         public usuarioCargoPDF?: string,

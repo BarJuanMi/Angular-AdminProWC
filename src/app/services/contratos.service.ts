@@ -14,7 +14,6 @@ const base_url = environment.base_url;
   providedIn: 'root'
 })
 export class ContratosService {
-
   constructor(private http: HttpClient,
     private router: Router,
     public usuarioService: UsuarioService) { }
@@ -37,7 +36,9 @@ export class ContratosService {
               contrato.usuarioRegistro, contrato.fechaRegistro, contrato.tipoContrato,
               contrato.fechaInicioContrato, contrato.fechaFinContrato, contrato.observaciones,
               contrato.fechaCargoPDF, contrato.usuarioCargoPDF, contrato.pathPDF,
-              contrato.estadoCargoPDF)
+              contrato.estadoCargoPDF, contrato.rutaCargueCompletaPDF, contrato.pathPDFNoExt,
+              contrato.fechaCargueDocsZIP, contrato.usuarioCargueDocsZIP, contrato.pathDocsZIP, contrato.estadoCargueDocsZIP, 
+              contrato.rutaCargueCompletaZIP, contrato.pathZIPNoExt, contrato.detallesCambioEstado)
           );
 
           return {
@@ -59,4 +60,41 @@ export class ContratosService {
     return this.http.get(url, this.usuarioService.headers).pipe(map((resp: any) => resp.contrato));
   }
 
+  /**
+   * Metodo que permite eliminar un registro de contrato en la base de datos
+   * @param contrato Objeto con la informacion del contrato que se va a eliminar
+   * @returns Informacion del proceso si fue o no exitoso en la eliminacion
+   */
+  eliminarContrato( contrato: Contrato) {
+    console.log('Invocación a ContratosService(Front) - eliminarContrato');
+    return this.http.delete(`${ base_url }/contratos/eliminarRegContrato/${ contrato._id }`, this.usuarioService.headers);
+  }
+
+  /**
+   * Metodo que permite crear un registro de contrato nuevo en la base de datos
+   * @param formData Objeto con la informacion del nuevo contrato
+   * @returns Informacion del proceso si fue o no exitoso en la insercion
+   */
+  crearNuevoContrato( formData: RegisterForm ) {
+    console.log('Invocación a ContratosService(Front) - crearNuevoContrato');
+    return this.http.post(`${base_url}/contratos/crearRegContrato`, formData, this.usuarioService.headers);
+  }
+
+  /**
+   * Metodo que permite crear un registro de contrato nuevo en la base de datos
+   * @param formData Objeto con la informacion del nuevo contrato
+   * @returns Informacion del proceso si fue o no exitoso en la insercion
+   */
+  consultaTipoContrato( idTipoContrato: string ) {
+    console.log('Invocación a ContratosService(Front) - consultaTipoContrato');
+    const url = `${base_url}/contratos/buscarTipoContratoId/${idTipoContrato}`;
+    return this.http.get(url, this.usuarioService.headers).pipe(map((resp: any) => resp.tipoContratoRet));
+  }
+
+  actualizarContrato(contrato: Contrato, estadoNew: string, detallesNew: string) {
+    console.log('Invocación a ContratosService(Front) - consultaTipoContrato');
+    var jsonStruc = {estado: estadoNew, detallesCambioEstado: detallesNew};
+    return this.http.put(`${ base_url }/contratos/actualizarRegContrato/${ contrato._id }`, jsonStruc, this.usuarioService.headers)
+    .pipe(tap ( (resp :any) => {resp}));
+  }
 }

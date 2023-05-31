@@ -7,6 +7,8 @@ import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
 import { delay } from 'rxjs/operators';
 import { BusquedasService } from 'src/app/services/busquedas.service';
+import { FileUploadPdfService } from 'src/app/services/file-upload-pdf.service';
+import { CausalRetiro } from 'src/app/models/causalesretiro.model';
 
 const path_general_upload_file = environment.base_url;
 const url_load_pdf_pys = environment.url_load_pdf_pazysalvo;
@@ -25,12 +27,13 @@ export class RetirosComponent implements OnInit {
   public cargando: boolean = true;
   public desde: number = 0;
   public mostrarBotones: boolean = true;
-  public retiroDetalle = new Retiro('',null,'','',null,null,'','',false,false,null,null,'','',false);
+  public retiroDetalle = new Retiro('',null,'','',null,null,'','',false,false,new CausalRetiro('','',''),null,null,'','',false);
   public usuario: Usuario;
 
   constructor(private retiroService: RetirosService,
               private usuarioService: UsuarioService,
-              private busquedasService: BusquedasService) 
+              private busquedasService: BusquedasService,
+              private fileUploadPdfService: FileUploadPdfService) 
   { 
     this.usuario = usuarioService.usuario;
   }
@@ -140,6 +143,128 @@ export class RetirosComponent implements OnInit {
             });
         }
       });
+    }
+  }
+
+  /**
+   * Metodo que permite responder y actualizar la solicitud de paz y salvo por un usuario administrador
+   * que aceptara o rechazara la solicitud
+   * @param retiro Objeto tipo retiro que sera actualizado
+   */
+  cambiarEstadoRetiro = async( retiro: Retiro ) => {
+    if(!retiro.estadoCargoPDF) {
+      Swal.fire('¡No es posible cambiar el estado del retiro si aún no tiene el soporte de paz y salvo cargado!', '', 'error');
+    } else {
+      if(retiro.estado != 'FIRMADO') {
+        const { value: formValues } = await Swal.fire({
+          title: '<h3><p style="color:#745af2">Cambio de estado y detalles para la transacción de retiro.</p></h3>',
+          html:
+          '<div class="col-md-12">'+
+            '<div class="form-group">'+
+              '<label class="control-label label-form-decora">Estado del Retiro</label>'+
+              '<div class="input-group">'+
+                '<div class="input-group-addon"><i class="ti-face-smile"></i></div>'+				
+                '<select id="swal-input1" class="form-control custom-select">'+
+                  '<option value="FIRMADO">FIRMADO</option>'+
+                '</select>'+
+              '</div>'+
+            '</div>'+
+          '</div>'+
+          '<div class="col-md-12">'+
+            '<div class="form-group">'+
+              '<label class="control-label label-form-decora">Fecha de Firma del Paz y Salvo</label>'+
+              '<div class="input-group">'+
+                '<div class="input-group-addon"><i class="ti-heart"></i></div>'+
+                '<input type="date" id="swal-input2" class="form-control" placeholder="dd/mm/yyyy" autocomplete="off">'+
+              '</div>'+
+            '</div>'+
+          '</div>',
+          focusConfirm: true,
+          showCancelButton: true,
+          showCloseButton: false,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: '<i class="fa fa-thumbs-up"></i> OK!',
+          cancelButtonText:'<i class="fa fa-thumbs-down"></i> Cancelar',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+          },
+          preConfirm: () => {
+            return [
+              (<HTMLInputElement>document.getElementById('swal-input1')).value,
+              (<HTMLInputElement>document.getElementById('swal-input2')).value,
+            ]
+          }
+        })
+    
+        if (formValues) {
+          if(formValues[1] !== '') {
+            this.retiroService.actualizarRetiro(retiro, formValues[0], formValues[1])
+              .subscribe (resp => {
+                if(resp.status){
+                  Swal.fire('Actualización Correcta!', resp.msg, 'success');
+                } else { 
+                  Swal.fire('Error durante la actualización!', resp.msg, 'error');
+                }
+                this.cargarRetiros();
+              });
+          }
+        }  
+      } else {
+        Swal.fire('Error!', 'Aún no se encuentra cargado el soporte del retiro.', 'error');
+      }
+    }
+  }
+
+  /**
+   * Metodo que permite mostrar un modal para el cargue del archivo pdf que sirve de soporte
+   * al retiro presentado.
+   * @param retiro Objeto tipo retiro al que sera asociado el archivo de soporte
+   */
+  async mostrarSweetAlertCargue(retiro: Retiro) {
+    let evalResp = undefined;
+
+    const { value: file } = await Swal.fire({
+      title: '<h3>Seleccione archivo de paz y salvo</h3>',
+      input: 'file',
+      focusConfirm: true,
+      showCancelButton: true,
+      showCloseButton: false,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '<i class="fa fa-thumbs-up"></i> OK!',
+      cancelButtonText:'<i class="fa fa-thumbs-down"></i> Cancelar',
+      inputAttributes: {
+        'accept': 'pdf/*',
+        'aria-label': 'Cargue su archivo de soporte'
+      }
+    })
+    
+    if (file) {
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        this.fileUploadPdfService
+          .actualizarPDF(file, 'pazysalvos', retiro._id)
+          .then(resp => {
+            evalResp = resp;
+            if(evalResp !== undefined) {
+              this.retiroService.actualizarRetiro(retiro, 'GENERADO', '').subscribe (resp => {
+                this.cargarRetiros();
+              });
+              Swal.fire('Guardado', 'Documento de soporte para paz y salvo cargado satisfactoriamente.', 'success');
+            } else {
+              Swal.fire('Error', 'No se pudo cargar el documento de soporte para paz y salvo. Recuerda que debe ser en formato PDF.', 'error');
+            }
+          }, (error) => {
+            Swal.fire('Error', 'No se pudo cargar el documento de soporte para paz y salvo.', 'error');
+          });
+      }
+      reader.readAsDataURL(file)
+      
+      this.cargarRetiros();
     }
   }
 }

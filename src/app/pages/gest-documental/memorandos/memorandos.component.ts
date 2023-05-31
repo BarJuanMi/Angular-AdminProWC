@@ -209,6 +209,8 @@ export class MemorandosComponent implements OnInit {
    * @param memorando Objeto tipo memorando al que sera asociado el archivo de soporte
    */
    async mostrarSweetAlertCargue(memorando: Memorando) {
+    let evalResp = undefined;
+
     const { value: file } = await Swal.fire({
       title: '<h3>Seleccione archivo de memorando</h3>',
       input: 'file',
@@ -231,16 +233,21 @@ export class MemorandosComponent implements OnInit {
         this.fileUploadPdfService
           .actualizarPDF(file, 'memorandos', memorando._id)
           .then(resp => {
-            Swal.fire('Guardado', 'Documento de soporte para memorando cargado satisfactoriamente.', 'success');
-          }, (err) => {
+            evalResp = resp;
+            if(evalResp !== undefined) {
+              this.memorandosService.actualizarMemorando(memorando, 'CREADO CON SOPORTE', '').subscribe (resp => {
+                this.cargarMemorandos();
+              });
+              Swal.fire('Guardado', 'Documento de soporte para memorando cargado satisfactoriamente.', 'success');
+            } else {
+              Swal.fire('Error', 'No se pudo cargar el documento de soporte para memorando. Recuerda que debe ser en formato PDF.', 'error');
+            }
+          }, (error) => {
             Swal.fire('Error', 'No se pudo cargar el documento de soporte para memorando.', 'error');
           });
       }
       reader.readAsDataURL(file)
-
-      this.memorandosService.actualizarMemorando(memorando, 'CREADO CON SOPORTE', '').subscribe (resp => {
-        this.cargarMemorandos();
-      });
+      
       this.cargarMemorandos();
     }
   }
