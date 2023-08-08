@@ -39,6 +39,7 @@ import { MemorandosComponent } from './gest-documental/memorandos/memorandos.com
 import { ContratosComponent } from './gest-documental/contratos/contratos.component';
 import { NuevoMemorandoComponent } from './gest-documental/memorandos/nuevo-memorando.component';
 import { NuevoContratoComponent } from './gest-documental/contratos/nuevo-contrato.component';
+import { ApoyologisticoComponent } from './personalrrhh/apoyologistico/apoyologistico.component';
 
 const routes: Routes = [
     {  
@@ -71,6 +72,7 @@ const routes: Routes = [
             {path: 'modelos', component: ModeloswcComponent, data: {titulo: 'Administración de Modelos'} },
             {path: 'monitores', component: MonitoreswcComponent, data: {titulo: 'Administración de Monitores'} },
             {path: 'administrativos', component: AdmonswcComponent, data: {titulo: 'Administración de Empleados Administrativos'} },
+            {path: 'apoyo', component: ApoyologisticoComponent, data: {titulo: 'Administración de Empleados de Apoyo Logístico'} },
 
             //WebCam Aspirantes
             {path: 'nuevoAspirante', component: NuevoAspiranteComponent, data: {titulo: 'Creación de Nuevo Aspirante'} },

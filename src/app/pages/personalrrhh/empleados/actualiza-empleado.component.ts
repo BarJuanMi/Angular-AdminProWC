@@ -60,6 +60,8 @@ export class ActualizaEmpleadoComponent implements OnInit {
       this.empleadoActualizar = empleado;
       this.numHijosTemp = this.empleadoActualizar.numHijos;
 
+      console.log(this.empleadoActualizar);
+
       if(this.empleadoActualizar.estado === false) {
 
         switch(this.tipoEmpleActua) {

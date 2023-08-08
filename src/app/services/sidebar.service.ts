@@ -42,6 +42,7 @@ export class SidebarService {
         {titulo: 'Modelos', url: '/dashboard/modelos'},
         {titulo: 'Monitores', url: '/dashboard/monitores'},
         {titulo: 'Administrativos', url: '/dashboard/administrativos'},
+        {titulo: 'Pers. Apoyo', url: '/dashboard/apoyo'},
       ]
     },
     {
@@ -67,13 +68,34 @@ export class SidebarService {
 
   menuUserApp: any[] = [
     {
+      titulo: 'Personal RRHH',
+      icono: 'mdi mdi-account-circle',
+      submenu: [
+        {titulo: 'Aspirantes', url: '/dashboard/aspirantes'},
+        {titulo: 'Modelos', url: '/dashboard/modelos'},
+        {titulo: 'Monitores', url: '/dashboard/monitores'},
+        {titulo: 'Administrativos', url: '/dashboard/administrativos'},
+        {titulo: 'Pers. Apoyo', url: '/dashboard/apoyo'},
+      ]
+    },
+    {
+      titulo: 'Gest. Documental',
+      icono: 'mdi mdi-library-books',
+      submenu: [
+        {titulo: 'Contratos', url: '/dashboard/contratos'},
+        {titulo: 'Retiros', url: '/dashboard/retiros'},
+        {titulo: 'Ausentismos', url: '/dashboard/ausentismos'},
+      ]
+    },
+    {
       titulo: 'Proc. Internos',
       icono: 'mdi mdi-server',
       submenu: [
         {titulo: 'PQRS e Incidentes ', url: '/dashboard/pqrsi'},
         {titulo: 'Servicios de lavanderia', url: '/dashboard/servsLavanderia'},
+        {titulo: 'Personal vacunados', url: '/dashboard/vacunados'},
       ]
-    }
+    },
   ]
 
   constructor() { }

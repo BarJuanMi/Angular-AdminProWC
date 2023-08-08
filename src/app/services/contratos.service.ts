@@ -91,10 +91,23 @@ export class ContratosService {
     return this.http.get(url, this.usuarioService.headers).pipe(map((resp: any) => resp.tipoContratoRet));
   }
 
+  /**
+   * 
+   * @param contrato 
+   * @param estadoNew 
+   * @param detallesNew 
+   * @returns 
+   */
   actualizarContrato(contrato: Contrato, estadoNew: string, detallesNew: string) {
     console.log('Invocación a ContratosService(Front) - consultaTipoContrato');
     var jsonStruc = {estado: estadoNew, detallesCambioEstado: detallesNew};
     return this.http.put(`${ base_url }/contratos/actualizarRegContrato/${ contrato._id }`, jsonStruc, this.usuarioService.headers)
-    .pipe(tap ( (resp :any) => {resp}));
+    .pipe(tap ( (resp :any) => {
+      resp;
+      if(resp.status) {
+        let formDataAud = {};
+        this.http.post(`${base_url}/contratos/crearRegAuditoria`, formDataAud, this.usuarioService.headers);
+      }
+    }));
   }
 }

@@ -31,6 +31,8 @@ export class EmpleadosService {
     console.log('Invocación a EmpleadosService(Front) - cargarEmpleadosxTipoDesde');
 
     const url = `${ base_url }/empleados/tipo/${tipo}?desde=${ desde }`;
+
+    console.log(url);
     
     return this.http.get<CargarEmpleado>( url ,  this.usuarioService.headers)
       .pipe(

@@ -81,7 +81,7 @@ export class MemorandosComponent implements OnInit {
       this.cargarMemorandos();
     } else {
       Swal.fire({
-        title: '<small>Esta seguro de eliminar la transacción </br>' + memorando._id + '?</small>',
+        title: '<small>¿Esta seguro de eliminar la transacción </br>' + memorando._id + '?</small>',
         text: '',
         icon: 'question',
         showCancelButton: true,

@@ -44,6 +44,7 @@ import { MemorandosComponent } from './gest-documental/memorandos/memorandos.com
 import { FacturasComponent } from './contabilidad/facturas/facturas.component';
 import { NuevoMemorandoComponent } from './gest-documental/memorandos/nuevo-memorando.component';
 import { NuevoContratoComponent } from './gest-documental/contratos/nuevo-contrato.component';
+import { ApoyologisticoComponent } from './personalrrhh/apoyologistico/apoyologistico.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import { NuevoContratoComponent } from './gest-documental/contratos/nuevo-contra
     FacturasComponent,
     NuevoMemorandoComponent,
     NuevoContratoComponent,
+    ApoyologisticoComponent,
   ],
   exports: [
     DashboardComponent,

@@ -281,6 +281,7 @@ export class ContratosComponent implements OnInit {
         this.contratosService.actualizarContrato(contrato, formValues[0], formValues[1])
           .subscribe (resp => {
             if(resp.status){
+              
               Swal.fire('Actualización Correcta!', resp.msg, 'success');
             } else { 
               Swal.fire('Error durante la actualización!', resp.msg, 'error');

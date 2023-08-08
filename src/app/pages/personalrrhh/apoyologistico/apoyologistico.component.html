@@ -1,0 +1,101 @@
+<div class="row animated fadeIn fast">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <input type="text" class="form-control" placeholder="Buscar empleado de apoyo logístico..." #txtTermino (keyup)="buscarApoyoLogTermino(txtTermino.value)" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn fast" *ngIf="cargando">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor espere...</p>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn fast" *ngIf="!cargando">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="col-12">
+                    <table style="width:100%">
+                        <tr>
+                            <td style="text-align:left">
+                                <button [routerLink]="['/dashboard/nuevoEmpleado/Apoyo']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                                <i class="fa fa-user-plus"></i> Crear Empleado de Apoyo Logístico </button>
+                            </td>
+                            <td style="text-align:right">
+                                <h6>Empleados registrados (<small>{{ totalApoyolog }}</small>)</h6>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                &nbsp;
+                <div class="table-responsive">
+                    <table class="table table-bordered color-bordered-table inverse-bordered-table">
+                        <thead>
+                            <tr>
+                                <th class="w50"></th>
+                                <th>Documento</th>
+                                <th>Nombres y Apellidos</th>
+                                <th>Correo Electrónico</th>
+                                <th>Tel. Celular</th>
+                                <th>Entidad Bancaria</th>
+                                <th># Cuenta Banco</th>
+                                <th class="text-center">Estado</th>
+                                <th class="text-center">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let apoyolog of empleApoyoLogs">
+                                <td class="text-center">
+                                    <img [src]="apoyolog.imagenUrl" class="avatar-w40 cursor" alt="Avatar de Empleado de Apoyo Logístico" (click)="abrilModalImagen( apoyolog )">
+                                </td>
+                                <td><small>{{apoyolog.tipoDocumento}}-{{apoyolog.documento}}</small></td>
+                                <td><small><a href="" (click)="verDetallesEmplApoyoLog(apoyolog)" data-toggle="modal" data-target="#datosApoyoLogModal">{{apoyolog.nombres}} {{apoyolog.apellidos}}</a></small></td>
+                                <td><small>{{apoyolog.emailCorporativo}}</small></td>
+                                <td><small>{{apoyolog.telCelular}}</small></td>
+                                <td><small>{{apoyolog.entidadBanco}}</small></td>
+                                <td><small>{{apoyolog.numCuentaBanco}}</small></td>
+                                <td class="text-center">
+                                    <span *ngIf="apoyolog.estado" class="label label-success">ACTIVO</span>
+                                    <span *ngIf="!apoyolog.estado" class="label label-danger">INACTIVO</span>
+                                </td>
+                                <td class="text-nowrap text-center">
+                                    <a [routerLink]="['/dashboard/actualizarEmpleado/apoyo', apoyolog._id]" title="Actualizar Datos de Empleado de Apoyo Logístico" data-toggle="tooltip" data-original-title="Actualizar Datos de Empleado Administrativo">
+                                        <i class="fa fa-pencil text-inverse m-r-10"></i>
+                                    </a>
+                                    &nbsp;
+                                    <a *ngIf="apoyolog.estado" class="cursor" title="Inactivar Empleado de Apoyo Logístico" data-toggle="tooltip" data-original-title="Inactivar Empleado de Apoyo Logístico en el Sistema" (click)="inactivarApoyoLog(apoyolog)">
+                                        <i class="fa fa-ban text-danger"></i>
+                                    </a>
+
+                                    <a *ngIf="!apoyolog.estado" class="cursor" title="Reactivar Empleado de Apoyo Logístico" data-toggle="tooltip" data-original-title="Reactivar Empleado de Apoyo Logístico en el Sistema" (click)="reActivarApoyoLog(apoyolog)">
+                                        <i class="fa fa-link text-warning"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="text-center" *ngIf="mostrarBotones">
+                    <button (click)="cambiarPagina(-25)" class="btn btn-secondary">
+                        <i class="fa fa-backward"></i>&nbsp;
+                        Anteriores
+                    </button> &nbsp; &nbsp; &nbsp;
+
+                    <button (click)="cambiarPagina(25)" class="btn btn-secondary">
+                        Siguientes &nbsp;
+                        <i class="fa fa-forward"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

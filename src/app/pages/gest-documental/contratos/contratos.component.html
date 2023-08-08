@@ -61,9 +61,9 @@
                                 <td class="text-center">
                                     <span *ngIf="contrato.estado == 'EN EJECUCIÓN'" class="label label-success">{{contrato.estado}}</span>
                                     <span *ngIf="contrato.estado == 'SUSPENDIDO POR TRABAJADOR'" class="label label-warning">{{contrato.estado}}</span>
-                                    <span *ngIf="contrato.estado == 'FINALIZADO POR TRABAJADOR'" class="label label-danger">{{contrato.estado}}</span>
+                                    <span *ngIf="contrato.estado == 'FINALIZADO POR TRABAJADOR'" class="label label-info">{{contrato.estado}}</span>
                                     <span *ngIf="contrato.estado == 'SUSPENDIDO POR EMPLEADOR'" class="label label-warning">{{contrato.estado}}</span>
-                                    <span *ngIf="contrato.estado == 'FINALIZADO POR EMPLEADOR'" class="label label-danger">{{contrato.estado}}</span>
+                                    <span *ngIf="contrato.estado == 'FINALIZADO POR EMPLEADOR'" class="label label-info">{{contrato.estado}}</span>
                                 </td>
                                 <td class="text-center font-weight-bold">{{contrato.tipoContrato.tipocontratoDesc}}</td>
                                 <td class="text-center">

@@ -7,6 +7,7 @@ import { Ciudad } from '../../../models/ciudad.util.model';
 import { Pais } from '../../../models/pais.util.model';
 import { Empleado } from '../../../models/empleado.model';
 import { EmpleadosService } from '../../../services/empleados.service';
+import { ErrorFaltante } from 'src/app/models/errorFaltante.model';
 
 @Component({
   selector: 'app-nuevo-empleado',
@@ -17,6 +18,7 @@ import { EmpleadosService } from '../../../services/empleados.service';
 export class NuevoEmpleadoComponent implements OnInit {
 
   public ciudadesList: Ciudad[] = [];
+  public errorFaltante: ErrorFaltante[] = [];
   public paisesList: Pais[] = [];
   public empleadoWCForm: FormGroup;
   public empleado: Empleado;
@@ -31,8 +33,10 @@ export class NuevoEmpleadoComponent implements OnInit {
   {
     activatedRoute.params.subscribe( params => {
       this.tipoEmpleCrear = params['tipo'];
-      if (String(this.tipoEmpleCrear).toLowerCase() === 'Modelo')
+      if (String(this.tipoEmpleCrear) === 'Modelo')
         this.labelTitle = ' de la nueva';
+      else if(String(this.tipoEmpleCrear) === 'Apoyo')
+        this.labelTitle = ' del nuevo empleado de ';
     });
 
     this.empleado = new Empleado('','','','','','','',null,null,'','','','','','',null,false,'',null,null,null,'','',null,'','','',null,'');
@@ -43,7 +47,7 @@ export class NuevoEmpleadoComponent implements OnInit {
     this.cargarListadoPaises();
 
     this.empleadoWCForm = this.fb.group({
-      documento: [this.empleado.documento ],
+      documento: [this.empleado.documento, Validators.required ],
       tipoDocumento: [this.empleado.tipoDocumento],
       nombres: [this.empleado.nombres ],
       apellidos: [this.empleado.apellidos ],
@@ -90,12 +94,24 @@ export class NuevoEmpleadoComponent implements OnInit {
           this.router.navigateByUrl('/dashboard/monitores');
         } else if(this.tipoEmpleCrear === 'Administrativo') {
           this.router.navigateByUrl('/dashboard/administrativos');
-        } else{
+        } else if(this.tipoEmpleCrear === 'Apoyo') {
+          this.router.navigateByUrl('/dashboard/apoyo');
+        } else {
           this.router.navigateByUrl('/dashboard/');
         }
         
         Swal.fire('Guardado', 'Empleado ' + this.tipoEmpleCrear + ' Creado Satisfactoriamente', 'success');
       }, ( err ) => {
+
+        //console.log(JSON.stringify(err.error.errors));
+
+        this.errorFaltante = err.error.errors;
+        console.log(JSON.stringify(this.errorFaltante));
+        /*const errFaltantes = err.error.errors.map(
+          errorFalta = new ErrorFaltante(errorFalta.value, errorFalta.msg, errorFalta.param, errorFalta.location)
+        );
+        console.log(JSON.stringify(errFaltantes));*/
+
         Swal.fire('Error', err.error.msg, 'error');
       });
   }
