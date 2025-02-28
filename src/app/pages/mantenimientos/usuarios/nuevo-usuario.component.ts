@@ -36,8 +36,6 @@ export class NuevoUsuarioComponent implements OnInit {
   }
 
   crearNuevoUsuarioApp() {
-    console.log('ROLEEE: ' + this.usuarioCreador.role);
-
     if (this.usuarioCreador.role !== 'USER_ROLE') {
       this.usuarioService.crearNuevoUsuarioApp( this.usuarioAppForm.value )
       .subscribe( resp => {

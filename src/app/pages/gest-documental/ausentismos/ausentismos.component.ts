@@ -32,6 +32,9 @@ export class AusentismosComponent implements OnInit {
                                             new Date(),new Usuario('','',null,'','','',false,'','',''),'',false,'','');
   public usuario: Usuario;
 
+  words = ["eat", "tea", "tan", "ate", "nat", "bat"];
+  numbers = [1, 2, 2, 3, 4, 1, 5, 3];
+
   constructor(private ausentismosService: AusentismosService,
               private usuarioService: UsuarioService,
               private busquedasService: BusquedasService,
@@ -42,6 +45,8 @@ export class AusentismosComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarAusentismos();
+    console.log(this.groupAnagrams(this.words));
+    console.log(this.getUniqueNumbers(this.numbers));
   }
 
   /**
@@ -56,6 +61,45 @@ export class AusentismosComponent implements OnInit {
       this.cargando = false;
     });
   }
+
+  groupAnagrams(wordsArray: string[]): string[][] {
+    const map: { [key: string]: string[] } = {};
+    
+    wordsArray.forEach(words => {
+      const sortWord = words.split('').sort().join('');
+      if (!map[sortWord]) {
+        map[sortWord] = [];
+      }
+      map[sortWord].push(words);
+    });
+  
+    const orderArrys = Object.values(map).sort((x, y) => y.length - x.length);
+  
+    //console.log(orderArrys);
+
+    return orderArrys;
+  }
+
+  getUniqueNumbers(numerosArreglo: number[]): number[] {
+    const unicos: number[] = [];  // Array para almacenar los números únicos
+    const numeroVisto = new Set<number>();  
+
+    numerosArreglo.forEach(numeroDeUno => {
+      if (!numeroVisto.has(numeroDeUno)) {  
+        numeroVisto.add(numeroDeUno);
+        unicos.push(numeroDeUno);
+      }
+    });
+  
+    //console.log(unicos);  // Retornar el array de números únicos
+
+    return unicos;
+  }
+  
+  // Ejemplo de uso
+  //const words = ["eat", "tea", "tan", "ate", "nat", "bat"];
+  //const result = groupAnagrams(words);
+  //console.log(result);
   
   /**
    * Metodo que permite abstraer los datos de un ausentismo el cual es seleccionado
@@ -96,7 +140,13 @@ export class AusentismosComponent implements OnInit {
       inputAttributes: {
         'accept': 'pdf/*',
         'aria-label': 'Cargue su archivo de soporte'
-      }
+      },
+      backdrop: `
+        rgba(0,0,123,0.4)
+        url("./assets/images/gifs-swal/cat-nyan-cat.gif")
+        left top
+        no-repeat
+      `
     })
     
     if (file) {
@@ -131,7 +181,7 @@ export class AusentismosComponent implements OnInit {
    * @param ausentismo Objeto tipo ausentismo que sera eliminado
    */
    eliminarAusentismo(ausentismo: Ausentismo) {
-    if(this.usuario.role != 'ADMIN_ROLE'){
+    if(this.usuario.role != 'ADMIN_ROLE' &&  this.usuario.role != 'USER_ROLE'){
       Swal.fire('Error', 'No es posible eliminar la transacción, no tienes los privilegios suficientes.', 'error');
       this.cargarAusentismos();
     } else {

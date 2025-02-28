@@ -57,8 +57,6 @@ export class ActualizarUsuarioComponent implements OnInit {
       return;
     }
 
-    console.log('-'+this.usuarioLogged.role+'-'+this.roleActual+'-');
-
     if(this.usuarioLogged.role !== 'GOD_ROLE' && this.roleActual ==='GOD_ROLE') {
       Swal.fire('Error', 'No es posible actualizar los datos de ese usuario. No tiene los privilegios necesarios.', 'error');
 

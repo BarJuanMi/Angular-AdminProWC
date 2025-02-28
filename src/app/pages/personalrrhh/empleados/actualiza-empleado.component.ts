@@ -20,7 +20,7 @@ export class ActualizaEmpleadoComponent implements OnInit {
   public paisesList: Pais[] = [];
   numHijosTemp: string = '';
   public tipoEmpleActua: String;
-  empleadoActualizar: Empleado = new Empleado('','','','','','','',null,null,'','','','','','',null,false,'',null,null,null,'','',null,'','','',null,'');
+  empleadoActualizar: Empleado = new Empleado('','','','','','','',null,null,'','','','','','',null,false,'',null,null,null,'','',null,'',null,'');
 
   constructor(private empleadosService : EmpleadosService,
               private router: Router,
@@ -60,17 +60,20 @@ export class ActualizaEmpleadoComponent implements OnInit {
       this.empleadoActualizar = empleado;
       this.numHijosTemp = this.empleadoActualizar.numHijos;
 
-      console.log(this.empleadoActualizar);
-
       if(this.empleadoActualizar.estado === false) {
-
         switch(this.tipoEmpleActua) {
           case 'monitor':
             this.router.navigateByUrl('/dashboard/monitores');
+            break;
           case 'administrativo':
             this.router.navigateByUrl('/dashboard/administrativos');
+            break;
           case 'modelo':
             this.router.navigateByUrl('/dashboard/modelos');
+            break;
+          case 'apoyo':
+            this.router.navigateByUrl('/dashboard/apoyos');
+            break;
         }
         Swal.fire('Error', 'No es posible actualizar los datos del empleado en estado inactivo.', 'error');
       }

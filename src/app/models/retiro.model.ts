@@ -1,11 +1,13 @@
 import { CausalRetiro } from './causalesretiro.model';
 import { Empleado } from './empleado.model';
+import { Contrato } from './contrato.model';
 
 export class Retiro {
     constructor(
         public _id: string,
         public empleado: Empleado,
         public emplNomApel: string,
+        public contrato: Contrato,
         public usuarioRegistro: string,
         public fechaRenuncia: Date,
         public fechaRegistro: Date,

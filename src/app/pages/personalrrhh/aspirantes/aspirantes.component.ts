@@ -24,7 +24,7 @@ export class AspirantesComponent implements OnInit {
   public totalAspirantes: number = 0;
   public aspirantes: Aspirante[] = [];
   public aspirantesTemp: Aspirante[] = [];
-  public aspiranteWCDetalle: Aspirante = new Aspirante('','','','','','','','',new Usuario('','',null,'','','',false,'','',''),
+  public aspiranteWCDetalle: Aspirante = new Aspirante('','','','','','','','','',new Usuario('','',null,'','','',false,'','',''),
                                                       new CargoAspirante('','',''),'','','',new Localidad('','',''),false,null,null,'',false,'',false,'','');
 
   public imgSubs: Subscription;
@@ -138,9 +138,43 @@ export class AspirantesComponent implements OnInit {
     if (formValues) {
       this.aspirantesService.cambiarEstadoAspirante(aspirante, formValues[0])
       .subscribe (resp => {
-        console.log(resp);
         this.cargarAspirantes();
       });
     }
   }
+
+    /**
+   * Metodo que permite eliminar un registro de contrato
+   * @param contrato Objeto tipo contrato que sera eliminado
+   */
+    eliminarAspirante(aspirante: Aspirante) {
+      Swal.fire({
+        title: '<small>Esta seguro de eliminar el aspirante </br>' + aspirante._id + '?</small>',
+        text: '',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '<i class="fa fa-thumbs-up"></i> Sí, Eliminar!',
+        cancelButtonText:'<i class="fa fa-thumbs-down"></i> Cancelar',
+        backdrop: `
+          rgba(0,0,123,0.4)
+          url("./assets/images/gifs-swal/cat-nyan-cat.gif")
+          left top
+          no-repeat
+        `
+      }).then((result) => {
+        if (result.isConfirmed){
+          this.aspirantesService.eliminarAspirante( aspirante )
+            .subscribe (resp => {
+              Swal.fire(
+                'Correcto!',
+                'El contrato ha sido eliminado exitosamente.',
+                'success'
+              );
+              this.cargarAspirantes();
+            });
+        }
+      });
+    }
 }

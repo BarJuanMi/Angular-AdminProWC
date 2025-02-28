@@ -22,6 +22,13 @@ import { CargarCausalesRetiro } from '../interfaces/cargar-causalesretiro.interf
 import { CausalRetiro } from '../models/causalesretiro.model';
 import { CargarTipoContrato } from '../interfaces/cargar-tipocontrato.interface';
 import { TipoContrato } from '../models/tipocontrato.model';
+import { CargarTipoFactura } from '../interfaces/cargar-tipofactura.interface';
+import { TipoCompraFactura } from '../models/tipocomprafactura.model';
+import { CargarEntBancaria } from '../interfaces/cargar-entbancaria.interface';
+import { EntBancaria } from '../models/entbancaria.model';
+import { CargarTipoCuentaBanca } from '../interfaces/cargar-tipocuentabanca.interface';
+import { TipoCuentaBanca } from '../models/tipocuentabanca.model';
+
 
 const base_url = environment.base_url;
 
@@ -233,4 +240,76 @@ export class UtileslistService {
         })
       )
   }
+
+  /**
+   * 
+   * @returns 
+   */
+  cargarTipoFacturas() {
+    console.log('Invocacion a UtileslistService(Front) - cargarTipoFacturas');
+    const url = `${ base_url }/utiles/tipofactura`;
+
+    return this.http.get<CargarTipoFactura>( url)
+      .pipe(
+        map( resp => {
+
+          const tipoFacturas = resp.tipoFacturas.map( 
+            tipofactura => new TipoCompraFactura(tipofactura._id, tipofactura.tipocomprafactId, tipofactura.tipocomprafactDesc)
+          );
+
+          return {
+            tipoFacturas
+          };
+        })
+      )
+  }
+
+  /**
+   * 
+   * @returns 
+   */
+  cargarEntBancarias() {
+    console.log('Invocacion a UtileslistService(Front) - cargarEntBancarias');
+    const url = `${ base_url }/utiles/entbancarias`;
+
+    return this.http.get<CargarEntBancaria>( url)
+      .pipe(
+        map( resp => {
+
+          const entbancarias = resp.entbancarias.map( 
+            entBancaria => new EntBancaria(entBancaria._id, entBancaria.entbancariaId, entBancaria.entbancariaDesc)
+          );
+
+          return {
+            entbancarias
+          };
+        })
+      )
+  }
+
+  /**
+   * 
+   * @returns 
+   */
+  cargarTipoCuentaBancarias() {
+    console.log('Invocacion a UtileslistService(Front) - cargarTipoCuentaBancarias');
+    const url = `${ base_url }/utiles/tipocuentabanca`;
+
+    return this.http.get<CargarTipoCuentaBanca>( url)
+      .pipe(
+        map( resp => {
+
+          const tipocuentabancas = resp.tipocuentabancas.map( 
+            tipoCuentaBanca => new TipoCuentaBanca(tipoCuentaBanca._id, tipoCuentaBanca.tipocuentabancaId, tipoCuentaBanca.tipocuentabancaDesc)
+          );
+
+          console.log(tipocuentabancas);
+
+          return {
+            tipocuentabancas
+          };
+        })
+      )
+  }
 }
+

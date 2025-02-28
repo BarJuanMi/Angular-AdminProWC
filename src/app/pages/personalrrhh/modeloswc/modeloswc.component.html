@@ -45,8 +45,6 @@
                                 <th>Nombres y Apellidos</th>
                                 <th>Correo Electrónico</th>
                                 <th>Tel. Celular</th>
-                                <th>Entidad Bancaria</th>
-                                <th># Cuenta Banco</th>
                                 <th class="text-center">Estado</th>
                                 <th class="text-center">Acción</th>
                             </tr>
@@ -60,8 +58,6 @@
                                 <td><small><a href="" (click)="verDetallesModelo(modelo)" data-toggle="modal" data-target="#datosModeloModal">{{modelo.nombApellConca}}</a></small></td>
                                 <td><small>{{modelo.emailCorporativo}}</small></td>
                                 <td><small>{{modelo.telCelular}}</small></td>
-                                <td><small>{{modelo.entidadBanco}}</small></td>
-                                <td><small>{{modelo.numCuentaBanco}}</small></td>
                                 <td class="text-center">
                                     <span *ngIf="modelo.estado" class="label label-success">ACTIVO</span>
                                     <span *ngIf="!modelo.estado" class="label label-danger">INACTIVO</span>

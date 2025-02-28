@@ -40,7 +40,7 @@
 
                 <div class="row">
                     <div class="col text-danger">
-                        <p *ngIf="campoNoValido('nombre')">* El nombre es obligatorio</p>
+                        <p *ngIf="campoNoValido('nombre')">* El nombre es obligatorio o es demasiado corto</p>
                         <p *ngIf="campoNoValido('email')">* El email es obligatorio</p>
                         <p *ngIf="contrasenasValidas()">* Las contraseñas no son iguales</p>
                         <!--<p *ngIf="!registerForm.get('terminos').value">Debe aceptar los terminos de uso.</p>-->

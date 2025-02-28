@@ -24,7 +24,7 @@ export class MonitoreswcComponent implements OnInit {
   public monitoresTemp: Empleado[] = [];
   public monitorWCDetalle: Empleado = new Empleado('','','','','','','',new TipoEmpleado('','',''),null,'','','','','','',null,
                                                   false,'',null,new Pais('','','',''),new Ciudad('','',''),'','',
-                                                  new Usuario('','',null,'','','',false,'','',''),'','','',null,'');
+                                                  new Usuario('','',null,'','','',false,'','',''),'',null,'');
   public imgSubs: Subscription;
   public desde: number = 0;
   public cargando: boolean = true;
@@ -176,9 +176,11 @@ export class MonitoreswcComponent implements OnInit {
    * @param monitor Objeto tipo monitor a quien se le consultara la informacion
    */
    verDetallesMonitor(monitor: Empleado) {
+    console.log('monitor: ' + JSON.stringify(monitor));
     this.empleadosService.buscarEmpleadoPorId( monitor._id ).subscribe( monitorRet => {
       this.monitorWCDetalle = monitorRet;
     });
+    console.log(JSON.stringify(this.monitorWCDetalle));
   }
 
 }

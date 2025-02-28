@@ -47,7 +47,7 @@ export class ContratosComponent implements OnInit {
   }
 
   /**
-   * Metodo que permite cargar todos los memorandos que se encuentran asociados en la aplicacion.
+   * Metodo que permite cargar todos los contratos que se encuentran asociados en la aplicacion.
    */
   cargarContratos() {
     this.cargando = true;
@@ -61,12 +61,15 @@ export class ContratosComponent implements OnInit {
 
   /**
    * Metodo que permite abstraer los datos de un contrato el cual es seleccionado
-   * en la vista principal por la grilla de memorandos.
+   * en la vista principal por la grilla de contratos.
    * @param contrato Objeto tipo contrato a quien se le consultara la informacion
    */
   verDetallesContrato(contrato: Contrato) {
     this.contratosService.buscarContratoPorId(contrato._id).subscribe(contratoRet => {
       this.contratoDetalle = contratoRet;
+
+      console.log(contratoRet);
+
       if (this.contratoDetalle.pathPDF !== undefined) {
         this.contratoDetalle.pathPDFNoExt = contrato.pathPDF.split(".")[0];
         this.contratoDetalle.rutaCargueCompletaPDF = path_general_upload_file + url_load_pdf_contrato + this.contratoDetalle.pathPDFNoExt;
@@ -79,7 +82,7 @@ export class ContratosComponent implements OnInit {
   /**
    * Metodo que permite buscar un contrato por el nombre del empleado al que esta asociado
    * @param termino palabra o conjunto de letras
-   * @returns lista de memorandos que caen en el filtro
+   * @returns lista de contratos que caen en el filtro
    */
   buscarContratosPorNombreEmp(termino: string) {
     // Mientras escribe las letras para la busqueda, se esconden los botones
@@ -102,12 +105,12 @@ export class ContratosComponent implements OnInit {
    * @param contrato Objeto tipo contrato que sera eliminado
    */
   eliminarContrato(contrato: Contrato) {
-    if(this.usuario.role != 'ADMIN_ROLE'){
-      Swal.fire('Error', 'No es posible eliminar la transacción, no tienes los privilegios suficientes.', 'error');
+    if(this.usuario.role != 'ADMIN_ROLE' &&  this.usuario.role != 'USER_ROLE'){
+      Swal.fire('Error', 'No es posible eliminar el contrato, no tienes los privilegios suficientes.', 'error');
       this.cargarContratos();
     } else {
       Swal.fire({
-        title: '<small>Esta seguro de eliminar la transacción </br>' + contrato._id + '?</small>',
+        title: '<small>Esta seguro de eliminar el contrato </br>' + contrato._id + '?</small>',
         text: '',
         icon: 'question',
         showCancelButton: true,
@@ -127,7 +130,7 @@ export class ContratosComponent implements OnInit {
             .subscribe (resp => {
               Swal.fire(
                 'Correcto!',
-                'La transacción ha sido realizada exitosamente.',
+                'El contrato ha sido eliminado exitosamente.',
                 'success'
               );
               this.cargarContratos();
@@ -140,11 +143,11 @@ export class ContratosComponent implements OnInit {
   /**
    * Metodo que permite mostrar un modal para el cargue del archivo pdf que sirve de soporte
    * al contrato presentado.
-   * @param contrato Objeto tipo contrato al que sera asociado el archivo de soporte
+   * @param contrato Objeto tipo contrato al que sera asociado el archivo PDF que sera asociado
    */
   async mostrarSweetAlertCarguePDF(contrato: Contrato) {
     const { value: file } = await Swal.fire({
-      title: '<h3>Seleccione archivo del contrato firmado y digitalizado</h3>',
+      title: '<h3>Seleccione y cargue archivo (PDF) del contrato firmado y digitalizado</h3>',
       input: 'file',
       showCancelButton: true,
       cancelButtonColor: '#d33',
@@ -152,7 +155,13 @@ export class ContratosComponent implements OnInit {
       inputAttributes: {
         'accept': 'pdf/*',
         'aria-label': 'Cargue su archivo de contrato'
-      }
+      },
+      backdrop: `
+        rgba(0,0,123,0.4)
+        url("./assets/images/gifs-swal/cat-nyan-cat.gif")
+        left top
+        no-repeat
+      `
     })
     
     if (file) {
@@ -181,11 +190,11 @@ export class ContratosComponent implements OnInit {
   /**
    * Metodo que permite mostrar un modal para el cargue del archivo pdf que sirve de soporte
    * al contrato presentado.
-   * @param contrato Objeto tipo contrato al que sera asociado el archivo de soporte
+   * @param contrato Objeto tipo contrato al que sera asociado el archivo ZIP que sera asociado
    */
   async mostrarSweetAlertCargueZIP(contrato: Contrato) {
     const { value: file } = await Swal.fire({
-      title: '<h3>Seleccione archivo comprimido con los documentos de contratación</h3>',
+      title: '<h3>Seleccione y cargue archivo comprimido (ZIP, RAR, 7ZIP) con los documentos de contratación</h3>',
       input: 'file',
       showCancelButton: true,
       cancelButtonColor: '#d33',
@@ -193,7 +202,13 @@ export class ContratosComponent implements OnInit {
       inputAttributes: {
         'accept': 'pdf/*',
         'aria-label': 'Cargue su archivo comprimido'
-      }
+      },
+      backdrop: `
+        rgba(0,0,123,0.4)
+        url("./assets/images/gifs-swal/cat-nyan-cat.gif")
+        left top
+        no-repeat
+      `
     })
     
     if (file) {
@@ -209,7 +224,7 @@ export class ContratosComponent implements OnInit {
               });
               Swal.fire('Guardado', 'Documento de soporte para contrato cargado satisfactoriamente.', 'success');
             } else {
-              Swal.fire('Error', 'No se pudo cargar el documento de soporte para contrato. Recuerda que debe ser en formato PDF.', 'error');
+              Swal.fire('Error', 'No se pudo cargar el documento de soporte para contrato. Recuerda que debe ser en formato ZIP.', 'error');
             }
           }, (error) => {
             console.log('error: ' + error);
@@ -221,79 +236,80 @@ export class ContratosComponent implements OnInit {
   }
 
   /**
-   * Metodo que permite responder y actualizar la solicitud de memorando por un usuario administrador
+   * Metodo que permite responder y actualizar la solicitud de contrato por un usuario administrador
    * que aceptara o rechazara la solicitud
-   * @param ausentismo Objeto tipo ausentismo que sera actualizado
+   * @param contrato Objeto contrato que sera actualizado
    */
   cambiarEstadoContrato = async( contrato: Contrato ) => {
-    const { value: formValues } = await Swal.fire({
-      title: '<h3><p style="color:#745af2">Cambio de estado y detalles del cambio en el contrato.</p></h3>',
-      html:
-      '<div class="col-md-12">'+
-        '<div class="form-group">'+
-          '<label class="control-label label-form-decora">Nuevo estado del contrato</label>'+
-          '<div class="input-group">'+
-            '<div class="input-group-addon"><i class="ti-face-smile"></i></div>'+				
-            '<select id="swal-input1" class="form-control custom-select">'+
-              '<option value="SUSPENDIDO POR TRABAJADOR">SUSPENDIDO POR EMPLEADO</option>'+
-              '<option value="FINALIZADO POR TRABAJADOR">FINALIZADO POR EMPLEADO</option>'+
-              '<option value="SUSPENDIDO POR EMPLEADOR">SUSPENDIDO POR EMPLEADOR</option>'+
-              '<option value="FINALIZADO POR EMPLEADOR">FINALIZADO POR EMPLEADOR</option>'+
-            '</select>'+
+    if(!contrato.estadoCargoPDF) {
+      Swal.fire('No es posible cambiar el estado sino se ha cargado el contrato firmado!', '', 'warning');
+    } else {
+      const { value: formValues } = await Swal.fire({
+        title: '<h3><p style="color:#745af2">Suspensión de contrato laboral en vigencia.</p></h3>',
+        html:
+        '<div class="col-md-12">'+
+          '<div class="form-group">'+
+            '<div class="input-group">'+
+              '<div class="input-group-addon"><i class="ti-face-smile"></i></div>'+				
+              '<select id="swal-input1" class="form-control custom-select">'+
+                '<option value="VIGENTE">VIGENTE</option>'+
+                '<option value="VIGENTE">PRORROGADO POR TIEMPO FIJO</option>'+
+                '<option value="FINALIZADO POR TRABAJADOR">FINALIZADO POR TRABAJADOR</option>'+
+                '<option value="FINALIZADO POR EMPLEADOR">FINALIZADO POR EMPLEADOR</option>'+
+                '<option value="SUSPENSION TEMP POR TRABAJADOR">SUSPENSIÓN TEMP POR TRABAJADOR</option>'+
+                '<option value="SUSPENSION TEMP POR EMPLEADOR">SUSPENSIÓN TEMP POR EMPLEADOR</option>'+
+              '</select>'+
+            '</div>'+
           '</div>'+
         '</div>'+
-      '</div>'+
-      '<div class="col-md-12">'+
-        '<div class="form-group">'+
-          '<label class="control-label label-form-decora">Detalle de cambio de estado anticipado</label>'+
-          '<div class="input-group">'+
-            '<div class="input-group-addon"><i class="ti-heart"></i></div>'+
-            '<textarea rows="8" id="swal-input2" class="form-control text-area" placeholder="Detalla minuciosamente ' +
-            'las razones por las cuales se da un cambio en el estado del contrato."></textarea>'+
+        '<div class="col-md-12">'+
+          '<div class="form-group">'+
+            '<label class="control-label label-form-decora">Detalle para suspensión de contrato</label>'+
+            '<div class="input-group">'+
+              '<div class="input-group-addon"><i class="ti-heart"></i></div>'+
+              '<textarea rows="8" id="swal-input2" class="form-control text-area" placeholder="Detalla minuciosamente ' +
+              'las razones por las cuales se da un cambio en el estado del contrato."></textarea>'+
+            '</div>'+
           '</div>'+
-        '</div>'+
-      '</div>',
-      focusConfirm: true,
-      showCancelButton: true,
-      showCloseButton: false,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: '<i class="fa fa-thumbs-up"></i> OK!',
-      cancelButtonText:'<i class="fa fa-thumbs-down"></i> Cancelar',
-      showClass: {
-        popup: 'animate__animated animate__fadeInDown'
-      },
-      hideClass: {
-        popup: 'animate__animated animate__fadeOutUp'
-      },
-      preConfirm: () => {
-        return [
-          (<HTMLInputElement>document.getElementById('swal-input1')).value,
-          (<HTMLInputElement>document.getElementById('swal-input2')).value,
-        ]
-      }
-    })
-
-    console.log(formValues[0]);
-    console.log(formValues[1]);
-    if (formValues) {
-      if(formValues[0] !== '') {
-        this.contratosService.actualizarContrato(contrato, formValues[0], formValues[1])
-          .subscribe (resp => {
-            if(resp.status){
-              
-              Swal.fire('Actualización Correcta!', resp.msg, 'success');
-            } else { 
-              Swal.fire('Error durante la actualización!', resp.msg, 'error');
-            }
-            this.cargarContratos();
-          });  
+        '</div>',
+        focusConfirm: true,
+        showCancelButton: true,
+        showCloseButton: false,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '<i class="fa fa-thumbs-up"></i> OK!',
+        cancelButtonText:'<i class="fa fa-thumbs-down"></i> Cancelar',
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown'
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp'
+        },
+        preConfirm: () => {
+          return [
+            (<HTMLInputElement>document.getElementById('swal-input1')).value,
+            (<HTMLInputElement>document.getElementById('swal-input2')).value,
+          ]
+        }
+      })
+      if (formValues) {
+        if(formValues[0] !== '') {
+          this.contratosService.actualizarContrato(contrato, formValues[0], formValues[1])
+            .subscribe (resp => {
+              if(resp.status){
+                Swal.fire('Actualización Correcta!', resp.msg, 'success');
+              } else { 
+                Swal.fire('Error durante la actualización!', resp.msg, 'error');
+              }
+              this.cargarContratos();
+            });  
+        }
       }
     }  
   }
 
   /**
-   * Metodo que permite paginar las transacciones de tipo servicio de lavanderia en el front
+   * Metodo que permite paginar las transacciones de tipo servicio de contrato en el front
    * @param valor 
    */
   cambiarPagina( valor: number) {

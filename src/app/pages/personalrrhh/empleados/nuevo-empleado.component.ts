@@ -33,13 +33,11 @@ export class NuevoEmpleadoComponent implements OnInit {
   {
     activatedRoute.params.subscribe( params => {
       this.tipoEmpleCrear = params['tipo'];
-      if (String(this.tipoEmpleCrear) === 'Modelo')
-        this.labelTitle = ' de la nueva';
-      else if(String(this.tipoEmpleCrear) === 'Apoyo')
+      if(String(this.tipoEmpleCrear) === 'Apoyo')
         this.labelTitle = ' del nuevo empleado de ';
     });
 
-    this.empleado = new Empleado('','','','','','','',null,null,'','','','','','',null,false,'',null,null,null,'','',null,'','','',null,'');
+    this.empleado = new Empleado('','','','','','','',null,null,'','','','','','',null,false,'',null,null,null,'','',null,'',null,'');
   }
 
   ngOnInit(): void {
@@ -61,8 +59,6 @@ export class NuevoEmpleadoComponent implements OnInit {
       telContEmer: [this.empleado.telContEmer],
       fechaIngreso: [this.empleado.fechaIngreso],
       numHijos: [this.empleado.numHijos],
-      entidadBanco: [this.empleado.entidadBanco],
-      numCuentaBanco: [this.empleado.numCuentaBanco],
       nacionalidad: [this.empleado.nacionalidad],
       ciudadResidencia: [this.empleado.ciudadResidencia],
       epsSalud: [this.empleado.epsSalud],
@@ -95,7 +91,7 @@ export class NuevoEmpleadoComponent implements OnInit {
         } else if(this.tipoEmpleCrear === 'Administrativo') {
           this.router.navigateByUrl('/dashboard/administrativos');
         } else if(this.tipoEmpleCrear === 'Apoyo') {
-          this.router.navigateByUrl('/dashboard/apoyo');
+          this.router.navigateByUrl('/dashboard/apoyos');
         } else {
           this.router.navigateByUrl('/dashboard/');
         }

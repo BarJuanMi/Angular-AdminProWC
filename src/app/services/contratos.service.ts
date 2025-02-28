@@ -20,12 +20,11 @@ export class ContratosService {
 
   /**
    * Metodo que permite cargar todos los contratos que se encuentren en la base de datos.
-   * @param desde es el filtro desde donde marcara para obtener los contrato desde ahi en adelante.
+   * @param desde es el filtro desde donde marcara para obtener los contratos desde ahi en adelante.
    * @returns Listado de contratos.
    */
   cargarContratosDesde(desde: number = 0) {
     console.log('Invocación a ContratosService(Front) - cargarContratosDesde');
-    //44.208.35.77:3001/api/contratos?desde=25
     const url = `${base_url}/contratos?desde=${desde}`;
     return this.http.get<CargarContrato>(url, this.usuarioService.headers)
       .pipe(

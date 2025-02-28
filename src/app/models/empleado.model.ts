@@ -34,8 +34,6 @@ export class Empleado {
         public arlTrabajo: string,
         public usuarioCreacion?: Usuario,
         public numHuellero?: string,
-        public entidadBanco?: string,
-        public numCuentaBanco?: string,
         public fechaInactivacion?: Date,
         public img?: string
     ){}

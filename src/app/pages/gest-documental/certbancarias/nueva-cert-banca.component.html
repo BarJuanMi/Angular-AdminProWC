@@ -1,0 +1,82 @@
+<div class="row animated fadeInLeft">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header bg-info">
+                <h4 class="m-b-0 text-white">Detalles de Nuevo Prestamo</h4>
+            </div>
+            <div class="card-body">
+                <form class="form p-t-20" [formGroup]="certBancaForm" (submit)="crearNuevaCertBancario()">
+
+                    <div class="row p-t-20">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Entidad Bancaria:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-face-smile"></i></div>
+                                    <select class="form-control custom-select" id="type" formControlName="emisorCuentaBanco">
+                                        <option value="null">--Seleccione una opción--</option>
+                                        <option *ngFor="let entbanca of entBancariasList" [value]="entbanca._id">{{entbanca.entbancariaDesc}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Tipo de cuenta:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-face-smile"></i></div>
+                                    <select class="form-control custom-select" id="type" formControlName="tipoCuentaBanco">
+                                        <option value="null">--Seleccione una opción--</option>
+                                        <option *ngFor="let tipocuenta of tipocuentabancasList" [value]="tipocuenta._id">{{tipocuenta.tipocuentabancaDesc}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Cuenta Bancaria</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-money "></i></div>
+                                    <input type="text" id="idbancerti" class="form-control" formControlName="numCuentaBanco" placeholder="###-#####-##" autocomplete="off" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row p-t-20">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Nombres y Apellidos de Empleado:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-face-smile"></i></div>
+                                    <select class="form-control custom-select" id="model" formControlName="empleado">
+                                        <option value="null">--Seleccione una opción--</option>
+                                        <option *ngFor="let empleado of empleadosList" [value]="empleado._id">{{empleado.nombApellConca}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Usuario que registra:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                                    <input type="text" class="form-control" id="usuarioNombre" autocomplete="off" formControlName="usuarioNombre" [readOnly]="true">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    &nbsp;
+                    <div>
+                        <button type="submit" class="btn btn-success waves-effect waves-light m-r-10"><i class="fa fa-save"></i>  Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

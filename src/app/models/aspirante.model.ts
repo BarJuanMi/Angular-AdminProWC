@@ -6,6 +6,7 @@ export class Aspirante {
     constructor(
         public _id: string,
         public documento: string,
+        public tipoDocumento: string,
         public nombres: string,
         public apellidos: string,
         public nombApellAspConcat: string,

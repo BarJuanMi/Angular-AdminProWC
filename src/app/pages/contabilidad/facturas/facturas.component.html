@@ -1,1 +1,133 @@
-<p>facturas works!</p>
+<div class="row animated fadeIn fast" *ngIf="cargando">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor espere...</p>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn fast" *ngIf="!cargando">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="col-12">
+                    <table style="width:100%">
+                        <tr>
+                            <td style="text-align:left">
+                                <button [routerLink]="['/dashboard/nuevoFactura']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                                <i class="fa fa-money"></i> Crear Nueva Factura </button>
+                            </td>
+                            <td style="text-align:right">
+                                <h6>Facturas Registrados (<small>{{ totalFacturas }}</small>)</h6>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                &nbsp;
+                <div class="table-responsive">
+                    <table class="table table-bordered color-bordered-table inverse-bordered-table">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Detalle</th>
+                                <th class="text-center">Monto</th>
+                                <th class="text-center">Fecha Factura</th>
+                                <th class="text-center">Tipo</th>
+                                <th class="text-center">Sede</th>
+                                <th class="text-center">Retribuye</th>
+                                <th class="text-center">Retribuible a</th>
+                                <th class="text-center">Soportes (ZIP)</th>
+                                <th class="text-center">Eliminar</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr *ngFor="let factura of facturas">
+                                <td><small><a href="" (click)="verDetallesFactura(factura)" data-toggle="modal" data-target="#datosFacturaModal">{{factura._id}}</a></small></td>
+                                <td class="text-center font-weight-bold text-primary">${{ factura.montoFactura | currency:' ':true:'1.2-2' }}</td>
+                                <td class="text-center"><small>{{factura.fechaFactura | date}}</small></td>
+                                <td class="text-center"><small>{{factura.tipoCompraFactura.tipocomprafactDesc}}</small></td>
+                                <td class="text-center"><small>{{factura.sede.nombre}}</small></td>
+                                <td class="text-center">
+                                    <span *ngIf="!factura.retribuible" class="label label-danger">NO</span>
+                                    <span *ngIf="factura.retribuible" class="label label-success">SI</span> &nbsp; &nbsp;
+                                </td>
+                                <td class="text-center">
+                                    <span *ngIf="factura.usuarioRetribuible">
+                                        <small>{{factura.usuarioRetribuible.nombre}}</small>
+                                    </span>
+                                    <span *ngIf="!factura.usuarioRetribuible">
+                                        <small>N/A</small>
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <span *ngIf="!factura.estadoCargueDocsZIP" class="label label-danger">NO</span>
+                                    <span *ngIf="factura.estadoCargueDocsZIP" class="label label-success">SI</span> &nbsp; &nbsp;
+                                    <a class="cursor" title="Cargar Documentos Adicionales de Contratación" data-toggle="tooltip" data-original-title="Cargar Documentos Adicionales de Contratación" (click)="mostrarSweetAlertCargueZIP(factura)">
+                                        <i class="fa fa-upload text-inverse m-r-10"></i>
+                                    </a>
+                                </td>
+                                <td class="text-nowrap text-center">
+                                    <a class="cursor" title="Eliminar transacción" data-toggle="tooltip" data-original-title="Eliminar Transacción del sistema" (click)="eliminarFactura(factura)">
+                                        <i class="fa fa-trash-o text-danger"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="text-center" *ngIf="mostrarBotones">
+                    <button (click)="cambiarPagina(-25)" class="btn btn-secondary">
+                        <i class="fa fa-backward"></i>&nbsp;
+                        Anteriores
+                    </button> &nbsp; &nbsp; &nbsp;
+
+                    <button (click)="cambiarPagina(25)" class="btn btn-secondary">
+                        Siguientes &nbsp;
+                        <i class="fa fa-forward"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="datosFacturaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">Información Detallada de Factura</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <th>
+                        <tr>ID de transacción:</tr>
+                        <tr>Fecha de registro:</tr>
+                        <tr>Usuario que registro:</tr>
+                        <tr>Observaciones:</tr>
+                        <tr *ngIf="facturaDetalle.fechaCargueDocsZIP">Fecha de cargue Documentos:</tr>
+                        <tr *ngIf="facturaDetalle.usuarioCargueDocsZIP">Usuario que cargo Documentos:</tr>
+                    </th>
+
+                    <th>
+                        <tr style="color:#346420; font-size:13">{{facturaDetalle._id}}</tr>
+                        <tr style="color:#346420; font-size:13">{{facturaDetalle.fechaRegistro| date}}</tr>
+                        <tr style="color:#346420; font-size:13">{{facturaDetalle.usuarioRegistro.nombre}}</tr>
+                        <tr style="color:#346420; font-size:13">{{facturaDetalle.observaciones}}</tr>
+                        <tr *ngIf="facturaDetalle.fechaCargueDocsZIP" style="color:cadetblue;; font-size:13">{{facturaDetalle.fechaCargueDocsZIP| date}}</tr>
+                        <tr *ngIf="facturaDetalle.usuarioCargueDocsZIP" style="color:cadetblue;; font-size:13">{{facturaDetalle.usuarioCargueDocsZIP.nombre}}</tr>
+                    </th>
+                </table>
+                <br>
+                <a *ngIf="facturaDetalle.estadoCargueDocsZIP" href="{{facturaDetalle.rutaCargueCompletaZIP}}" target="_blank">Descargar documentos adicionales de contrato</a>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

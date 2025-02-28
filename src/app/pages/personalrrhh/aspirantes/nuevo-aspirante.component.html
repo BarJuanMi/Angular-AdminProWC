@@ -8,7 +8,7 @@
                 <form class="form p-t-20" [formGroup]="aspiranteForm" (submit)="crearNuevoAspirante()">
 
                     <div class="row p-t-20">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label label-form-decora">Num. Documento</label>
                                 <div class="input-group">
@@ -17,7 +17,23 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Tipo Documento</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-layout-menu-v"></i></div>
+                                    <select class="form-control custom-select" id="docType" formControlName="tipoDocumento" required>
+                                        <option value="">--Seleccione una opción--</option>
+                                        <option value="C.C.">Cédula de Ciudadanía</option>
+                                        <option value="C.E.">Cédula de Extranjería</option>
+                                        <option value="PAS">Pasaporte</option>
+                                        <option value="PPT">Permiso por Protecion Temporal</option>
+                                        <option value="PEP">Permiso Especial de Permanencia</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label label-form-decora">Edad Actual</label>
                                 <div class="input-group">
@@ -29,7 +45,7 @@
                     </div>
 
                     <div class="row p-t-20">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label label-form-decora">Nombres</label>
                                 <div class="input-group">
@@ -38,7 +54,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label label-form-decora">Apellidos</label>
                                 <div class="input-group">
@@ -47,10 +63,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row p-t-20">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label label-form-decora">Correo Electrónico</label>
                                 <div class="input-group">
@@ -59,7 +72,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                    </div>
+
+                    <div class="row p-t-20">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label label-form-decora">Telefóno Célular</label>
                                 <div class="input-group">
@@ -68,10 +84,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row p-t-20">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label label-form-decora">Dirección de residencia</label>
                                 <div class="input-group">
@@ -80,9 +93,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label class="control-label label-form-decora">Localidad</label>
+                                <label class="control-label label-form-decora">Localidad de residencia</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-anchor"></i></div>
                                     <select class="form-control custom-select" formControlName="localidad" required>
@@ -95,7 +108,7 @@
                     </div>
 
                     <div class="row p-t-20">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label label-form-decora">Cargo al que aspira</label>
                                 <div class="input-group">
@@ -107,7 +120,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label label-form-decora">¿Tiene experiencia previa?</label>
                                 <div class="switch">
@@ -115,24 +128,24 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row p-t-20">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label label-form-decora">Notas y comentarios de entrevista</label>
-                                <div class="input-group">
-                                    <div class="input-group-addon"><i class="ti-comment"></i></div>
-                                    <textarea class="form-control text-area" formControlName="notasEntrevistador"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="control-label label-form-decora">Fecha de entrevista</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-calendar"></i></div>
                                     <input type="date" id="inputJob" class="form-control" formControlName="fechaEntrevista" placeholder="dd/mm/yyyy" autocomplete="off" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row p-t-20">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Notas, Comentarios y Apreciaciones durante la entrevista</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-comment"></i></div>
+                                    <textarea rows="4" class="form-control text-area" formControlName="notasEntrevistador"></textarea>
                                 </div>
                             </div>
                         </div>

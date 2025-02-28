@@ -71,16 +71,26 @@ export class NuevoContratoComponent implements OnInit {
 
   crearNuevoContrato() {
     this.contratoService.consultaTipoContrato(this.contratoForm.value.tipo).subscribe(tipoContratoRet => {
-      console.log(JSON.stringify(tipoContratoRet));
+      
       let tipoRet: TipoContrato = tipoContratoRet;
+
       if (tipoRet.tipocontratoDesc.includes('Indefinido') && this.contratoForm.value.fechaFinContrato !== null && this.contratoForm.value.fechaFinContrato !== '') {
         Swal.fire('Advertencia', 'El tipo de contrato seleccionado no debe tener estipulada una fecha de culminación de la obligación contractual.', 'warning');
+
       } else {
         this.contratoService.crearNuevoContrato( this.contratoForm.value )
         .subscribe( resp => {
-          // Navegar a la pantalla de retiros
-          this.router.navigateByUrl('/dashboard/contratos');
-          Swal.fire('Guardado', 'Registro de Contrato Creado Satisfactoriamente', 'success');
+
+          var msg = resp['msg'];
+          var status: boolean = resp['status'];
+
+          if(status) {
+            this.router.navigateByUrl('/dashboard/contratos');
+            Swal.fire('Guardado', `${msg}`, 'success');
+            
+          } else {
+            Swal.fire('Error', `${msg}`, 'error');
+          }
         }, ( err ) => {
           Swal.fire('Error', err.error.msg, 'error');
         });

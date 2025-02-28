@@ -41,6 +41,7 @@
                         <thead>
                             <tr>
                                 <th>No. Documento</th>
+                                <th>Tipo Doc</th>
                                 <th>Nombres y Apellidos del Aspirante</th>
                                 <th class="text-center">Edad</th>
                                 <th class="text-center">Correo Electrónico</th>
@@ -54,6 +55,7 @@
                         <tbody>
                             <tr *ngFor="let aspirante of aspirantes">
                                 <td><small>{{aspirante.documento}}</small></td>
+                                <td><small>{{aspirante.tipoDocumento}}</small></td>
                                 <td><small><a href="" (click)="verDetallesAspirante(aspirante)" data-toggle="modal" data-target="#datosAspiranteModal">{{aspirante.nombApellAspConcat}}</a></small></td>
                                 <td class="text-center"><small>{{aspirante.edad}}</small></td>
                                 <td class="text-center"><small>{{aspirante.email}}</small></td>
@@ -75,6 +77,10 @@
                                     &nbsp;
                                     <a class="cursor" title="Cambiar Estado de la Aspirante" data-toggle="tooltip" data-original-title="Cambiar Estado de la aspirante" (click)="cambiarEstadoAspirante(aspirante)">
                                         <i class="fa fa-list-ul text-inverse m-r-10"></i>
+                                    </a>
+                                    &nbsp;
+                                    <a class="cursor" title="Eliminar registro del sistema" data-toggle="tooltip" data-original-title="Eliminar registro del sistema" (click)="eliminarAspirante(aspirante)">
+                                        <i class="fa fa-trash-o text-danger"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -111,8 +117,8 @@
                         <th>
                             <tr class="tabl-decorator-modal">ID Interno</tr>
                             <tr>Fecha Registro</tr>
-                            <tr>Dirección</tr>
-                            <tr>Localidad</tr>
+                            <tr>Dir. residencia</tr>
+                            <tr>Localidad residencia</tr>
                             <tr>Usuario que registro</tr>
                             <tr>Fecha de entrevista</tr>
                         </th>
@@ -145,8 +151,6 @@
                     <a *ngIf="aspiranteWCDetalle.estadoResCargoPDF" href="{{aspiranteWCDetalle.rutaCargueComplResPDF}}" target="_blank">Descargar resultado de prueba psicológica </a>
                 </div>
             </div>
-
-
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

@@ -45,8 +45,6 @@
                                 <th>Nombres y Apellidos</th>
                                 <th>Correo Electrónico</th>
                                 <th>Tel. Celular</th>
-                                <th>Entidad Bancaria</th>
-                                <th># Cuenta Banco</th>
                                 <th class="text-center">Estado</th>
                                 <th class="text-center">Acción</th>
                             </tr>
@@ -60,8 +58,6 @@
                                 <td><small><a href="" (click)="verDetallesAdmon(admon)" data-toggle="modal" data-target="#datosAdmonModal">{{admon.nombres}} {{admon.apellidos}}</a></small></td>
                                 <td><small>{{admon.emailCorporativo}}</small></td>
                                 <td><small>{{admon.telCelular}}</small></td>
-                                <td><small>{{admon.entidadBanco}}</small></td>
-                                <td><small>{{admon.numCuentaBanco}}</small></td>
                                 <td class="text-center">
                                     <span *ngIf="admon.estado" class="label label-success">ACTIVO</span>
                                     <span *ngIf="!admon.estado" class="label label-danger">INACTIVO</span>

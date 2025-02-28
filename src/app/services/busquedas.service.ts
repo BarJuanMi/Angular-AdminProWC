@@ -9,6 +9,7 @@ import { Ausentismo } from '../models/ausentismo.model';
 import { Retiro } from '../models/retiro.model';
 import { Memorando } from '../models/memorando.model';
 import { Contrato } from '../models/contrato.model';
+import { CertificacionBancaria } from '../models/certbancaria.model';
 
 const base_url = environment.base_url;
 
@@ -54,8 +55,7 @@ export class BusquedasService {
       empleado => new Empleado(empleado._id, empleado.documento, empleado.tipoDocumento, empleado.genero, empleado.nombres, empleado.apellidos, empleado.nombApellConca, 
         empleado.tipoEmpleado, empleado.fechaNac, empleado.direccion, empleado.emailCorporativo, empleado.telCelular, empleado.rh, empleado.nomContEmer,
         empleado.telContEmer, empleado.fechaIngreso, empleado.estado, empleado.numHijos, empleado.fechaCreacionApp, empleado.nacionalidad, empleado.ciudadResidencia,
-        empleado.epsSalud, empleado.arlTrabajo, empleado.usuarioCreacion, empleado.numHuellero, empleado.entidadBanco, empleado.numCuentaBanco, empleado.fechaInactivacion, 
-        empleado.img)
+        empleado.epsSalud, empleado.arlTrabajo, empleado.usuarioCreacion, empleado.numHuellero, empleado.fechaInactivacion, empleado.img)
     );
   }
 
@@ -67,7 +67,7 @@ export class BusquedasService {
    */
   transformarAspirante(resultados: any[]): Aspirante[] {
     return resultados.map(
-      aspirante => new Aspirante(aspirante._id, aspirante.documento, aspirante.nombres, aspirante.apellidos, aspirante.nombApellAspConcat, aspirante.edad,
+      aspirante => new Aspirante(aspirante._id, aspirante.documento, aspirante.tipoDocumento, aspirante.nombres, aspirante.apellidos, aspirante.nombApellAspConcat, aspirante.edad,
                                 aspirante.email, aspirante.numCelular, aspirante.usuarioCreacion, aspirante.cargoAspirante, aspirante.estado,
                                 aspirante.notasEntrevistador, aspirante.direccion, aspirante.localidad, aspirante.experienciaPrevia, aspirante.fechaRegistro,
                                 aspirante.fechaEntrevista, aspirante.pathResultadoPDF, aspirante.estadoResCargoPDF, aspirante.pathHojaVidaPDF, 
@@ -137,12 +137,28 @@ export class BusquedasService {
   }
 
   /**
+   * Metodo que permite transformar la respuesta del microservicio en un listado de objetos manipulables 
+   * para obtener los memorandos que se encuentran en la aplicacion
+   * @param resultados Objeto con la respuesta del microservicio, informacion de respuesta y lista adjunta
+   * @returns un listado de objetos de tipo Retiro
+   */
+  transformarCertBancaria(resultados: any[]): CertificacionBancaria[] {
+    return resultados.map(
+      certificacion => new CertificacionBancaria(certificacion._id, certificacion.numCuentaBanco, certificacion.emisorCuentaBanco, 
+                                              certificacion.empleado, certificacion.emplNomApel, certificacion.usuarioRegistro, certificacion.fechaRegistro, 
+                                              certificacion.fechaCargoPDF, certificacion.usuarioCargoPDF, certificacion.pathPDF,
+                                              certificacion.estadoCargoPDF, certificacion.rutaCargueCompletaPDF, certificacion.pathPDFNoExt)
+    );
+  }
+
+
+  /**
    * Metodo que permite buscar por un termino o por una cadena de texto que funciona como un regex
    * @param tipo la coleccion donde va a buscar
    * @param termino la cadena de busqueda
    * @returns Listado de objetos segun el tipo de coleccion
    */
-  buscarPorColeccion(tipo: 'usuarios'|'medicos'|'hospitales'|'aspirantes'|'ausentismos'|'retiros'|'memorandos'|'contratos', termino: string) {
+  buscarPorColeccion(tipo: 'usuarios'|'medicos'|'hospitales'|'aspirantes'|'ausentismos'|'retiros'|'memorandos'|'contratos'|'certbancarias', termino: string) {
     //44.208.35.77:3001/api/busqueda/coleccion/tipo/***
 
     const url = `${ base_url }/busqueda/coleccion/${tipo}/${termino}`;
@@ -169,6 +185,9 @@ export class BusquedasService {
             case 'contratos':
               return this.transformarContrato(resp.resultados);
 
+            case 'certbancarias':
+              return this.transformarCertBancaria(resp.resultados);
+
             default:
               return[];
           }
@@ -183,8 +202,7 @@ export class BusquedasService {
    * @returns Listado de objetos segun el tipo de coleccion
    */
   buscarTerminoEnEmpleados(tipo: string, subTipo: string, termino: string) {
-    //44.208.35.77:3001/api/busqueda/coleccion/empleados/modelo/***
-
+    //localhost:3001/api/busqueda/coleccion/empleados/modelo/***
     const url = `${ base_url }/busqueda/coleccion/${tipo}/${subTipo}/${termino}`;
 
     return this.http.get<any[]>( url , this.headers)

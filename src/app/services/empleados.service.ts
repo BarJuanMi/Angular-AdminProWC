@@ -44,8 +44,42 @@ export class EmpleadosService {
               empleado.direccion, empleado.emailCorporativo, empleado.telCelular, 
               empleado.rh, empleado.nomContEmer, empleado.telContEmer, empleado.fechaIngreso, 
               empleado.estado, empleado.numHijos, empleado.fechaCreacionApp, empleado.nacionalidad,
-              empleado.ciudadResidencia,  empleado.epsSalud, empleado.arlTrabajo, empleado.usuarioCreacion, '', empleado.entidadBanco, 
-              empleado.numCuentaBanco, empleado.fechaInactivacion, empleado.img)
+              empleado.ciudadResidencia,  empleado.epsSalud, empleado.arlTrabajo, empleado.usuarioCreacion, '', 
+              empleado.fechaInactivacion, empleado.img)
+          );
+
+          return {
+            total: resp.total,
+            empleados
+          };
+        })
+      )
+  }
+
+  /**
+   * Metodo que permite cargar todos los empleados que se encuentren en la base de datos.
+   * @param desde es el filtro desde donde marcara para obtener los empleado desde ahi en adelante.
+   * @returns Listado de empleados.
+   */
+  cargarEmpleadosDesde(desde: number = 0) {
+    console.log('Invocación a EmpleadosService(Front) - cargarEmpleadosDesde');
+
+    const url = `${ base_url }/empleados?desde=${ desde }`;
+
+    console.log(url);
+    
+    return this.http.get<CargarEmpleado>( url ,  this.usuarioService.headers)
+      .pipe(
+        delay(500), 
+        map( resp => {
+          const empleados = resp.empleados.map( 
+            empleado => new Empleado(empleado._id, empleado.documento, empleado.tipoDocumento, 
+              empleado.genero, empleado.nombres, empleado.apellidos, empleado.nombApellConca, empleado.tipoEmpleado, empleado.fechaNac, 
+              empleado.direccion, empleado.emailCorporativo, empleado.telCelular, 
+              empleado.rh, empleado.nomContEmer, empleado.telContEmer, empleado.fechaIngreso, 
+              empleado.estado, empleado.numHijos, empleado.fechaCreacionApp, empleado.nacionalidad,
+              empleado.ciudadResidencia,  empleado.epsSalud, empleado.arlTrabajo, empleado.usuarioCreacion, '', 
+              empleado.fechaInactivacion, empleado.img)
           );
 
           return {
@@ -149,8 +183,8 @@ export class EmpleadosService {
               empleado.direccion, empleado.emailCorporativo, empleado.telCelular, 
               empleado.rh, empleado.nomContEmer, empleado.telContEmer, empleado.fechaIngreso, 
               empleado.estado, empleado.numHijos, empleado.fechaCreacionApp, empleado.nacionalidad, 
-              empleado.ciudadResidencia,  empleado.epsSalud, empleado.arlTrabajo, empleado.usuarioCreacion, '', empleado.entidadBanco, 
-              empleado.numCuentaBanco, empleado.fechaInactivacion, empleado.img)
+              empleado.ciudadResidencia,  empleado.epsSalud, empleado.arlTrabajo, empleado.usuarioCreacion, '', 
+              empleado.fechaInactivacion, empleado.img)
           );
           return {
             empleados

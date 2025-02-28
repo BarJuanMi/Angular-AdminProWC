@@ -41,14 +41,15 @@
                         <thead>
                             <tr>
                                 <th>Detalles</th>
-                                <th>Empleado asociado al contrato</th>
-                                <th class="text-center">Fecha Inicio</th>
-                                <th class="text-center">Fecha Fin</th>
-                                <th class="text-center">Estado</th>
-                                <th class="text-center">Tipo de Contrato</th>
+                                <th class="text-center">Empleado</th>
+                                <th class="text-center">Inicio</th>
+                                <th class="text-center">Fin</th>
+                                <th class="text-center">Estado de contrato</th>
+                                <th class="text-center">Tipo de contrato</th>
                                 <th class="text-center">Contrato Firmado</th>
                                 <th class="text-center">Docs Adicionales</th>
-                                <th class="text-center">Acción</th>
+                                <th class="text-center">Susp / Fin / Reac</th>
+                                <th class="text-center">Eliminar</th>
                             </tr>
                         </thead>
 
@@ -59,13 +60,13 @@
                                 <td class="text-center"><small>{{contrato.fechaInicioContrato | date}}</small></td>
                                 <td class="text-center"><small>{{contrato.fechaFinContrato | date}}</small></td>
                                 <td class="text-center">
-                                    <span *ngIf="contrato.estado == 'EN EJECUCIÓN'" class="label label-success">{{contrato.estado}}</span>
-                                    <span *ngIf="contrato.estado == 'SUSPENDIDO POR TRABAJADOR'" class="label label-warning">{{contrato.estado}}</span>
-                                    <span *ngIf="contrato.estado == 'FINALIZADO POR TRABAJADOR'" class="label label-info">{{contrato.estado}}</span>
-                                    <span *ngIf="contrato.estado == 'SUSPENDIDO POR EMPLEADOR'" class="label label-warning">{{contrato.estado}}</span>
-                                    <span *ngIf="contrato.estado == 'FINALIZADO POR EMPLEADOR'" class="label label-info">{{contrato.estado}}</span>
+                                    <span *ngIf="contrato.estado == 'VIGENTE'" class="label label-success">{{contrato.estado}}</span>
+                                    <span *ngIf="contrato.estado == 'SUSPENSION TEMP POR TRABAJADOR' || contrato.estado == 'SUSPENSION TEMP POR EMPLEADOR'" class="label label-warning">{{contrato.estado}}</span>
+                                    <span *ngIf="contrato.estado == 'FINALIZADO POR EMPLEADOR' || contrato.estado == 'FINALIZADO POR TRABAJADOR'" class="label label-danger">{{contrato.estado}}</span>
+                                    <span *ngIf="contrato.estado == 'FINALIZADO POR CREACION DE RETIRO'" class="label label-info">{{contrato.estado}}</span>
+
                                 </td>
-                                <td class="text-center font-weight-bold">{{contrato.tipoContrato.tipocontratoDesc}}</td>
+                                <td class="text-center font-weight-bold"><small>{{contrato.tipoContrato.tipocontratoDesc}}</small></td>
                                 <td class="text-center">
                                     <span *ngIf="!contrato.estadoCargoPDF" class="label label-danger">NO</span>
                                     <span *ngIf="contrato.estadoCargoPDF" class="label label-success">SI</span> &nbsp; &nbsp;
@@ -82,9 +83,11 @@
                                 </td>
                                 <td class="text-nowrap text-center">
                                     &nbsp; &nbsp;
-                                    <a class="cursor" title="Cambiar el estado del contrato" data-toggle="tooltip" data-original-title="Cambiar el estado del contrato" (click)="cambiarEstadoContrato(contrato)">
-                                        <i class="fa fa-reply text-inverse m-r-10"></i>
+                                    <a class="cursor" title="Suspensión o Reactivación del contrato laboral" data-toggle="tooltip" data-original-title="Suspensión, Finalización o Reactivación del contrato laboral" (click)="cambiarEstadoContrato(contrato)">
+                                        <i class="fa fa-exchange text-warning m-r-10"></i>
                                     </a>
+                                </td>
+                                <td class="text-nowrap text-center">
                                     &nbsp; &nbsp;
                                     <a class="cursor" title="Eliminar registro del sistema" data-toggle="tooltip" data-original-title="Eliminar registro del sistema" (click)="eliminarContrato(contrato)">
                                         <i class="fa fa-trash-o text-danger"></i>
@@ -121,7 +124,7 @@
             <div class="modal-body">
                 <table class="table">
                     <th>
-                        <tr>ID de transacción:</tr>
+                        <tr style="color:#d41c34;">ID interno de contrato:</tr>
                         <tr>Fecha de registro</tr>
                         <tr>Usuario que registró</tr>
                         <tr *ngIf="contratoDetalle.fechaCargoPDF">Fecha de cargue PDF:</tr>
@@ -130,7 +133,7 @@
                         <tr *ngIf="contratoDetalle.usuarioCargueDocsZIP">Usuario que cargo Documentos:</tr>
                     </th>
                     <th>
-                        <tr style="color:#346420; font-size:13">{{contratoDetalle._id}}</tr>
+                        <tr style="color:#d41c34;; font-size:13">{{contratoDetalle._id}}</tr>
                         <tr style="color:#346420; font-size:13">{{contratoDetalle.fechaRegistro | date}}</tr>
                         <tr style="color:#346420; font-size:13">{{contratoDetalle.usuarioRegistro.nombre}}</tr>
                         <tr *ngIf="contratoDetalle.fechaCargoPDF" style="color:cadetblue;; font-size:13">{{contratoDetalle.fechaCargoPDF | date}}</tr>

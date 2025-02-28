@@ -1,0 +1,102 @@
+<div class="row animated fadeIn fast">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <input type="text" class="form-control" placeholder="Filtrar certificaciones por nombre de empleado..." #txtTermino (keyup)="buscarCertificacionesPorNombreEmp(txtTermino.value)" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn fast" *ngIf="cargando">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="fa fa-spin fa-refresh fa-2x"></i>
+            <p class="mb-0">Por favor espere...</p>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn fast" *ngIf="!cargando">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="col-12">
+                    <table style="width:100%">
+                        <td style="text-align:left">
+                            <button [routerLink]="['/dashboard/nuevaCertBancaria']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                            <i class="fa fa-money"></i> Crear Nuevo Registro Certificacion Bancaria </button>
+                        </td>
+                        <tr>
+                            <td style="text-align:right">
+                                <h6>Certificaciones Bancarias Registradas (<small>{{ totalCertBancarias }}</small>)</h6>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                &nbsp;
+                <div class="table-responsive">
+                    <table class="table table-bordered color-bordered-table inverse-bordered-table">
+                        <thead>
+                            <tr>
+                                <th>Empleado</th>
+                                <th>Correo Electronico</th>
+                                <th>Entidad</th>
+                                <th>Tipo Cuenta</th>
+                                <th class="text-center">Num. Cuenta</th>
+                                <th class="text-center">Soporte PDF</th>
+                                <th class="text-center">Cargar</th>
+                                <th class="text-center">Descargar</th>
+                                <th class="text-center">Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let certificacion of certbancarias">
+                                <td><small>{{certificacion.emplNomApel}}</small></td>
+                                <td><small>{{certificacion.empleado.emailCorporativo}}</small></td>
+                                <td><small>{{certificacion.emisorCuentaBanco.entbancariaDesc}}</small></td>
+                                <td><small>{{certificacion.tipoCuentaBanco.tipocuentabancaDesc}}</small></td>
+                                <td class="text-center"><small>{{certificacion.numCuentaBanco}}</small></td>
+                                <td class="text-center">
+                                    <span *ngIf="!certificacion.estadoCargoPDF" class="label label-danger">NO</span>
+                                    <span *ngIf="certificacion.estadoCargoPDF" class="label label-success">SI</span> &nbsp; &nbsp;
+                                </td>
+                                <td class="text-center">
+                                    <a class="cursor" title="Cargar PDF Certificacion Bancaria" data-toggle="tooltip" data-original-title="Cargar PDF Certificacion Bancaria" (click)="mostrarSweetAlertCarguePDF(certificacion)">
+                                        <i class="fa fa-upload m-r-10 text-warning"></i>
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    <span *ngIf="certificacion.estadoCargoPDF">
+                                        <a class="cursor" title="Descargar PDF Certificacion Bancaria" data-original-title="Descargar PDF Certificacion Bancaria" href="{{certificacion.rutaCargueCompletaPDF}}" target="_blank">
+                                            <i class="fa fa-download m-r-10 text-primary"></i>
+                                        </a>
+                                    </span>
+                                </td>
+                                <td class="text-nowrap text-center">
+                                    &nbsp; &nbsp;
+                                    <a class="cursor" title="Eliminar registro del sistema" data-toggle="tooltip" data-original-title="Eliminar registro del sistema" (click)="eliminarCertificacionBancaria(certificacion)">
+                                        <i class="fa fa-trash-o text-danger"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="text-center" *ngIf="mostrarBotones">
+                    <button (click)="cambiarPagina(-25)" class="btn btn-secondary">
+                        <i class="fa fa-backward"></i>&nbsp;
+                        Anteriores
+                    </button> &nbsp; &nbsp; &nbsp;
+
+                    <button (click)="cambiarPagina(25)" class="btn btn-secondary">
+                        Siguientes &nbsp;
+                        <i class="fa fa-forward"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

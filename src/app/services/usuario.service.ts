@@ -175,7 +175,6 @@ export class UsuarioService {
       .pipe(
         delay(500), 
         map( resp => {
-          console.log('usuarios...' + resp);
           const usuarios = resp.usuarios.map( 
             user => new Usuario(user.nombre, user.email, user.fechaCreacion, user.estado, '', user.img, user.google, user.role, user.uid)
           );
@@ -187,6 +186,42 @@ export class UsuarioService {
         })
       )
   }
+
+  /**
+   * 
+   * @param desde 
+   * @returns 
+   */
+  cargarUsuariosFilter(filter, value) {
+    console.log('Invocación a UsuarioService(Front) - cargarUsuariosFilter');
+
+    let url = '';
+    switch (filter) {
+      case 'role':
+        url = `${ base_url }/usuarios/getUserFilterRole?value=${value}`;
+        break;
+    
+      case 'status':
+        url = `${ base_url }/usuarios/getUserFilterStatus?value=${value}`;
+        break;
+    }
+
+    return this.http.get<CargarUsuario>( url , this.headers)
+      .pipe(
+        delay(500), 
+        map( resp => {
+          const usuarios = resp.usuarios.map( 
+            user => new Usuario(user.nombre, user.email, user.fechaCreacion, user.estado, '', user.img, user.google, user.role, user.uid)
+          );
+
+          return {
+            usuarios
+          };
+        })
+      )
+  }
+
+
   
   /**
    * 

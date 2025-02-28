@@ -32,7 +32,7 @@ export class PqrsComponent implements OnInit {
   public pqrsiDetalle: PQRS = new PQRS('','','','',false,null,null,new Sede('','',0,0,'',new Ciudad('','',''),new Localidad('','','')),
                                             new Empleado('','','','','','','',new TipoEmpleado('','',''),null,'','','','','','',null,
                                             false,'',null,new Pais('','','',''),new Ciudad('','',''),'','',
-                                            new Usuario('','',null,'','','',false,'','',''),'','','',null,''),
+                                            new Usuario('','',null,'','','',false,'','',''),'',null,''),
                                             new TipoPQRS('','','',null),new Usuario('','',null,'','','',false,'',''),
                                             new Usuario('','',null,'','','',false,'',''),'','','');
   
@@ -125,7 +125,7 @@ export class PqrsComponent implements OnInit {
    * @param pqrs Objeto tipo pqrs a la que se le consultara la informacion
    */
   eliminarPQRS( pqrs: PQRS ) {
-    if(this.usuario.role != 'ADMIN_ROLE'){
+    if(this.usuario.role != 'ADMIN_ROLE' &&  this.usuario.role != 'USER_ROLE'){
       Swal.fire('Error', 'No es posible eliminar la transacción, no tienes los privilegios suficientes.', 'error');
       this.cargarPQRSI();
     } else {

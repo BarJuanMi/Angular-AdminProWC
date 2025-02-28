@@ -37,8 +37,8 @@ export class RetirosService {
         map( resp => {
           const retiros = resp.retiros.map( 
             retiro => new Retiro(retiro._id, retiro.empleado, retiro.emplNomApel,
-              retiro.usuarioRegistro, retiro.fechaRenuncia, retiro.fechaRegistro,
-              retiro.estado, retiro.motivoRetiro, retiro.entrevista, 
+              retiro.contrato, retiro.usuarioRegistro, retiro.fechaRenuncia, 
+              retiro.fechaRegistro, retiro.estado, retiro.motivoRetiro, retiro.entrevista, 
               retiro.encuesta, retiro.causalRetiro, retiro.fechaFirma, retiro.fechaCargoPDF,
               retiro.usuarioCargoPDF, retiro.pathPDF, retiro.estadoCargoPDF)
           );

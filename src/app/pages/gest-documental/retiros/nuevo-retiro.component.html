@@ -55,7 +55,7 @@
                     </div>
 
                     <div class="row p-t-20">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label label-form-decora">Causal de Retiro:</label>
                                 <div class="input-group">
@@ -64,6 +64,16 @@
                                         <option value="null">--Seleccione una opción--</option>
                                         <option *ngFor="let causalretiro of causalesRetiroList" [value]="causalretiro._id">{{causalretiro.causalretiroDesc}}</option>
                                     </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label style="color:#d42db9" class="control-label label-form-decora">Id de Contrato "VIGENTE"</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                                    <input type="text" class="form-control form-control-danger" id="contrato" formControlName="contrato" placeholder="67784eca69cf5a9bb0e023e" autocomplete="off">
                                 </div>
                             </div>
                         </div>

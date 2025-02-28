@@ -68,6 +68,8 @@ export class NuevoAusentismoComponent implements OnInit {
     });
   }
 
+
+
   crearNuevoAusentismo() {
     const { fechaInicio, fechaFinalizacion } = this.ausentismoForm.value;
 
@@ -83,5 +85,7 @@ export class NuevoAusentismoComponent implements OnInit {
       });
     }
   }
+
+  
 
 }

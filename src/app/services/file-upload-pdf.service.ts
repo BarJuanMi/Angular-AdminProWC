@@ -19,7 +19,7 @@ export class FileUploadPdfService {
    */
   async actualizarPDF(
     archivo: File,
-    tipo: 'contratos'|'desprendibles'|'incapacidades'|'pazysalvos'|'hojasvida'|'respsicologico'|'ausentismos'|'memorandos',
+    tipo: 'contratos'|'desprendibles'|'incapacidades'|'pazysalvos'|'hojasvida'|'respsicologico'|'ausentismos'|'memorandos'|'certbancarias',
     id: string
   ) {
     try {

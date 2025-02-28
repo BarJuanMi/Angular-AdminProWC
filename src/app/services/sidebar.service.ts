@@ -24,7 +24,8 @@ export class SidebarService {
         {titulo: 'Memorandos', url: '/dashboard/memorandos'},
         {titulo: 'Contratos', url: '/dashboard/contratos'},
         {titulo: 'Retiros', url: '/dashboard/retiros'},
-        {titulo: 'Ausentismos', url: '/dashboard/ausentismos'},
+        {titulo: 'Ausentismos Y Permisos', url: '/dashboard/ausentismos'},
+        {titulo: 'Cert Bancaria', url: '/dashboard/certbancarias'},
       ]
     },
     {
@@ -42,14 +43,14 @@ export class SidebarService {
         {titulo: 'Modelos', url: '/dashboard/modelos'},
         {titulo: 'Monitores', url: '/dashboard/monitores'},
         {titulo: 'Administrativos', url: '/dashboard/administrativos'},
-        {titulo: 'Pers. Apoyo', url: '/dashboard/apoyo'},
+        {titulo: 'Pers. Apoyo', url: '/dashboard/apoyos'},
       ]
     },
     {
       titulo: 'Accesos APP',
       icono: 'mdi mdi-settings',
       submenu: [
-        {titulo: 'Usuarios', url: 'usuarios'},  //Relacione las rutas con pages.routing.ts
+        {titulo: 'Gestión de Usuarios', url: 'usuarios'},  //Relacione las rutas con pages.routing.ts
         //{titulo: 'Hospitales', url: 'hospitales'},
         //{titulo: 'Medicos', url: 'medicos'},
       ]
@@ -75,16 +76,18 @@ export class SidebarService {
         {titulo: 'Modelos', url: '/dashboard/modelos'},
         {titulo: 'Monitores', url: '/dashboard/monitores'},
         {titulo: 'Administrativos', url: '/dashboard/administrativos'},
-        {titulo: 'Pers. Apoyo', url: '/dashboard/apoyo'},
+        {titulo: 'Pers. Apoyo', url: '/dashboard/apoyos'},
       ]
     },
     {
       titulo: 'Gest. Documental',
       icono: 'mdi mdi-library-books',
       submenu: [
+        {titulo: 'Memorandos', url: '/dashboard/memorandos'},
         {titulo: 'Contratos', url: '/dashboard/contratos'},
         {titulo: 'Retiros', url: '/dashboard/retiros'},
-        {titulo: 'Ausentismos', url: '/dashboard/ausentismos'},
+        {titulo: 'Ausentismos Y Permisos', url: '/dashboard/ausentismos'},
+        {titulo: 'Cert Bancaria', url: '/dashboard/certbancarias'},
       ]
     },
     {

@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  /*base_url: 'http://localhost:3001/api',*/
-  base_url: 'http://44.208.35.77:3001/api',
+  base_url: 'http://localhost:3001/api',
+  /*base_url: 'http://18.225.117.139:3001/api',*/
   /*base_url_msbackendwcgestdoc: 'http://localhost:3006/api',
   base_url_msbackendwcpersonalrh: 'http://localhost:3007/api',
   base_url_msbackendwcprocint: 'http://localhost:3008/api',
@@ -17,7 +17,9 @@ export const environment = {
   url_load_pdf_memorando: '/files/uploadspdf/obtenerpdf/memorandos/',
   url_load_pdf_contrato: '/files/uploadspdf/obtenerpdf/contratos/',
   url_load_zip_contrato: '/files/uploadszip/obtenerzip/contratos/',
+  url_load_zip_factura: '/files/uploadszip/obtenerzip/facturas/',
   url_load_pdf_resp_psico: '/files/uploadspdf/obtenerpdf/respsicologico/',
+  url_load_pdf_certbancario: '/files/uploadspdf/obtenerpdf/certbancarias/',
 };
 
 /*

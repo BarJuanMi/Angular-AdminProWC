@@ -19,11 +19,12 @@ export class FileUploadZipService {
    */
   async actualizarZIP(
     archivo: File,
-    tipo: 'contratos'|'facturacion',
+    tipo: 'contratos'|'facturacion'|'facturas',
     id: string
   ) {
     try {
       const url = `${ base_url }/files/uploadszip/${ tipo }/${ id }`;
+      console.log(`ruta: ${url}`);
       const formData = new FormData();
       formData.append('archivo', archivo);
 

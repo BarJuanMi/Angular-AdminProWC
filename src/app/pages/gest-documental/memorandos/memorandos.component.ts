@@ -76,7 +76,7 @@ export class MemorandosComponent implements OnInit {
    * @param memorando Objeto tipo memorando que sera eliminado
    */
    eliminarMemorando(memorando: Memorando) {
-    if(this.usuario.role != 'ADMIN_ROLE'){
+    if(this.usuario.role != 'ADMIN_ROLE' &&  this.usuario.role != 'USER_ROLE'){
       Swal.fire('Error', 'No es posible eliminar la transacción, no tienes los privilegios suficientes.', 'error');
       this.cargarMemorandos();
     } else {
@@ -224,7 +224,13 @@ export class MemorandosComponent implements OnInit {
       inputAttributes: {
         'accept': 'pdf/*',
         'aria-label': 'Cargue su archivo de soporte'
-      }
+      },
+      backdrop: `
+        rgba(0,0,123,0.4)
+        url("./assets/images/gifs-swal/cat-nyan-cat.gif")
+        left top
+        no-repeat
+      `
     })
     
     if (file) {

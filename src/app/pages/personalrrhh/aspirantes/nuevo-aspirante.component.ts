@@ -33,7 +33,7 @@ export class NuevoAspiranteComponent implements OnInit {
               private utilesListService: UtileslistService) 
   {
     this.usuario = usuarioService.usuario;
-    this.aspirante = new Aspirante('','','','','','','','',null,null,'','','',null,false,null,null,'',false,'',false);
+    this.aspirante = new Aspirante('','','','','','','','','',null,null,'','','',null,false,null,null,'',false,'',false);
   }
 
   ngOnInit(): void {
@@ -42,6 +42,7 @@ export class NuevoAspiranteComponent implements OnInit {
 
     this.aspiranteForm = this.fb.group({
       documento: [this.aspirante.documento ],
+      tipoDocumento: [this.aspirante.tipoDocumento],
       nombres: [this.aspirante.nombres ],
       apellidos: [this.aspirante.apellidos ],
       email: [this.aspirante.email],

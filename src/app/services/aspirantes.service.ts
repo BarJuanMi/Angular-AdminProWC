@@ -35,7 +35,7 @@ export class AspirantesService {
         delay(500), 
         map( resp => {
           const aspirantes = resp.aspirantes.map( 
-            aspirante => new Aspirante(aspirante._id, aspirante.documento, aspirante.nombres, aspirante.apellidos, aspirante.nombApellAspConcat, 
+            aspirante => new Aspirante(aspirante._id, aspirante.documento, aspirante.tipoDocumento, aspirante.nombres, aspirante.apellidos, aspirante.nombApellAspConcat, 
                                        aspirante.edad, aspirante.email, aspirante.numCelular, aspirante.usuarioCreacion, 
                                        aspirante.cargoAspirante, aspirante.estado, aspirante.notasEntrevistador, aspirante.direccion, 
                                        aspirante.localidad, aspirante.experienciaPrevia, aspirante.fechaRegistro, aspirante.fechaEntrevista,
@@ -83,6 +83,16 @@ export class AspirantesService {
     console.log(aspirante);
     return this.http.put(`${base_url}/aspirantes/cambiarAspiranteEstado/${ aspirante._id }`, aspirante, this.usuarioService.headers)
     .pipe(tap ( (resp :any) => {resp}));
+  }
+
+  /**
+   * Metodo que permite eliminar un registro de aspirante en la base de datos
+   * @param aspirante Objeto con la informacion del aspirante que se va a eliminar
+   * @returns Informacion del proceso si fue o no exitoso en la eliminacion
+   */
+  eliminarAspirante( aspirante: Aspirante) {
+    console.log('Invocación a AspirantesService(Front) - eliminarAspirante');
+    return this.http.delete(`${ base_url }/aspirantes/eliminarRegAspirante/${ aspirante._id }`, this.usuarioService.headers);
   }
 
 }

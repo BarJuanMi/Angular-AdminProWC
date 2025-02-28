@@ -39,7 +39,10 @@ import { MemorandosComponent } from './gest-documental/memorandos/memorandos.com
 import { ContratosComponent } from './gest-documental/contratos/contratos.component';
 import { NuevoMemorandoComponent } from './gest-documental/memorandos/nuevo-memorando.component';
 import { NuevoContratoComponent } from './gest-documental/contratos/nuevo-contrato.component';
+import { NuevoFacturaComponent } from './contabilidad/facturas/nuevo-factura.component';
 import { ApoyologisticoComponent } from './personalrrhh/apoyologistico/apoyologistico.component';
+import { CertbancariasComponent } from './gest-documental/certbancarias/certbancarias.component';
+import { NuevaCertBancaComponent } from './gest-documental/certbancarias/nueva-cert-banca.component';
 
 const routes: Routes = [
     {  
@@ -72,7 +75,7 @@ const routes: Routes = [
             {path: 'modelos', component: ModeloswcComponent, data: {titulo: 'Administración de Modelos'} },
             {path: 'monitores', component: MonitoreswcComponent, data: {titulo: 'Administración de Monitores'} },
             {path: 'administrativos', component: AdmonswcComponent, data: {titulo: 'Administración de Empleados Administrativos'} },
-            {path: 'apoyo', component: ApoyologisticoComponent, data: {titulo: 'Administración de Empleados de Apoyo Logístico'} },
+            {path: 'apoyos', component: ApoyologisticoComponent, data: {titulo: 'Administración de Empleados de Apoyo Logístico'} },
 
             //WebCam Aspirantes
             {path: 'nuevoAspirante', component: NuevoAspiranteComponent, data: {titulo: 'Creación de Nuevo Aspirante'} },
@@ -84,7 +87,7 @@ const routes: Routes = [
 
             //WebCam Retiros
             {path: 'retiros', component: RetirosComponent, data: {titulo: 'Administración de Retiros de empleados'}},
-            {path: 'nuevoRetiro', component: NuevoRetiroComponent, data: {titulo: 'Creación de Nuevo Retiro'}},
+            {path: 'nuevoRetiro', component: NuevoRetiroComponent, data: {titulo: 'Creación de Nuevo Retiro de empleado'}},
 
             //WebCam Vacunas
             {path: 'vacunados', component: VacunasCodiv19Component, data: {titulo: 'Administración de Registros de vacunas para empleados'}},
@@ -104,6 +107,7 @@ const routes: Routes = [
 
             //WebCam Facturas
             {path: 'facturas', component: FacturasComponent, data: {titulo: 'Administración de Facturas Internas del Estudio'}},
+            {path: 'nuevoFactura', component: NuevoFacturaComponent, data: {titulo: 'Creacion de Nueva Factura Interna'}},
 
             //WebCam Memorandos
             {path: 'memorandos', component: MemorandosComponent, data: {titulo: 'Administración de Memorandos para el Personal'}},
@@ -112,6 +116,11 @@ const routes: Routes = [
             //WebCam Contratos
             {path: 'contratos', component: ContratosComponent, data: {titulo: 'Administración de Contratos con el Personal'}},
             {path: 'nuevoContrato', component: NuevoContratoComponent, data: {titulo: 'Creacion de Nuevo Registro de Contrato Laboral'}},
+
+            //WebCam Certificaciones Bancarias
+            {path: 'certbancarias', component: CertbancariasComponent, data: {titulo: 'Administración de Certificaciones Bancarias del Personal'}},
+            {path: 'nuevaCertBancaria', component: NuevaCertBancaComponent, data: {titulo: 'Creacion de Nuevo Registro de Certificacion Bancaria'}},
+            {path: 'actualizarCertBancaria/:id', component: ActualizaEmpleadoComponent, data: {titulo: 'Actualización de datos de Empleado'} },
         ]
     },
 ];

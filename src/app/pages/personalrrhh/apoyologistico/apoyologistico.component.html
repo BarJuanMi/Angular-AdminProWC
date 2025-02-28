@@ -45,8 +45,6 @@
                                 <th>Nombres y Apellidos</th>
                                 <th>Correo Electrónico</th>
                                 <th>Tel. Celular</th>
-                                <th>Entidad Bancaria</th>
-                                <th># Cuenta Banco</th>
                                 <th class="text-center">Estado</th>
                                 <th class="text-center">Acción</th>
                             </tr>
@@ -60,8 +58,6 @@
                                 <td><small><a href="" (click)="verDetallesEmplApoyoLog(apoyolog)" data-toggle="modal" data-target="#datosApoyoLogModal">{{apoyolog.nombres}} {{apoyolog.apellidos}}</a></small></td>
                                 <td><small>{{apoyolog.emailCorporativo}}</small></td>
                                 <td><small>{{apoyolog.telCelular}}</small></td>
-                                <td><small>{{apoyolog.entidadBanco}}</small></td>
-                                <td><small>{{apoyolog.numCuentaBanco}}</small></td>
                                 <td class="text-center">
                                     <span *ngIf="apoyolog.estado" class="label label-success">ACTIVO</span>
                                     <span *ngIf="!apoyolog.estado" class="label label-danger">INACTIVO</span>
@@ -95,6 +91,59 @@
                         <i class="fa fa-forward"></i>
                     </button>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="datosApoyoLogModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">Información Personal de Apoyo Logístico</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="table responsive">
+                    <table class="table table-bordered table-decorator-modal">
+                        <th>
+                            <tr class="tabl-decorator-modal">ID Interno</tr>
+                            <tr>Nombre y Apellido</tr>
+                            <tr>Documento</tr>
+                            <tr>Tipo Documento</tr>
+                            <tr>Genero</tr>
+                            <tr>Grupo Sanguineo</tr>
+                            <tr>Fecha Nacimiento</tr>
+                            <tr>Num. Hijos</tr>
+                            <tr>Cont. Emergencia</tr>
+                            <tr>Tel. Emergencia</tr>
+                            <tr>Fecha Ingreso</tr>
+                            <tr>Dir. Residencia</tr>
+                            <tr>Fecha Enrolamiento</tr>
+                            <tr *ngIf="!empleadoApoyoLogDetalle.estado">Fecha Inactivación</tr>
+                        </th>
+
+                        <th>
+                            <tr style="color:#346420; font-size:13">{{ empleadoApoyoLogDetalle._id}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ empleadoApoyoLogDetalle.nombres}} {{ empleadoApoyoLogDetalle.apellidos}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ empleadoApoyoLogDetalle.documento}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ empleadoApoyoLogDetalle.tipoDocumento}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ empleadoApoyoLogDetalle.genero}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ empleadoApoyoLogDetalle.rh}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ empleadoApoyoLogDetalle.fechaNac | date}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ empleadoApoyoLogDetalle.numHijos}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ empleadoApoyoLogDetalle.nomContEmer}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ empleadoApoyoLogDetalle.telContEmer}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ empleadoApoyoLogDetalle.fechaIngreso | date}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ empleadoApoyoLogDetalle.direccion}}</tr>
+                            <tr style="color:cadetblue; font-size:13">{{ empleadoApoyoLogDetalle.fechaCreacionApp | date}}</tr>
+                            <tr *ngIf="!empleadoApoyoLogDetalle.estado" style="color:rgb(214, 57, 57); font-size:13">{{ empleadoApoyoLogDetalle.fechaInactivacion | date}}</tr>
+                        </th>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>

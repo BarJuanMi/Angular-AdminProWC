@@ -43,9 +43,18 @@ export class RegisterComponent {
     this.usuarioService.crearUsuario (this.registerForm.value )
         .subscribe( resp => {
 
-          // Navegar al dashboard
-          this.router.navigateByUrl('/');
-          
+          if (resp.usuario.estado == 'CREADO') {
+            console.log('No debería poder entrar');
+
+            Swal.fire({
+              icon: "warning",
+              title: "Proceso Exitoso",
+              text: "Su solicitud de creación debe ser aprobada por un Administrador",
+            });
+          } else {
+            // Navegar al dashboard
+            this.router.navigateByUrl('/');
+          }
         }, (err) => {
           Swal.fire('Error', err.error.msg, 'error');
         });

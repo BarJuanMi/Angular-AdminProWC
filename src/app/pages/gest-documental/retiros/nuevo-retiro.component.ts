@@ -34,7 +34,7 @@ export class NuevoRetiroComponent implements OnInit {
     private retiroService: RetirosService) 
   { 
     this.usuario = usuarioService.usuario;
-    this.retiro = new Retiro('',null,'','',new Date(),null,'GENERADO','',false,false,null,null,null,'','',false);
+    this.retiro = new Retiro('',null,'',null,'',new Date(),null,'GENERADO','',false,false,null,null,null,'','',false);
   }
 
   ngOnInit(): void {
@@ -48,7 +48,8 @@ export class NuevoRetiroComponent implements OnInit {
       motivoRetiro: [this.retiro.motivoRetiro, Validators.required],
       entrevista: [this.retiro.entrevista],
       encuesta: [this.retiro.encuesta],
-      fechaRenuncia: [this.retiro.fechaRenuncia, Validators.required]
+      fechaRenuncia: [this.retiro.fechaRenuncia, Validators.required],
+      contrato: [this.retiro.contrato],
     });
   }
 

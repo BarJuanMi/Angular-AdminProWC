@@ -45,6 +45,9 @@ import { FacturasComponent } from './contabilidad/facturas/facturas.component';
 import { NuevoMemorandoComponent } from './gest-documental/memorandos/nuevo-memorando.component';
 import { NuevoContratoComponent } from './gest-documental/contratos/nuevo-contrato.component';
 import { ApoyologisticoComponent } from './personalrrhh/apoyologistico/apoyologistico.component';
+import { NuevoFacturaComponent } from './contabilidad/facturas/nuevo-factura.component';
+import { CertbancariasComponent } from './gest-documental/certbancarias/certbancarias.component';
+import { NuevaCertBancaComponent } from './gest-documental/certbancarias/nueva-cert-banca.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +91,9 @@ import { ApoyologisticoComponent } from './personalrrhh/apoyologistico/apoyologi
     NuevoMemorandoComponent,
     NuevoContratoComponent,
     ApoyologisticoComponent,
+    NuevoFacturaComponent,
+    CertbancariasComponent,
+    NuevaCertBancaComponent,
   ],
   exports: [
     DashboardComponent,

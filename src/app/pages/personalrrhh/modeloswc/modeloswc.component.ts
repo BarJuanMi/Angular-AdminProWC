@@ -24,7 +24,7 @@ export class ModeloswcComponent implements OnInit {
   public modelosTemp: Empleado[] = [];
   public modeloWCDetalle: Empleado = new Empleado('','','','','','','',new TipoEmpleado('','',''),null,'','','','','','',null,
                                                   false,'',null,new Pais('','','',''),new Ciudad('','',''),'','',
-                                                  new Usuario('','',null,'','','',false,'','',''),'','','',null,'');
+                                                  new Usuario('','',null,'','','',false,'','',''),'',null,'');
 
   public imgSubs: Subscription;
   public desde: number = 0;

@@ -24,7 +24,7 @@ export class ApoyologisticoComponent implements OnInit {
   public empleApoyoLogsTemp: Empleado[] = [];
   public empleadoApoyoLogDetalle: Empleado = new Empleado('','','','','','','',new TipoEmpleado('','',''),null,'','','','','','',null,
                                                 false,'',null,new Pais('','','',''),new Ciudad('','',''),'','',
-                                                new Usuario('','',null,'','','',false,'','',''),'','','',null,'');
+                                                new Usuario('','',null,'','','',false,'','',''),'',null,'');
   public imgSubs: Subscription;
   public desde: number = 0;
   public cargando: boolean = true;

@@ -1,0 +1,122 @@
+<div class="row animated fadeInLeft">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header bg-info">
+                <h4 class="m-b-0 text-white">Datos Generales del Nuevo PQRS o Incidente</h4>
+            </div>
+            <div class="card-body">
+                <form class="form p-t-20" [formGroup]="facturaForm" (submit)="crearNuevoFactura()">
+
+                    <div class="row p-t-20">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">$ Monto de factura:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-money"></i></div>
+                                    <input type="text" class="form-control" id="montoP" placeholder="########" autocomplete="off" formControlName="montoFactura" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Fecha de factura:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-calendar"></i></div>
+                                    <input type="date" id="fechaFactura" class="form-control" formControlName="fechaFactura" placeholder="dd/mm/yyyy" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Categoria</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-layout-menu-v"></i></div>
+                                    <select class="form-control custom-select" formControlName="tipoCompraFactura" required>
+                                        <option value="null">--Seleccione una opción--</option>
+                                        <option *ngFor="let tipofactura of tipoFacturasList" [value]="tipofactura._id">{{tipofactura.tipocomprafactDesc}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Sede asociada</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-layout-menu-v"></i></div>
+                                    <select class="form-control custom-select" formControlName="sede" required>
+                                        <option value="null">--Seleccione una opción--</option>
+                                        <option *ngFor="let sede of sedesList" [value]="sede._id">{{sede.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row p-t-20">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Vendedor:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-shopping-cart"></i></div>
+                                    <input type="text" class="form-control" id="vendedor" autocomplete="off" formControlName="vendedorFactura" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">¿Grupo de facturas?</label>
+                                <div class="switch">
+                                    <label>NO<input type="checkbox" formControlName="grupoFacturas"><span class="lever switch-col-light-green"></span>SI</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Retribuible</label>
+                                <div class="switch">
+                                    <label>NO<input type="checkbox" formControlName="retribuible"><span class="lever switch-col-light-green"></span>SI</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Retribuye a</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-layout-menu-v"></i></div>
+                                    <select class="form-control custom-select" formControlName="usuarioRetribuible" required>
+                                        <option value="null">--Seleccione una opción--</option>
+                                        <option *ngFor="let usuario of usuariosRetribuibleList" [value]="usuario.uid">{{usuario.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row p-t-20">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label class="control-label label-form-decora">Observaciones:</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-comment"></i></div>
+                                    <textarea rows="5" class="form-control text-area" formControlName="observaciones"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    &nbsp;
+                    <div>
+                        <button type="submit" class="btn btn-success waves-effect waves-pupple m-r-10" [disabled]="facturaForm.invalid"><i class="fa fa-save"></i>  Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
